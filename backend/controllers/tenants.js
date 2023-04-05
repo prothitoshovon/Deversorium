@@ -1,4 +1,5 @@
-import tenantModel  from "../models/hostel.js";
+import mongoose from 'mongoose';
+import tenantModel  from '../models/tenant.js';
 
 export const getTenants = async (req,res)=>{
     try{
@@ -19,4 +20,29 @@ export const createTenant = async (req,res)=>{
     } catch(error){
         res.status(409).json({message: error.message});
     }
+}
+
+export const updateTenant = async (req,res)=>{
+    const { id: _id} = req.params;
+    const tenant = req.body;
+    if(!mongoose.Types.ObjectId.isValid(_id))
+    {
+        return res.status(404).send('No tenant with that ID');
+    }
+
+    const updatedTenant = await tenantModel.findByIdAndUpdate(_id, {...tenant, _id}, {new: true});
+    res.json(updatedTenant);
+}
+
+export const deleteTenant = async (req,res)=>{
+    const {id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(_id))
+    {
+        return res.status(404).send('No tenant with that ID');
+    }
+
+    await tenantModel.findByIdAndRemove(id);
+
+    res.json('Tenant Deleted Successfully');
 }
