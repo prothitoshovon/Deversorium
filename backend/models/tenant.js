@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 
 const tenantSchema = mongoose.Schema({
-    name: String,
-    phone: String,
     assignedRoom: Boolean,
     isManager: Boolean,
     room_id: {
