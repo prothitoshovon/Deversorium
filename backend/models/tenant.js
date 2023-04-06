@@ -5,8 +5,14 @@ const tenantSchema = mongoose.Schema({
     phone: String,
     assignedRoom: Boolean,
     isManager: Boolean,
-    room_id: String,
-    hostel_id: String
+    room_id: {
+        type: String,
+        default: 'Unassigned'
+    },
+    hostel_id: {
+        type: String,
+        default: 'Unassigned'
+    },
 })
 
 const tenantModel = mongoose.model('tenantModel',tenantSchema);
