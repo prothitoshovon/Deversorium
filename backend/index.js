@@ -3,8 +3,10 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+
 import hostelRoutes from './routes/hostels.js';
 import tenantRoutes from './routes/tenants.js';
+import userRoutes from './routes/users.js';
 
 const app = express();
 dotenv.config();
@@ -14,6 +16,7 @@ app.use(cors());
 
 app.use('/hostels',hostelRoutes);
 app.use('/tenants',tenantRoutes);
+app.use('/user',userRoutes);
 
 const PORT = process.env.PORT;
 
