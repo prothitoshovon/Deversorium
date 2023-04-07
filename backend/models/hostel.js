@@ -1,13 +1,14 @@
 import mongoose from 'mongoose';
 
 const hostelSchema = mongoose.Schema({
-    name: String,
-    address: String,
+    name: {type: String, required: true},
+    address: {type: String, required: true},
     phone: {
         type: String,
         default: 'Not Available'
     },
-    owner: [String]
+    owner_id: [String],
+    owner_name: [String]
 })
 
 const hostelModel = mongoose.model('hostelModel',hostelSchema);
