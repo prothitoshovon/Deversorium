@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const roomSchema = mongoose.Schema({
+    room_number: String,
     hostel_id: {type: String, required: true},
     hostel_name: String,
     area: Integer, // in square feet
