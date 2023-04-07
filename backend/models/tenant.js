@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 const tenantSchema = mongoose.Schema({
-    assignedRoom: Boolean,
-    isManager: Boolean,
+    assigned_room: Boolean,
+    is_manager: Boolean,
     room_id: {
         type: String,
         default: 'Unassigned'
