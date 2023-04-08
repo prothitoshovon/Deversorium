@@ -5,6 +5,7 @@ import Homepage from './components/Owner/Homepage/Homepage'
 import Profile from './components/Owner/Profile/Profile'
 import Hostel from './components/Owner/Hostel/Hostel'
 import Mealsheet from './components/Owner/Mealsheet/Mealsheet'
+import HostelForm from './components/Owner/HostelForm/HostelForm'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
                 <Route path="Profile" element={<Profile/>}/>
                 <Route path="Hostel" element={<Hostel/>}/>
                 <Route path="Mealsheet" element={<Mealsheet/>}/>
+                <Route path="HostelForm" element={<HostelForm/>}/>
             </Routes>
         
         
