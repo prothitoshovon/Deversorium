@@ -4,8 +4,8 @@ const roomSchema = mongoose.Schema({
     room_number: String,
     hostel_id: {type: String, required: true},
     hostel_name: String,
-    area: Integer, // in square feet
-    rent: Integer, // per month
+    area: Number, // in square feet
+    rent: Number, // per month
     tenant_id:
     {
         type: String,
