@@ -8,6 +8,7 @@ import hostelRoutes from './routes/hostels.js';
 import tenantRoutes from './routes/tenants.js';
 import userRoutes from './routes/users.js';
 import roomRoutes from './routes/rooms.js';
+import reviewRoutes from './routes/reviews.js';
 
 const app = express();
 dotenv.config();
@@ -19,6 +20,7 @@ app.use('/hostels',hostelRoutes);
 app.use('/tenants',tenantRoutes);
 app.use('/user',userRoutes);
 app.use('/rooms',roomRoutes);
+app.use('/reviews',reviewRoutes);
 
 const PORT = process.env.PORT;
 

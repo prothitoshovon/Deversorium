@@ -41,6 +41,16 @@ export const getReviewsByUser = async(req,res) => {
     }
 }
 
+export const createReview = async (req,res)=>{
+    const review = req.body;
+    const newReview = new reviewModel(review);
+    try{
+        await newHostel.save();
+        res.status(201).json(newReview);
+    } catch(error){
+        res.status(409).json({message: error.message});
+    }
+}
 
 export const updateReview = async (req,res)=>{
     const { id: _id} = req.params;
@@ -54,7 +64,7 @@ export const updateReview = async (req,res)=>{
     res.json(updatedReview);
 }
 
-export const deleteTenant = async (req,res)=>{
+export const deleteReview = async (req,res)=>{
     const {id} = req.params;
 
     if(!mongoose.Types.ObjectId.isValid(_id))
