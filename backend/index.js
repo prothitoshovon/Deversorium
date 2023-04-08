@@ -10,6 +10,7 @@ import userRoutes from './routes/users.js';
 import roomRoutes from './routes/rooms.js';
 import reviewRoutes from './routes/reviews.js';
 import ownerRoutes from './routes/owners.js';
+import complaintRoutes from './routes/complaints.js';
 
 const app = express();
 dotenv.config();
@@ -23,6 +24,7 @@ app.use('/user',userRoutes);
 app.use('/rooms',roomRoutes);
 app.use('/reviews',reviewRoutes);
 app.use('/owners',ownerRoutes);
+app.use('/complaints',complaintRoutes);
 
 const PORT = process.env.PORT;
 
