@@ -13,6 +13,7 @@ import Register from './components/Register/Register'
 function App() {
 
   const user = null
+
   return (
     <div>
         {
@@ -21,7 +22,7 @@ function App() {
                 {/* If the user exists */}
                 <ResponsiveAppBar/>
               <Routes>
-                  <Route path="/" element={<Homepage/>}/>
+                  <Route path="/" element={<Homepage />}/>
                   <Route path="Profile" element={<Profile/>}/>
                   <Route path="Hostel" element={<Hostel/>}/>
                   <Route path="Mealsheet" element={<Mealsheet/>}/>
