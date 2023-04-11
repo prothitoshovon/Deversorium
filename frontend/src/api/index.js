@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/hostels';
 
 const API = axios.create({ baseURL: 'http://localhost:5000' });
 
