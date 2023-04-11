@@ -2,7 +2,14 @@ import axios from 'axios';
 
 const url = 'http://localhost:5000/hostels';
 
-export const fetchHostels = () => axios.get(url);
-export const createHostels = (newHostel) => axios.post(url, newHostel);
-export const updateHostel = (id, updatedPost) => axios.patch(`${url}/${id}`, updatedPost);
-export const deleteHostel = (id) => axios.delete(`${url}/${id}`);
+const API = axios.create({ baseURL: 'http://localhost:5000' });
+
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem('profile')) {
+    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+  }
+
+  return req;
+});
+export const signIn = (formData) => API.post('/user/signin', formData);
+export const signUp = (formData) => API.post('/user/signup', formData);
