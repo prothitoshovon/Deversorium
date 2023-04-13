@@ -9,6 +9,7 @@ import HostelForm from './components/Owner/HostelForm/HostelForm'
 import { useDispatch } from 'react-redux';
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
+import TenantHomepage from './components/Tenant/Homepage/Homepage.js'
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
         <Route path="/" element={<Register/>}/>
         <Route path="Login" element={<Login/>}/>
         <Route path="Homepage" element={<Homepage />}/>
+        <Route path="THomepage" element={<TenantHomepage/>}/>
 
       </Routes>
     </div>

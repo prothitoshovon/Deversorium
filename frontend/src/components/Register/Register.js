@@ -39,7 +39,7 @@ const Register=()=> {
         else form.role=1
 
 
-        dispatch(signup(form, navigate));
+        dispatch(signup(form, navigate,form.role));
          
     }
     const onCheckedOwner =()=>{
