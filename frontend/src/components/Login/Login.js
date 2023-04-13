@@ -1,7 +1,8 @@
-import {React, useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import decode from 'jwt-decode';
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import Radio from '@material-ui/core/Radio';
@@ -17,21 +18,28 @@ import { AUTH } from '../../constants/actionTypes';
 
 function Login() {
 
-  const initialState = {  email: '', password: '' };
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const initialState = {  email: '', password: '' };
     const [form, setForm] = useState(initialState);
     const [showPassword, setShowPassword] = useState(false);
     const handleShowPassword = () => setShowPassword(!showPassword);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const location = useLocation();
     const paperStyle = { padding: '30px 20px', width: 600, margin: "20px auto" }
 
 
+    useEffect(() => {
+    const token = user?.token;
 
+   
+    
+    setUser(JSON.parse(localStorage.getItem('profile')));
+    
+  }, [location]);
     const handleSubmit = (e) => {
         e.preventDefault();
-
         dispatch(signin(form, navigate));
     }
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -43,7 +51,7 @@ function Login() {
                 <Grid align='center'>
                     {/* <h2 style={headerStyle}>Sign Up</h2> */}
                     <Typography variant="h4">
-                        Register to Deversorium
+                        Login to Deversorium
                     </Typography>
                     <Typography variant='caption' gutterBottom>
                     
