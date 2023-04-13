@@ -6,8 +6,7 @@ export const signup = (formData, router) => async (dispatch) => {
     const { data } = await api.signUp(formData);
 
     dispatch({ type: AUTH, data });
-
-    router.push('/');
+    router('/Homepage')
   } catch (error) {
     console.log(error);
   }
