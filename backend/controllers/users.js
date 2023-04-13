@@ -7,7 +7,7 @@ export const signin = async (req, res) => {
     const {email, password, role} = req.body;
 
     try{
-        const existingUser = await UserModel.findOne({email: email});
+        const existingUser = await UserModel.findOne({email: email, role: role});
 
         if(!existingUser) return res.status(404).json({message: "User doesn't exist."});
 
@@ -34,7 +34,9 @@ export const signup = async (req, res) => {
         if(password !== confirmPassword) return res.status(404).json({message: "Passwords don't match."});
         
         const hashedPassword = await bcrypt.hash(password, 12);
+        console.log('works 1')
         const result = await UserModel.create({email: email, password: hashedPassword, name: `${firstName} ${lastName}`, role: role, phone: phone});
+        console.log('works 2')
        
         const token = jwt.sign({email: result.email, id: result._id, role: result.role}, process.env.TEST_TOKEN, {expiresIn: '1h'});
 
@@ -42,4 +44,17 @@ export const signup = async (req, res) => {
     } catch(error) {
         res.status(500).json({message: 'Something went wrong.'});
     }   
+}
+
+export const getUserByEmail = async(req, res) => {
+    const {email} = req.body;
+    try{
+        const existingUser = await UserModel.findOne({email: email});
+
+        if(!existingUser) return res.status(404).json({message: "User doesn't exist."});
+
+        res.status(200).json(existingUser);
+    } catch(error) {
+        res.status(500).json({message: 'Something went wrong.'});
+    }  
 }
