@@ -34,14 +34,12 @@ const Register=()=> {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(form)
+        //console.log(form)
         if(userRole===1)form.role=2
         else form.role=1
-        if(form.confirmPassword !== form.password)
-        {
-            console.log("passwords don't match")
-        }
-        else dispatch(signup(form, navigate));
+
+
+        dispatch(signup(form, navigate));
          
     }
     const onCheckedOwner =()=>{

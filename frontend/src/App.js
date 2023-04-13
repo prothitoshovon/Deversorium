@@ -12,32 +12,44 @@ import Register from './components/Register/Register'
 
 function App() {
 
-  const user = null
+  const user = JSON.parse(localStorage.getItem('profile'));
 
   return (
-    <div>
-        {
-          user ? (
-            <>
-                {/* If the user exists */}
-                <ResponsiveAppBar/>
-              <Routes>
-                  <Route path="/" element={<Homepage />}/>
-                  <Route path="Profile" element={<Profile/>}/>
-                  <Route path="Hostel" element={<Hostel/>}/>
-                  <Route path="Mealsheet" element={<Mealsheet/>}/>
-                  <Route path="HostelForm" element={<HostelForm/>}/>
-              </Routes>
-              </>
-          ) :
-            (
-              <Routes>
-                <Route path="/" element={<Register/>}/>
-                <Route path="Login" element={<Login/>}/>
-              </Routes>
+    // <div>
+    //     {
+    //       user ? (
+    //         <>
+    //             {/* If the user exists */}
+    //             <ResponsiveAppBar/>
+    //           <Routes>
+    //               <Route path="/" element={<Homepage />}/>
+    //               <Route path="Profile" element={<Profile/>}/>
+    //               <Route path="Hostel" element={<Hostel/>}/>
+    //               <Route path="Mealsheet" element={<Mealsheet/>}/>
+    //               <Route path="HostelForm" element={<HostelForm/>}/>
+    //           </Routes>
+    //           </>
+    //       ) :
+    //         (
+    //           <Routes>
+    //             <Route path="/" element={<Register/>}/>
+    //             <Route path="Login" element={<Login/>}/>
+    //             <Route path="Homepage" element={<Homepage/>}/>
+
+    //           </Routes>
               
-            )
-        }
+    //         )
+    //     }
+    // </div>
+    <div>
+      
+      <ResponsiveAppBar/>
+      <Routes>
+        <Route path="/" element={<Register/>}/>
+        <Route path="Login" element={<Login/>}/>
+        <Route path="Homepage" element={<Homepage />}/>
+
+      </Routes>
     </div>
   )
 }

@@ -33,7 +33,6 @@ function Login() {
         e.preventDefault();
 
         dispatch(signin(form, navigate));
-         
     }
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   return (
