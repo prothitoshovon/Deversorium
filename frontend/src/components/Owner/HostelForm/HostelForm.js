@@ -1,6 +1,31 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Grid, TextField, Button, Card, CardContent, Typography } from '@material-ui/core';
+import Input from '../../Input/Input.js'
+import {createHostel} from '../../../actions/hostels.js'
+
+import {CREATE} from '../../../constants/actionTypes.js'
 function HostelForm() {
+
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const initialState =  useState({ name: '', address: '', email:'', phone: '' });
+    const [form, setForm] = useState(initialState);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+     const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log( { form, owner_name: user?.result?.name, owner_id:user?.result?._id })
+        dispatch(createHostel({ name:form.name,address:form.address,phone:form.phone,
+         owner_name: user?.result?.name, owner_id:user?.result?._id }));
+       // dispatch(signin(form, navigate));
+
+        //const val = dispatch(getUserByEmail(form.email))
+        //console.log(val)
+    }
   return (
       <div>
           <Typography gutterBottom variant="h3" align="center">
@@ -15,19 +40,20 @@ function HostelForm() {
                       <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
                           Fill up the form and our team will get back to you within 24 hours.
                       </Typography>
-                      <form>
+                      <form onSubmit={handleSubmit}>
                           <Grid container spacing={1}>
                               <Grid xs={12} sm={6} item>
-                                  <TextField placeholder="Enter name of hostel" label="Hostel Name" variant="outlined" fullWidth required />
+                                <Input name="name" label="Enter name of hostel" handleChange={handleChange} type="text" />
+                                
                               </Grid>
                               <Grid xs={12} sm={6} item>
-                                  <TextField placeholder="Enter address of hostel" label="Hostel Address" variant="outlined" fullWidth required />
+                                <Input name="address" label="Address" handleChange={handleChange} type="text" />
                               </Grid>
                               <Grid item xs={12}>
-                                  <TextField type="email" placeholder="Enter email" label="Email" variant="outlined" fullWidth required />
+                                  <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
                               </Grid>
                               <Grid item xs={12}>
-                                  <TextField type="number" placeholder="Enter phone number" label="Phone" variant="outlined" fullWidth required />
+                                <Input name="phone" label="Phone Number" handleChange={handleChange} type="number" />
                               </Grid>
                               <Grid item xs={12}>
                                   <Button type="submit" variant="contained" color="primary" fullWidth>Submit</Button>
