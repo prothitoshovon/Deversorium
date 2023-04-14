@@ -51,7 +51,6 @@ export const deleteHostel = async (req,res)=>{
 
 export const getHostelByOwnerId = async (req, res)=>{
     const {id} = req.params;
-    
     try {
         const ownedHostel = await hostelModel.findOne({owner_id: id});
 
