@@ -23,7 +23,7 @@ function ResponsiveAppBar() {
 
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  console.log(user?.result)
+  //console.log(user?.result)
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -56,7 +56,6 @@ function ResponsiveAppBar() {
 
     setUser(null);
 
-    console.log(user)
   };
   useEffect(() => {
     const token = user?.token;
