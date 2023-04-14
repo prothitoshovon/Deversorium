@@ -46,3 +46,20 @@ export const deleteHostel = async (req,res)=>{
 
     res.json('Hostel Deleted Successfully');
 }
+
+export const getHostelByOwnerId = async (req, res)=>{
+    const {id} = req.params;
+    
+    try {
+        const ownedHostel = await hostelModel.findOne({owner_id: id});
+
+        if(!ownedHostel)
+        {
+            return res.status(404).send('No hostels owned by that ID');
+        }
+
+        res.status(200).json(ownedHostel);
+    } catch(error) {  
+        res.status(404).json({message: error.message});
+    }
+}

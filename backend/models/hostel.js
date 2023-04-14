@@ -7,8 +7,8 @@ const hostelSchema = mongoose.Schema({
         type: String,
         default: 'Not Available'
     },
-    owner_id: [String],
-    owner_name: [String]
+    owner_id: String,
+    owner_name: String
 })
 
 const hostelModel = mongoose.model('hostelModel',hostelSchema);
