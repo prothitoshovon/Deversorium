@@ -13,6 +13,7 @@ import TenantHomepage from './components/Tenant/Homepage/Homepage.js'
 
 function App() {
 
+  //TODO add safe routing for owners and tenants 
   const user = JSON.parse(localStorage.getItem('profile'));
 
   return (
@@ -50,7 +51,7 @@ function App() {
         <Route path="Login" element={<Login/>}/>
         <Route path="Homepage" element={<Homepage />}/>
         <Route path="THomepage" element={<TenantHomepage/>}/>
-
+        <Route path="HostelForm" element={<HostelForm/>}/>
       </Routes>
     </div>
   )

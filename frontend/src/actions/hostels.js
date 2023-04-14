@@ -6,11 +6,11 @@ import * as api from '../api/index.js';
 // export const createHostels = (newPost) => axios.post(url, newPost);
 // export const updateHostel = (id, updatedPost) => axios.patch(`${url}/${id}`, updatedPost);
 // export const deleteHostel = (id) => axios.delete(`${url}/${id}`);
-const createHostels = (newHostel) => async (dispatch) =>{
+const createHostel = (newHostel) => async (dispatch) =>{
     try {
-    const { data } = await api.createPost(post);
+    const { data } = await api.createHostel(newHostel)
 
-    dispatch({ type: CREATE, payload: data });
+    dispatch({ type: CREATE, payload: data })
   } catch (error) {
     console.log(error.message);
   }
