@@ -59,7 +59,7 @@ function ResponsiveAppBar() {
   };
   useEffect(() => {
     const token = user?.token;
-
+    
     if (token) {
       const decodedToken = decode(token);
 
@@ -79,7 +79,8 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href={!user?'/':user?.result.role===2?'/Homepage':'/THomepage'
+            }
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
