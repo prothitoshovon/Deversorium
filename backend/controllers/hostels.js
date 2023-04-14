@@ -11,7 +11,7 @@ export const getHostels = async (req,res)=>{
     }
 }
 
-export const createHostel = async (req,res)=>{
+export const createhostel = async (req,res)=>{
     const hostel = req.body;
     const newHostel = new hostelModel(hostel);
     try{

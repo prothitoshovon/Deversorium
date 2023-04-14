@@ -7,14 +7,15 @@ export const signin = async (req, res) => {
     const {email, password, role} = req.body;
 
     try{
-        const existingUser = await UserModel.findOne({email: email, role: role});
+        console.log('works 1')
+        const existingUser = await UserModel.findOne({email: email});
 
         if(!existingUser) return res.status(404).json({message: "User doesn't exist."});
 
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
         
         if(!isPasswordCorrect) return res.status(400).json({message: "Invalid credentials."});
-
+        console.log('works 1')
         const token = jwt.sign({email: existingUser.email, id: existingUser._id, role: existingUser.role}, process.env.TEST_TOKEN, {expiresIn: '1h'});
 
         res.status(200).json({result: existingUser, token});
@@ -34,7 +35,7 @@ export const signup = async (req, res) => {
         if(password !== confirmPassword) return res.status(404).json({message: "Passwords don't match."});
         
         const hashedPassword = await bcrypt.hash(password, 12);
-        console.log('works 1')
+        
         const result = await UserModel.create({email: email, password: hashedPassword, name: `${firstName} ${lastName}`, role: role, phone: phone});
         console.log('works 2')
        
@@ -46,9 +47,10 @@ export const signup = async (req, res) => {
     }   
 }
 
-export const getUserByEmail = async(req, res) => {
+export const getuserbyemail = async(req, res) => {
     const {email} = req.body;
     try{
+        console.log(email)
         const existingUser = await UserModel.findOne({email: email});
 
         if(!existingUser) return res.status(404).json({message: "User doesn't exist."});
