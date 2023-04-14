@@ -14,6 +14,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Input from '../Input/Input.js'
 
 import { signin } from '../../actions/Login.js';
+import { getUserByEmail } from '../../actions/Users.js';
 import { AUTH } from '../../constants/actionTypes';
 
 function Login() {
@@ -30,17 +31,21 @@ function Login() {
     const paperStyle = { padding: '30px 20px', width: 600, margin: "20px auto" }
 
 
-    useEffect(() => {
+      useEffect(() => {
     const token = user?.token;
+    if (token) {
+      const decodedToken = decode(token);
 
-   
-    
+    }
     setUser(JSON.parse(localStorage.getItem('profile')));
-    
   }, [location]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(signin(form, navigate));
+
+        //const val = dispatch(getUserByEmail(form.email))
+        //console.log(val)
     }
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   return (
