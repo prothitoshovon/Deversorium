@@ -11,16 +11,18 @@ export const getHostels = async (req,res)=>{
     }
 }
 
-export const createhostel = async (req,res)=>{
+export const createHostel = async (req,res)=>{
     const hostel = req.body;
     const newHostel = new hostelModel(hostel);
     try{
         await newHostel.save();
         res.status(201).json(newHostel);
+        console.log('create hostel works')
     } catch(error){
         res.status(409).json({message: error.message});
     }
 }
+
 
 export const updateHostel = async (req,res)=>{
     const { id: _id} = req.params;
