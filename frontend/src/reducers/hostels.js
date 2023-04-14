@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes'
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_HOSTEL } from '../constants/actionTypes'
 
 export default (state = { isLoading: true, hostels: [] }, action) => {
     switch(action.type)
@@ -10,7 +10,9 @@ export default (state = { isLoading: true, hostels: [] }, action) => {
         case FETCH_ALL:
             return action.payload
         case CREATE:
-            return { ...state, posts: [...state.posts, action.payload] };
+            return { ...state, hostels: [...state.hostels, action.payload] };
+        case FETCH_HOSTEL:
+            return { ...state, hostels: action.payload.hostel };
         default:
             return state
     }

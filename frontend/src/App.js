@@ -10,39 +10,12 @@ import { useDispatch } from 'react-redux';
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import TenantHomepage from './components/Tenant/Homepage/Homepage.js'
-
 function App() {
 
   //TODO add safe routing for owners and tenants 
   const user = JSON.parse(localStorage.getItem('profile'));
 
   return (
-    // <div>
-    //     {
-    //       user ? (
-    //         <>
-    //             {/* If the user exists */}
-    //             <ResponsiveAppBar/>
-    //           <Routes>
-    //               <Route path="/" element={<Homepage />}/>
-    //               <Route path="Profile" element={<Profile/>}/>
-    //               <Route path="Hostel" element={<Hostel/>}/>
-    //               <Route path="Mealsheet" element={<Mealsheet/>}/>
-    //               <Route path="HostelForm" element={<HostelForm/>}/>
-    //           </Routes>
-    //           </>
-    //       ) :
-    //         (
-    //           <Routes>
-    //             <Route path="/" element={<Register/>}/>
-    //             <Route path="Login" element={<Login/>}/>
-    //             <Route path="Homepage" element={<Homepage/>}/>
-
-    //           </Routes>
-              
-    //         )
-    //     }
-    // </div>
     <div>
       
       <ResponsiveAppBar/>
@@ -52,6 +25,7 @@ function App() {
         <Route path="Homepage" element={<Homepage />}/>
         <Route path="THomepage" element={<TenantHomepage/>}/>
         <Route path="HostelForm" element={<HostelForm/>}/>
+        <Route path="Hostel" element={<Hostel/>}/>
       </Routes>
     </div>
   )
