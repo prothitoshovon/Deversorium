@@ -6,7 +6,9 @@ import AddIcon from '@mui/icons-material/Add';
 import { Paper,Grid, Button, Card, CardContent, Typography } from '@material-ui/core';
 import Input from '../../Input/Input';
 import { getHostelByOwnerId } from '../../../actions/hostels';
+import {createRoom} from '../../../actions/Rooms'
 import Axios from 'axios';
+import moment from 'moment';
 function Hostel() {
 
     const initialState = { number: '', area: '', rent: '' };
@@ -24,7 +26,10 @@ function Hostel() {
         //Query to find hostelID using ownerID 
         e.preventDefault()
         console.log(hostels._id)
-        
+        var date = moment()
+        dispatch(createRoom({room_number:form.number, hostel_id:hostels._id, area:form.area,rent:form.rent, next_vacany_date:date}))
+        console.log('works')
+
     }
     useEffect(()=>{
         dispatch(getHostelByOwnerId(user?.result?._id))
