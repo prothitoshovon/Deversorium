@@ -21,8 +21,8 @@ export const createHostel = (newHostel) => async (dispatch) =>{
 export const getHostelByOwnerId = (id) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
-    
     const { data } = await api.getHostelByOwnerId(id);
+    console.log(data)
     dispatch({ type: FETCH_HOSTEL, payload: { hostel: data } });
   } catch (error) {
     console.log(error);

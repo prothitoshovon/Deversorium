@@ -58,7 +58,6 @@ export const getHostelByOwnerId = async (req, res)=>{
         {
             return res.status(404).send('No hostels owned by that ID');
         }
-
         res.status(200).json(ownedHostel);
     } catch(error) {  
         res.status(404).json({message: error.message});
