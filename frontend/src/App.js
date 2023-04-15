@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import TenantHomepage from './components/Tenant/Homepage/Homepage.js'
+import RoomCard from './components/RoomCard/RoomCard'
 function App() {
 
   //TODO add safe routing for owners and tenants 
@@ -19,14 +20,15 @@ function App() {
     <div>
       
       <ResponsiveAppBar/>
-      <Routes>
+      <RoomCard/>
+      {/* <Routes>
         <Route path="/" element={<Register/>}/>
         <Route path="Login" element={<Login/>}/>
         <Route path="Homepage" element={<Homepage />}/>
         <Route path="THomepage" element={<TenantHomepage/>}/>
         <Route path="HostelForm" element={<HostelForm/>}/>
         <Route path="Hostel" element={<Hostel/>}/>
-      </Routes>
+      </Routes> */}
     </div>
   )
 }

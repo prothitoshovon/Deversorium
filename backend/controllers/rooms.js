@@ -51,6 +51,7 @@ export const createRoom = async (req,res)=>{
     const room = req.body;
     const newRoom = new roomModel(room);
     try{
+        console.log(room.next_vacancy_date)
         await newRoom.save();
         res.status(201).json(newRoom);
     } catch(error){
