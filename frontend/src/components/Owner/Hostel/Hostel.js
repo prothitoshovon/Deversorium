@@ -1,16 +1,16 @@
-import {React, useState} from 'react'
+import {React, useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector  } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import { Paper,Grid, Button, Card, CardContent, Typography } from '@material-ui/core';
 import Input from '../../Input/Input';
 import { getHostelByOwnerId } from '../../../actions/hostels';
+import Axios from 'axios';
 function Hostel() {
 
     const initialState = { number: '', area: '', rent: '' };
     const [form, setForm] = useState(initialState);
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -19,14 +19,16 @@ function Hostel() {
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const marginTop = { marginTop: 20 }
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    const handleSubmit = (e) => {
+    const { hostels } = useSelector((state) => state.hostels);
+    const handleSubmit =  (e) => {
         //Query to find hostelID using ownerID 
         e.preventDefault()
-        const {x} = dispatch(getHostelByOwnerId({id:user?.result?._id}))
-        console.log(x)
+        console.log(hostels._id)
         
-         
     }
+    useEffect(()=>{
+        dispatch(getHostelByOwnerId(user?.result?._id))
+    },[])
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   return (
     <div>
