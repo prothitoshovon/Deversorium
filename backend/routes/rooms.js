@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', getRooms);
 router.get('/available',getEmptyRooms);
-router.patch('/book/:id',auth,bookRoom);
+router.patch('/book/r/:id/u/:uid',auth,bookRoom);
 router.post('/', auth, createRoom);
 router.patch('/:id', auth, updateRoom);
 router.delete('/:id', auth, deleteRoom);
