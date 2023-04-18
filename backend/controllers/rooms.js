@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import roomModel from '../models/room.js';
-
+import userModel from '../models/user.js';
 
 export const getRooms = async (req,res)=>{
     try{
@@ -28,10 +28,15 @@ export const getEmptyRooms = async(req,res)=>{
 }
 
 export const bookRoom = async(req,res)=>{
-    const {id: _id} = req.params;
-    if(!mongoose.Types.ObjectId.isValid(_id))
+    const rid = req.params.id;
+    const uid = req.params.uid;
+    if(!mongoose.Types.ObjectId.isValid(rid))
     {
         return res.status(404).send('No room with that ID');
+    }
+    if(!mongoose.Types.ObjectId.isValid(uid))
+    {
+        return res.status(404).send('No user with that ID');
     }
     const bookedRoom = await roomModel.findByIdAndUpdate(
         id,
@@ -45,8 +50,21 @@ export const bookRoom = async(req,res)=>{
             }
         }
         );
-    res.json(bookedRoom);  
+    const bookedUser = await userModel.findByIdAndUpdate(
+        id,
+        { $set: { room_id: rid } },
+        { new: true },
+        (err, doc) => {
+            if (err) {
+                console.log("Error:", err);
+            } else {
+                console.log("Updated document:", doc);
+            }
+        }
+        );    
+    res.json(bookedRoom, bookedUser);  
 }
+
 
 export const createRoom = async (req,res)=>{
     const room = req.body;
