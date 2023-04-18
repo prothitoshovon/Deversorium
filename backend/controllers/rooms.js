@@ -19,6 +19,7 @@ export const getEmptyRooms = async(req,res)=>{
                 $lt: new Date('3000-01-01')
             }
         }).sort({next_vacancy_date:1});
+        console.log('empty rooms sir')
         console.log(emptyRooms);
         res.status(200).json(emptyRooms);
     } catch(error){

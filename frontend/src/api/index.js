@@ -20,4 +20,4 @@ export const getUserByEmail = (email) => API.post(`/user/${email}`,email)
 
 export const createHostel = (newHostel) => API.post('/hostels', newHostel)
 export const getHostelByOwnerId = (id) => API.get(`/hostels/o/${id}`)
-
+export const getEmptyRooms = () => API.get('/rooms/available')
