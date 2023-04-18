@@ -3,6 +3,7 @@ import { Box,Card, CardActions, CardContent, CardMedia, Typography, ButtonBase }
 import { Button } from '@mui/material';
 import { useDispatch, } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { createRoomRequest } from '../../actions/RoomRequests';
 function RoomCard({ room, setCurrentId }) {
 
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -10,10 +11,30 @@ function RoomCard({ room, setCurrentId }) {
     const navigate = useNavigate();
     const userId = user?.result?._id;
     const book = ()=>{
+
+        // user_id: {type: String, required: true},
+        // user_name: String,
+        // room_id: {type: String, required: true},
+        // room_number: String,
+        // hostel_id: {type: String, required: true},
+        // hostel_name: String,
+        // date_issued: Date
+        var date = new Date()
+        const curForm = {user_id:userId, 
+        user_name:user?.result?.name,
+        room_id:room._id,
+        room_number: room.room_number,
+        hostel_id:room.hostel_id,
+        hostel_name:'',
+        date_issued: date
+        }
+        //console.log(curForm)
+        dispatch(createRoomRequest(curForm))
         //When book is called 
         //We first validate if user has already booked before 
         //If yes , then prompt user that they can only book once
         //iF no , ask user to confirm if he wants to go on
+
     }
   return (
     <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
@@ -37,7 +58,7 @@ function RoomCard({ room, setCurrentId }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size='small'>Book now</Button>
+                <Button size='small' onClick={book}>Book now</Button>
             </CardActions>
         </Card>
     </Box>

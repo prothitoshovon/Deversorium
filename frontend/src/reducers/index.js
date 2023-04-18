@@ -4,4 +4,5 @@ import hostels from './hostels.js'
 import auth from './auth.js'
 import users from './users.js'
 import rooms from './rooms.js'
-export const reducers = combineReducers({ auth,hostels,users,rooms });
+import roomRequests from './roomRequests.js'
+export const reducers = combineReducers({ auth,hostels,users,rooms,roomRequests });

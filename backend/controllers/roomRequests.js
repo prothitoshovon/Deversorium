@@ -47,7 +47,8 @@ export const getRoomRequestsByUserId = async (req, res) => {
 
 export const createRoomRequest = async (req,res)=>{
     const roomRequest = req.body;
-    const newroomRequest = new roomRequestModel(roomRequest);
+    
+    const newRoomRequest = new roomRequestModel(roomRequest)
     try{
         await newRoomRequest.save();
         res.status(201).json(newRoomRequest);
