@@ -6,7 +6,7 @@ import { getEmptyRooms } from '../../../actions/Rooms';
 import { Grid, CircularProgress } from '@material-ui/core';
 import RoomCard from '../../RoomCard/RoomCard';
 //This will have a population of all the room cards 
-function Homepage() {
+function Homepage({ setCurrentId }) {
 
   const dispatch = useDispatch();
   const {rooms,isLoading} = useSelector((state)=>state.rooms)
@@ -20,10 +20,10 @@ function Homepage() {
     
   return (
     isLoading ? <CircularProgress /> : (
-      <Grid container alignItems="stretch" spacing={3}>
+      <Grid container alignItems="stretch" spacing={2}>
         {rooms?.map((room) => (
-          <Grid key={room._id} item xs={12} sm={12} md={6} lg={3}>
-            <RoomCard />
+          <Grid key={room._id} >
+            <RoomCard room={room} setCurrentId={setCurrentId}/>
           </Grid>
         ))}
       </Grid>
