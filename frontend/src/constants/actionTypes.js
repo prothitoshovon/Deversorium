@@ -2,6 +2,8 @@ export const CREATE = 'CREATE';
 export const UPDATE = 'UPDATE';
 export const DELETE = 'DELETE';
 export const FETCH_ALL = 'FETCH_ALL';
+
+export const FETCH_EMPTY_ROOMS = 'FETCH_EMPTY_ROOMS'
 export const LIKE = 'LIKE';
 
 export const AUTH = 'AUTH';

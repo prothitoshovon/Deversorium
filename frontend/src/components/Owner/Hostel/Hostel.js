@@ -25,11 +25,8 @@ function Hostel() {
     const handleSubmit =  (e) => {
         //Query to find hostelID using ownerID 
         e.preventDefault()
-        console.log(hostels._id)
         var date = new Date()
-        console.log(date)
         dispatch(createRoom({room_number:form.number, hostel_id:hostels._id, area:form.area,rent:form.rent, next_vacancy_date:date}))
-        console.log('works')
 
     }
     useEffect(()=>{

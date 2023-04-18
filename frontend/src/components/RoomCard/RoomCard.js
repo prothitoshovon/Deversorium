@@ -16,7 +16,7 @@ function RoomCard() {
                 <Typography gutterBottom variant='h5' component='div'>
                 Room card lets go
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant='body2' >
                 Wee woo wee woo
                 </Typography>
             </CardContent>

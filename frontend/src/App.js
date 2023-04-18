@@ -20,15 +20,15 @@ function App() {
     <div>
       
       <ResponsiveAppBar/>
-      <RoomCard/>
-      {/* <Routes>
+      {/* <RoomCard/> */}
+      <Routes>
         <Route path="/" element={<Register/>}/>
         <Route path="Login" element={<Login/>}/>
         <Route path="Homepage" element={<Homepage />}/>
         <Route path="THomepage" element={<TenantHomepage/>}/>
         <Route path="HostelForm" element={<HostelForm/>}/>
         <Route path="Hostel" element={<Hostel/>}/>
-      </Routes> */}
+      </Routes>
     </div>
   )
 }
