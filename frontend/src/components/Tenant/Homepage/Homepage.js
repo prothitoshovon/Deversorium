@@ -15,7 +15,6 @@ function Homepage({ setCurrentId }) {
       //Dispatch so that rooms are populated 
       dispatch(getEmptyRooms())
     },[])
-
     if (!rooms.length && !isLoading) return 'No rooms!';
     
   return (
