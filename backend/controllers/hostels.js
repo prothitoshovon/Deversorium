@@ -17,7 +17,7 @@ export const createHostel = async (req,res)=>{
     const newHostel = new hostelModel(hostel);
     try{
         const o_id = newHostel.owner_id;
-        const updatedOwner = await ownerModel.findByIdAndUpdate(o_id, { $set: { hostel_id: newHostel._id } });
+        const updatedOwner = await ownerModel.updateOne({ user_id: o_id }, { $set: { hostel_id: newHostel._id, hostel_name:newHostel.name } });
 
         await newHostel.save();
         res.status(201).json(newHostel);
