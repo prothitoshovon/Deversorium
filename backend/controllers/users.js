@@ -1,8 +1,10 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import UserModel from '../models/user.js';
-
+import { createTenant } from './tenants.js';
+import { createOwner } from './owners.js';
+import tenantModel from '../models/tenant.js';
+import ownerModel from '../models/owner.js';
 export const signin = async (req, res) => {
     const {email, password, role} = req.body;
 
@@ -38,6 +40,14 @@ export const signup = async (req, res) => {
         
         const result = await UserModel.create({email: email, password: hashedPassword, name: `${firstName} ${lastName}`, role: role, phone: phone});
        
+        if(role===1)
+        {
+            const tenant = await tenantModel.create({user_id: result._id});
+        }
+        else if(role==2)
+        {
+            const owner = await ownerModel.create({user_id: result._id});
+        }
         const token = jwt.sign({email: result.email, id: result._id, role: result.role}, process.env.TEST_TOKEN, {expiresIn: '1h'});
 
         res.status(200).json({result, token});
