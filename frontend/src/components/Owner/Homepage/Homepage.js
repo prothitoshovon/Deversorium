@@ -1,18 +1,35 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Route, Routes} from "react-router"
+import { useDispatch, useSelector  } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import HostelForm from '../HostelForm/HostelForm'
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import { Grid, TextField, Button, Card, CardContent, Typography } from '@material-ui/core';
+import { getHostelByOwnerId } from '../../../actions/hostels';
+import { getRoomRequestsByHostelId } from '../../../actions/RoomRequests';
 function Homepage() {
+  const dispatch = useDispatch();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const { hostels } = useSelector((state) => state.hostels);
+  const {isLoading,roomRequests} = useSelector((state) => state.roomRequests)
+  useEffect(()=>{
+        //Here will be a query to get all room requests that match his hostel ID 
+        if(hostels.length == 0)dispatch(getHostelByOwnerId(user?.result?._id))
+        else dispatch(getRoomRequestsByHostelId(hostels._id))
+    },[hostels])
+  const test = ()=>{
+    console.log(roomRequests)
+  }
   return (
     <div>
    <Link to="/HostelForm">
     <Button variant="contained" startIcon={<AddIcon/>} >
-        
-       
     </Button>
-    </Link> 
+    </Link>
+    <Button onClick={test}>
+    ok
+    </Button>
     </div>
     
   )
