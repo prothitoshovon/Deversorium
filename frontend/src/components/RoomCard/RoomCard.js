@@ -4,12 +4,15 @@ import { Button } from '@mui/material';
 import { useDispatch, } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createRoomRequest } from '../../actions/RoomRequests';
+import image from '../../images/searching.png'
+import useStyles from './styles.js'
 function RoomCard({ room, setCurrentId }) {
 
     const user = JSON.parse(localStorage.getItem('profile'));
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userId = user?.result?._id;
+    const classes = useStyles();
     const book = ()=>{
 
         var date = new Date()
@@ -31,18 +34,17 @@ function RoomCard({ room, setCurrentId }) {
 
     }
   return (
-    <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
-        <Card raised elevation={6}>
+    // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
+        <Card raised elevation={6} className={classes.card}>
             <CardMedia
-                component="img"
-                height='200'
-                image='https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80'
+                className={classes.media}
+                image={image}
             >
 
             </CardMedia>
-            <CardContent>
+            <CardContent className={classes.overlay}>
                 <Typography gutterBottom variant='h5' component='div'>
-                Will need to query for Hostel name and address
+                Hostel name address
                 </Typography>
                 <Typography variant='body2' >
                 {room.rent} BDT
@@ -51,11 +53,11 @@ function RoomCard({ room, setCurrentId }) {
                 {room.area} sqft
                 </Typography>
             </CardContent>
-            <CardActions>
+            <CardActions className={classes.cardActions}>
                 <Button size='small' onClick={book}>Book now</Button>
             </CardActions>
         </Card>
-    </Box>
+    //</Box>
     
   )
 }
