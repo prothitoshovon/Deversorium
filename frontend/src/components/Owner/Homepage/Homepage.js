@@ -32,7 +32,7 @@ function Homepage({ setCurrentId }) {
     </Link>
     <>
     {
-    hostels.length == 0 ? (<h1> No hostels to show</h1>):
+      hostels.length == 0 ? (<h1> No hostels to show</h1>):
     (
   
     isLoading ? <CircularProgress /> : (
