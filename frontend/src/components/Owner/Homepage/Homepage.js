@@ -16,20 +16,26 @@ function Homepage({ setCurrentId }) {
   const {isLoading,roomRequests} = useSelector((state) => state.roomRequests)
   useEffect(()=>{
         //Here will be a query to get all room requests that match his hostel ID 
+        
         if(hostels.length == 0)dispatch(getHostelByOwnerId(user?.result?._id))        
         else dispatch(getRoomRequestsByHostelId(hostels._id))     
     },[hostels])
   const test = ()=>{
     console.log(roomRequests)
   }
+  
   return (
     <div>
    <Link to="/HostelForm">
-    <Button variant="contained" startIcon={<AddIcon/>} >
+    <Button variant="contained" startIcon={<AddIcon/>} >Create your hostel
     </Button>
     </Link>
     <>
-    {isLoading ? <CircularProgress /> : (
+    {
+    hostels.length == 0 ? (<h1> No hostels to show</h1>):
+    (
+  
+    isLoading ? <CircularProgress /> : (
       <Grid container alignItems="stretch" spacing={2}>
         {roomRequests?.map((roomRequest) => (
           <Grid key={roomRequest._id} >
@@ -37,6 +43,7 @@ function Homepage({ setCurrentId }) {
           </Grid>
         ))}
       </Grid>
+    )
     )
   }
     </>
