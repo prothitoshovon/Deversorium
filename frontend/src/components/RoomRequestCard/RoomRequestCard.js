@@ -14,7 +14,16 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
 
         //When allow is called,
         //we want to allocate the room from next month to the user 
-        
+        // user_id: {type: String, required: true},
+        // user_name: String,
+        // room_id: {type: String, required: true},
+        // room_number: String,
+        // hostel_id: {type: String, required: true},
+        // hostel_name: String,
+        // date_issued: Date
+
+        // roomRequest.user_id is to be queried to find the tenant 
+        // then that user needs to be updated so their room_id is roomRequest.room_id 
 
     }
     

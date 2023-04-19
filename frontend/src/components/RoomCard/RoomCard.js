@@ -23,6 +23,7 @@ function RoomCard({ room, setCurrentId }) {
         }
         //console.log(curForm)
         dispatch(createRoomRequest(curForm))
+        navigate('/THomepage')
         //When book is called 
         //We first validate if user has already booked before 
         //If yes , then prompt user that they can only book once
