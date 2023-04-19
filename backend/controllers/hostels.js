@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import hostelModel  from "../models/hostel.js";
+import ownerModel from '../models/owner.js';
 
 export const getHostels = async (req,res)=>{
     try{
@@ -15,9 +16,11 @@ export const createHostel = async (req,res)=>{
     const hostel = req.body;
     const newHostel = new hostelModel(hostel);
     try{
+        const o_id = newHostel.owner_id;
+        const updatedOwner = await ownerModel.updateOne({ user_id: o_id }, { $set: { hostel_id: newHostel._id, hostel_name:newHostel.name } });
+
         await newHostel.save();
         res.status(201).json(newHostel);
-        console.log('create hostel works')
     } catch(error){
         res.status(409).json({message: error.message});
     }

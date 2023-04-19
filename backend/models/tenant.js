@@ -1,8 +1,14 @@
 import mongoose from 'mongoose';
 
 const tenantSchema = mongoose.Schema({
-    assigned_room: Boolean,
-    is_manager: Boolean,
+    assigned_room: {
+        type: Boolean,
+        default: false
+    },
+    is_manager: {
+        type: Boolean,
+        default: false
+    },
     room_id: {
         type: String,
         default: 'Unassigned'
@@ -12,6 +18,7 @@ const tenantSchema = mongoose.Schema({
         type: String,
         default: 'Unassigned'
     },
+    user_id: String,
     hostel_name: String
 })
 
