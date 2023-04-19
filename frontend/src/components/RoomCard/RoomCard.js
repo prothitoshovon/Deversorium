@@ -12,13 +12,6 @@ function RoomCard({ room, setCurrentId }) {
     const userId = user?.result?._id;
     const book = ()=>{
 
-        // user_id: {type: String, required: true},
-        // user_name: String,
-        // room_id: {type: String, required: true},
-        // room_number: String,
-        // hostel_id: {type: String, required: true},
-        // hostel_name: String,
-        // date_issued: Date
         var date = new Date()
         const curForm = {user_id:userId, 
         user_name:user?.result?.name,

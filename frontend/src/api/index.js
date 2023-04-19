@@ -23,4 +23,4 @@ export const getHostelByOwnerId = (id) => API.get(`/hostels/o/${id}`)
 export const getEmptyRooms = () => API.get('/rooms/available')
 
 export const createRoomRequest = (newRoomRequest) => API.post('/roomRequests', newRoomRequest)
-export const getRoomRequestsByHostelId = (id) => API.get(`/roomRequest/h/${id}`)
+export const getRoomRequestsByHostelId = (id) => API.get(`/roomRequests/h/${id}`)

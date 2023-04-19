@@ -5,18 +5,19 @@ import { useNavigate } from 'react-router-dom';
 import HostelForm from '../HostelForm/HostelForm'
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
-import { Grid, TextField, Button, Card, CardContent, Typography } from '@material-ui/core';
+import { Grid, TextField, Button, Card, CardContent, Typography,CircularProgress } from '@material-ui/core';
 import { getHostelByOwnerId } from '../../../actions/hostels';
 import { getRoomRequestsByHostelId } from '../../../actions/RoomRequests';
-function Homepage() {
+import RoomRequestCard from '../../RoomRequestCard/RoomRequestCard';
+function Homepage({ setCurrentId }) {
   const dispatch = useDispatch();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const { hostels } = useSelector((state) => state.hostels);
   const {isLoading,roomRequests} = useSelector((state) => state.roomRequests)
   useEffect(()=>{
         //Here will be a query to get all room requests that match his hostel ID 
-        if(hostels.length == 0)dispatch(getHostelByOwnerId(user?.result?._id))
-        else dispatch(getRoomRequestsByHostelId(hostels._id))
+        if(hostels.length == 0)dispatch(getHostelByOwnerId(user?.result?._id))        
+        else dispatch(getRoomRequestsByHostelId(hostels._id))     
     },[hostels])
   const test = ()=>{
     console.log(roomRequests)
@@ -27,9 +28,18 @@ function Homepage() {
     <Button variant="contained" startIcon={<AddIcon/>} >
     </Button>
     </Link>
-    <Button onClick={test}>
-    ok
-    </Button>
+    <>
+    {isLoading ? <CircularProgress /> : (
+      <Grid container alignItems="stretch" spacing={2}>
+        {roomRequests?.map((roomRequest) => (
+          <Grid key={roomRequest._id} >
+            <RoomRequestCard room={roomRequest} setCurrentId={setCurrentId}/>
+          </Grid>
+        ))}
+      </Grid>
+    )
+  }
+    </>
     </div>
     
   )
