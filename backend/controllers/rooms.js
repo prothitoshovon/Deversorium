@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import roomModel from '../models/room.js';
-import userModel from '../models/user.js';
+import tenantModel from '../models/tenant.js';
 
 export const getRooms = async (req,res)=>{
     try{
@@ -30,39 +30,29 @@ export const getEmptyRooms = async(req,res)=>{
 export const bookRoom = async(req,res)=>{
     const rid = req.params.id;
     const uid = req.params.uid;
-    if(!mongoose.Types.ObjectId.isValid(rid))
-    {
-        return res.status(404).send('No room with that ID');
-    }
-    if(!mongoose.Types.ObjectId.isValid(uid))
-    {
-        return res.status(404).send('No user with that ID');
-    }
-    const bookedRoom = await roomModel.findByIdAndUpdate(
-        id,
-        { $set: { next_vacancy_date: new Date("3000-01-01") } },
-        { new: true },
-        (err, doc) => {
-            if (err) {
-                console.log("Error:", err);
-            } else {
-                console.log("Updated document:", doc);
+    try{
+        const room = await roomModel.findById(rid);
+        const vacancy_date = room.next_vacancy_date;
+        const bookedRoom = await roomModel.findByIdAndUpdate(
+            rid,
+            { $set: { next_vacancy_date: new Date("3000-01-01") } },
+            { new: true },
+            (err, doc) => {
+                if (err) {
+                    console.log("Error:", err);
+                } else {
+                    console.log("Updated document:", doc);
+                }
             }
-        }
-        );
-    const bookedUser = await userModel.findByIdAndUpdate(
-        id,
-        { $set: { room_id: rid } },
-        { new: true },
-        (err, doc) => {
-            if (err) {
-                console.log("Error:", err);
-            } else {
-                console.log("Updated document:", doc);
-            }
-        }
-        );    
-    res.json(bookedRoom, bookedUser);  
+            );
+        const bookedTenant = await tenantModel.updateOne({ user_id: uid },
+             { $set: { assigned_room: true, room_id: rid, starting_date: vacancy_date } });
+        res.json(bookedRoom);
+    } catch (error) {
+        console.log(error.message);
+    }
+           
+    res.json(bookedRoom);  
 }
 
 
