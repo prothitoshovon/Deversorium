@@ -7,7 +7,7 @@ import cardImage from '../../images/Order Placed.png'
 import useStyles from './styles.js'
 import { updateTenant } from '../../actions/Tenants';
 import { getTenantsByUserId } from '../../actions/Tenants';
-import { getRoomsByRoomId } from '../../actions/Rooms';
+import { bookRoom, getRoomsByRoomId } from '../../actions/Rooms';
 function RoomRequestCard({ roomRequest, setCurrentId }) {
 
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -26,8 +26,8 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
             
     },[])
     const allow = ()=>{
-        console.log(tenants)
-        console.log(rooms)
+        
+        dispatch(bookRoom(rooms[0]._id, tenants[0]._id))
         //Now to just dispatch
         //Book room
 

@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, FETCH_EMPTY_ROOMS, FETCH_ROOM_BY_ROOM_ID } from '../constants/actionTypes'
+import { FETCH_ALL, CREATE, FETCH_EMPTY_ROOMS, FETCH_ROOM_BY_ROOM_ID, BOOK } from '../constants/actionTypes'
 
 export default (state = { isLoading: true, rooms: [] }, action) => {
     switch(action.type)
@@ -15,7 +15,9 @@ export default (state = { isLoading: true, rooms: [] }, action) => {
             return { ...state, rooms: [...state.rooms, action.payload] };
         case FETCH_ROOM_BY_ROOM_ID:
             return { ...state, rooms: action.payload.room };
-        default:
+        case BOOK:
+            return { ...state, rooms: state.rooms.map((room) => (room._id === action.payload._id ? action.payload : room)) }
+        default: 
             return state
     }
 }
