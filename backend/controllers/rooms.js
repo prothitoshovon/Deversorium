@@ -35,7 +35,7 @@ export const bookRoom = async(req,res)=>{
         const vacancy_date = room.next_vacancy_date;
         const bookedRoom = await roomModel.findByIdAndUpdate(
             rid,
-            { $set: { next_vacancy_date: new Date("3000-01-01") } },
+            { $set: { next_vacancy_date: new Date("3000-01-01"), tenant_id: uid} },
             { new: true },
             (err, doc) => {
                 if (err) {
@@ -91,4 +91,15 @@ export const deleteRoom = async (req,res)=>{
     await roomModel.findByIdAndRemove(id);
 
     res.json('Room Deleted Successfully');
+}
+
+export const getRoomsByRoomId = async (req,res)=>{
+    const id = req.params.id;
+    try{
+        const rooms = await roomModel.find({room_id: id});
+        console.log(rooms);
+        res.status(200).json(rooms);
+    } catch(error){
+        res.status(404).json({message: error.message});
+    }
 }
