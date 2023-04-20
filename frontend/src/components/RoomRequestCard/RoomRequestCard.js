@@ -1,10 +1,11 @@
 import React from 'react'
 import { Box,Card, CardActions, CardContent, CardMedia, Typography, ButtonBase } from '@material-ui/core/';
 import { Button } from '@mui/material';
-import { useDispatch, } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import cardImage from '../../images/Order Placed.png'
 import useStyles from './styles.js'
+import { updateTenant } from '../../actions/Tenants';
 function RoomRequestCard({ roomRequest, setCurrentId }) {
 
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -12,22 +13,27 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
     const navigate = useNavigate();
     const userId = user?.result?._id;
     const classes = useStyles();
+    // const {isLoading,rooms} = useSelector((state) => state.rooms)
+    // useEffect(()=>{
+  
+    //     if(rooms.length == 0)dispatch(getHostelByOwnerId(user?.result?._id))        
+          
+    // },[])
+    //TOOD QUERY TO FIND the ROOM associated with roomRequest.room_id 
+    //TODO QUERY TO FIND the TENANT associated with roomRequest.user_id 
     const allow = ()=>{
 
-        //When allow is called,
-        //we want to allocate the room from next month to the user 
-        // user_id: {type: String, required: true},
-        // user_name: String,
-        // room_id: {type: String, required: true},
-        // room_number: String,
-        // hostel_id: {type: String, required: true},
-        // hostel_name: String,
-        // date_issued: Date
-        //Find the tenant
-        //Find the room 
-        //
-        // roomRequest.user_id is to be queried to find the tenant 
-        // then that user needs to be updated so their room_id is roomRequest.room_id 
+        const initState = {
+            assigned_room : true,
+            room_id: roomRequest.room_id,
+            room_number: roomRequest.room_number,
+            hostel_id: roomRequest.hostel_id,
+            user_id: roomRequest.user_id,
+        }
+        console.log(initState)
+        dispatch(updateTenant(roomRequest.user_id, initState))
+
+        console.log(roomRequest.user_id)
 
     }
     

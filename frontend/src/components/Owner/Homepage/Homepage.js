@@ -39,7 +39,7 @@ function Homepage({ setCurrentId }) {
       <Grid container alignItems="stretch" spacing={2}>
         {roomRequests?.map((roomRequest) => (
           <Grid key={roomRequest._id} >
-            <RoomRequestCard room={roomRequest} setCurrentId={setCurrentId}/>
+            <RoomRequestCard roomRequest={roomRequest} setCurrentId={setCurrentId}/>
           </Grid>
         ))}
       </Grid>
