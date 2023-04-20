@@ -19,7 +19,8 @@ const tenantSchema = mongoose.Schema({
         default: 'Unassigned'
     },
     user_id: String,
-    hostel_name: String
+    hostel_name: String,
+    starting_date: Date
 })
 
 const tenantModel = mongoose.model('tenantModel',tenantSchema);
