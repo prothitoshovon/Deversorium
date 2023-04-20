@@ -30,6 +30,8 @@ export const getEmptyRooms = async(req,res)=>{
 export const bookRoom = async(req,res)=>{
     const rid = req.params.id;
     const uid = req.params.uid;
+    console.log('at backenddd')
+    console.log(rid,uid)
     try{
         const room = await roomModel.findById(rid);
         const vacancy_date = room.next_vacancy_date;
@@ -52,7 +54,6 @@ export const bookRoom = async(req,res)=>{
         console.log(error.message);
     }
            
-    res.json(bookedRoom);  
 }
 
 

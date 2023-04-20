@@ -29,3 +29,5 @@ export const updateTenant = (id, updatedTenant) => API.patch(`/tenants/${id}`, u
 
 export const getTenantsByUserId = (id) => API.get(`/tenants/${id}`)
 export const getRoomsByRoomId = (id) => API.get(`/rooms/${id}`)
+
+export const bookRoom = (id, uid) => API.patch(`/rooms/book/r/${id}/u/${uid}`)
