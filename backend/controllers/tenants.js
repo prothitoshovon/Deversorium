@@ -25,6 +25,7 @@ export const createTenant = async (req,res)=>{
 export const updateTenant = async (req,res)=>{
     const { id: _id} = req.params;
     const tenant = req.body;
+    console.log(tenant)
     if(!mongoose.Types.ObjectId.isValid(_id))
     {
         return res.status(404).send('No tenant with that ID');
