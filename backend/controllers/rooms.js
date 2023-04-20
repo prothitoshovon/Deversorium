@@ -39,13 +39,13 @@ export const bookRoom = async(req,res)=>{
             rid,
             { $set: { next_vacancy_date: new Date("3000-01-01"), tenant_id: uid} },
             { new: true },
-            (err, doc) => {
-                if (err) {
-                    console.log("Error:", err);
-                } else {
-                    console.log("Updated document:", doc);
-                }
-            }
+            // (err, doc) => {
+            //     if (err) {
+            //         console.log("Error:", err);
+            //     } else {
+            //         console.log("Updated document:", doc);
+            //     }
+            // }
             );
         const bookedTenant = await tenantModel.updateOne({ user_id: uid },
              { $set: { assigned_room: true, room_id: rid, starting_date: vacancy_date } });
