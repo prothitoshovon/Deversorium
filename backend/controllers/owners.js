@@ -22,6 +22,7 @@ export const createOwner = async (req,res)=>{
     }
 }
 
+
 export const updateOwner = async (req,res)=>{
     const { id: _id} = req.params;
     const owner = req.body;
@@ -45,4 +46,15 @@ export const deleteOwner = async (req,res)=>{
     await ownerModel.findByIdAndRemove(id);
 
     res.json('Owner Deleted Successfully');
+}
+
+export const getOwnersByUserId = async (req,res)=>{
+    const id = req.params.id;
+    try{
+        const owners = await ownerModel.find({user_id: id});
+        console.log(owners);
+        res.status(200).json(owners);
+    } catch(error){
+        res.status(404).json({message: error.message});
+    }
 }
