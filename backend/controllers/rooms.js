@@ -49,7 +49,7 @@ export const bookRoom = async(req,res)=>{
             );*/
         const bookedRoom = await roomModel.updateOne({_id: rid}, 
             { $set: { next_vacancy_date: new Date("3000-01-01"), tenant_id: uid} },);    
-        const bookedTenant = await tenantModel.updateOne({ user_id: uid }, 
+        const bookedTenant = await tenantModel.updateOne({ _id: uid }, 
              { $set: { assigned_room: true, room_id: rid, starting_date: vacancy_date } });
         res.json(bookedRoom);
     } catch (error) {
