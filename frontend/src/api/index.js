@@ -26,3 +26,6 @@ export const createRoomRequest = (newRoomRequest) => API.post('/roomRequests', n
 export const getRoomRequestsByHostelId = (id) => API.get(`/roomRequests/h/${id}`)
 
 export const updateTenant = (id, updatedTenant) => API.patch(`/tenants/${id}`, updatedTenant)
+
+export const getTenantsByUserId = (id) => API.get(`/tenants/${id}`)
+export const getRoomsByRoomId = (id) => API.get(`/rooms/${id}`)

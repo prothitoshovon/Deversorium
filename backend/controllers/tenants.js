@@ -51,6 +51,7 @@ export const deleteTenant = async (req,res)=>{
 export const getTenantsByUserId = async (req,res)=>{
     const id = req.params.id;
     try{
+        
         const tenants = await tenantModel.find({user_id: id});
         console.log(tenants);
         res.status(200).json(tenants);
