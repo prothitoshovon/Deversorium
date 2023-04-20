@@ -96,7 +96,7 @@ export const deleteRoom = async (req,res)=>{
 export const getRoomsByRoomId = async (req,res)=>{
     const id = req.params.id;
     try{
-        const rooms = await roomModel.find({room_id: id});
+        const rooms = await roomModel.find({_id: id});
         console.log(rooms);
         res.status(200).json(rooms);
     } catch(error){

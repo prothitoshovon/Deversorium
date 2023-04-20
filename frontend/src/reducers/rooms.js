@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, FETCH_EMPTY_ROOMS } from '../constants/actionTypes'
+import { FETCH_ALL, CREATE, FETCH_EMPTY_ROOMS, FETCH_ROOM_BY_ROOM_ID } from '../constants/actionTypes'
 
 export default (state = { isLoading: true, rooms: [] }, action) => {
     switch(action.type)
@@ -13,7 +13,8 @@ export default (state = { isLoading: true, rooms: [] }, action) => {
             return action.payload
         case CREATE:
             return { ...state, rooms: [...state.rooms, action.payload] };
-
+        case FETCH_ROOM_BY_ROOM_ID:
+            return { ...state, rooms: action.payload.room };
         default:
             return state
     }
