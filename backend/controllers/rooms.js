@@ -35,7 +35,7 @@ export const bookRoom = async(req,res)=>{
     try{
         const room = await roomModel.findById(rid);
         const vacancy_date = room.next_vacancy_date;
-        const bookedRoom = await roomModel.findByIdAndUpdate(
+        /*const bookedRoom = await roomModel.findByIdAndUpdate(
             rid,
             { $set: { next_vacancy_date: new Date("3000-01-01"), tenant_id: uid} },
             { new: true },
@@ -46,8 +46,10 @@ export const bookRoom = async(req,res)=>{
             //         console.log("Updated document:", doc);
             //     }
             // }
-            );
-        const bookedTenant = await tenantModel.updateOne({ user_id: uid },
+            );*/
+        const bookedRoom = await roomModel.updateOne({_id: rid}, 
+            { $set: { next_vacancy_date: new Date("3000-01-01"), tenant_id: uid} },);    
+        const bookedTenant = await tenantModel.updateOne({ user_id: uid }, 
              { $set: { assigned_room: true, room_id: rid, starting_date: vacancy_date } });
         res.json(bookedRoom);
     } catch (error) {
