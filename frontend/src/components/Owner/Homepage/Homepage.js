@@ -26,7 +26,7 @@ function Homepage({ setCurrentId }) {
   
   return (
     <div>
-   <Link to="/HostelForm">
+    <Link to="/HostelForm">
     <Button variant="contained" startIcon={<AddIcon/>} >Create your hostel
     </Button>
     </Link>
