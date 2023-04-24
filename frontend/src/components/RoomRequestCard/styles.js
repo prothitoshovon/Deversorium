@@ -17,7 +17,7 @@ export default makeStyles({
     position: 'relative',
     left: '10px',
     right: '594px',
-    top: '13px',
+    top: '10px',
     bottom: '642px',
     display: 'flex',
     flexDirection: 'column',

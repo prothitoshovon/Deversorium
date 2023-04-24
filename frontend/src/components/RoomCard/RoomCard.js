@@ -15,6 +15,7 @@ function RoomCard({ room, setCurrentId }) {
     const classes = useStyles();
     const book = ()=>{
 
+        //Use getTenant by userID 
         var date = new Date()
         const curForm = {user_id:userId, 
         user_name:user?.result?.name,
@@ -24,6 +25,7 @@ function RoomCard({ room, setCurrentId }) {
         hostel_name:'',
         date_issued: date
         }
+
         //console.log(curForm)
         dispatch(createRoomRequest(curForm))
         navigate('/THomepage')
