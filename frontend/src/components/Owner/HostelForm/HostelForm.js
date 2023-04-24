@@ -21,6 +21,7 @@ function HostelForm() {
         console.log( { form, owner_name: user?.result?.name, owner_id:user?.result?._id })
         dispatch(createHostel({ name:form.name,address:form.address,phone:form.phone,
          owner_name: user?.result?.name, owner_id:user?.result?._id }));
+         navigate('/Homepage')
        // dispatch(signin(form, navigate));
 
         //const val = dispatch(getUserByEmail(form.email))

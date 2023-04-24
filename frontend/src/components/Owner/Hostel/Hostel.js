@@ -27,6 +27,8 @@ function Hostel() {
         e.preventDefault()
         var date = new Date()
         dispatch(createRoom({room_number:form.number, hostel_id:hostels._id, hostel_name:hostels.name,area:form.area,rent:form.rent, next_vacancy_date:date}))
+        setForm(initialState)
+        window.location.reload(false)
 
     }
     useEffect(()=>{
@@ -36,12 +38,11 @@ function Hostel() {
   return (
     <div>
         {
-            !hostels.length?(
+            hostels.length !== 0?(
             <Grid >
                 <Paper elevation={20} style={paperStyle}>
                     <Grid align='center'>
-                        {/* <h2 style={headerStyle}>Sign Up</h2> */}
-                        <Typography variant="h4">
+                        <Typography variant="h5">
                             Add a new Room
                         </Typography>
                         <Typography variant='caption' gutterBottom>
@@ -54,7 +55,12 @@ function Hostel() {
                             <Input name="area" label="area" handleChange={handleChange} type="number" />
                             <Input name="rent" label="rent" handleChange={handleChange} type="number" />
                         </Grid>
-                        <Button style={{marginTop:"20px"}}type='submit' variant='contained' color='primary'>Add</Button>
+                        <Button 
+                        style={{marginTop:"20px", backgroundColor:'#0C21C1' , color:'white'}}
+                        type='submit' 
+                        variant='contained'
+                        >Add
+                        </Button>
                     </form>
                 </Paper>
             </Grid>

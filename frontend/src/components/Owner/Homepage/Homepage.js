@@ -34,16 +34,27 @@ function Homepage({ setCurrentId }) {
     <div>
     <>
     {
-      hostels.length == 0 ? (<h1> No hostels to show</h1>):
+      hostels.length === 0 ? (<h1 style={{fontFamily:'sans-serif'}}> You do not have a hostel right now</h1>):
     (
   
     isLoading ? <CircularProgress /> : (
       <Grid container alignItems="stretch" spacing={2} style={{display:'block'}}>
-        {roomRequests?.map((roomRequest) => (
-          <Grid key={roomRequest._id} >
-            <RoomRequestCard roomRequest={roomRequest} setCurrentId={setCurrentId}/>
-          </Grid>
-        ))}
+        {
+          roomRequests.length===0?(
+              <Grid  style={{marginLeft:'15px'}}>
+              <h2>No Requests pending</h2>
+              </Grid>
+          ):
+          (
+            roomRequests?.map((roomRequest) => (
+            <Grid key={roomRequest._id} >
+              <RoomRequestCard roomRequest={roomRequest} setCurrentId={setCurrentId}/>
+            </Grid>
+            ))
+          )
+        
+        
+        }
       </Grid>
     )
     )

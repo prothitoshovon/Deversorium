@@ -14,6 +14,8 @@ import TenantHostel from './components/Tenant/Hostel/Hostel.js'
 import RoomCard from './components/RoomCard/RoomCard'
 import SafeRoutes from './components/SafeRoutes/SafeRoutes.js'
 import OwnerRoutes from './components/SafeRoutes/OwnerRoutes'
+import HostelFormRoutes from './components/SafeRoutes/HostelFormRoutes'
+import AuthRoutes from './components/SafeRoutes/AuthRoutes'
 function App() {
 
   //TODO add safe routing for owners and tenants 
@@ -25,19 +27,30 @@ function App() {
       <ResponsiveAppBar/>
       {/* <RoomCard/> */}
       <Routes>
-        <Route path="/" element={<Register/>}/>
-        <Route path="Login" element={<Login/>}/>
-        <Route element={<SafeRoutes/>}>
-          <Route element={<OwnerRoutes/>}>
-            <Route path="Homepage" element={<Homepage />}/>
-            <Route path="Profile" element={<Profile/>}/>
-            <Route path="Hostel" element={<Hostel/>}/>
-          </Route>   
-          <Route path="THomepage" element={<TenantHomepage/>}/>
-          <Route path="HostelForm" element={<HostelForm/>}/>
-          <Route path="THostel" element={<TenantHostel/>}/>
-        </Route>
-        
+        {
+          !user?(
+            <>
+            
+            <Route exact path="/" element={<Register/>}/>
+            <Route exact path="Login" element={<Login/>}/>
+            </>
+          ):
+          (
+              <Route element={<SafeRoutes/>}>
+              <Route element={<OwnerRoutes/>}>
+                <Route path="Homepage" element={<Homepage />}/>
+                <Route path="Profile" element={<Profile/>}/>
+                <Route path="Hostel" element={<Hostel/>}/>
+                <Route element={<HostelFormRoutes/> }>
+                  <Route path="HostelForm" element={<HostelForm/>}/>
+                </Route>
+              </Route>
+              <Route path="Homepage" element={<TenantHomepage/>}/>
+              <Route path="Hostel" element={<TenantHostel/>}/>
+            </Route>
+          )
+        }
+         
       </Routes>
     </div>
   )
