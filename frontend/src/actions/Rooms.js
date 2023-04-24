@@ -17,9 +17,8 @@ export const createRoom = (newRoom) => async (dispatch) =>{
 export const getEmptyRooms = () => async (dispatch) =>{
   try {
     dispatch({type:START_LOADING})
+
     const {data} = await api.getEmptyRooms()
-    // console.log('in Actions')
-    // console.log(data)
     dispatch({type:FETCH_EMPTY_ROOMS,payload:{rooms:data }})
     dispatch({type: END_LOADING})
   } catch (error) {
