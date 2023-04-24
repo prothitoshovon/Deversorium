@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import roomRequestModel from "../models/roomRequest.js";
+import tenantModel from "../models/tenant.js";
 
 
 export const getRoomRequests = async (req,res)=>{
@@ -50,6 +51,9 @@ export const createRoomRequest = async (req,res)=>{
     
     const newRoomRequest = new roomRequestModel(roomRequest)
     try{
+        const uid = newRoomRequest.user_id;
+        const updatedUser = await tenantModel.updateOne({user_id: uid}, 
+            { $set: { is_booked: true} });
         await newRoomRequest.save();
         res.status(201).json(newRoomRequest);
     } catch(error){
