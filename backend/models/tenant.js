@@ -18,6 +18,10 @@ const tenantSchema = mongoose.Schema({
         type: String,
         default: 'Unassigned'
     },
+    has_booked: {
+        type: Boolean,
+        default: false   
+    },
     user_id: String,
     hostel_name: String,
     starting_date: Date
