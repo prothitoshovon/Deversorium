@@ -19,7 +19,7 @@ function Homepage({ setCurrentId }) {
     
   return (
     isLoading ? <CircularProgress /> : (
-      <Grid container alignItems="stretch" spacing={2}>
+      <Grid container alignItems="stretch" spacing={2} style={{display:'block'}}>
         {rooms?.map((room) => (
           <Grid key={room._id} >
             <RoomCard room={room} setCurrentId={setCurrentId}/>

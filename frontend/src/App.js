@@ -12,6 +12,8 @@ import Register from './components/Register/Register'
 import TenantHomepage from './components/Tenant/Homepage/Homepage.js'
 import TenantHostel from './components/Tenant/Hostel/Hostel.js'
 import RoomCard from './components/RoomCard/RoomCard'
+import SafeRoutes from './components/SafeRoutes/SafeRoutes.js'
+import OwnerRoutes from './components/SafeRoutes/OwnerRoutes'
 function App() {
 
   //TODO add safe routing for owners and tenants 
@@ -25,12 +27,17 @@ function App() {
       <Routes>
         <Route path="/" element={<Register/>}/>
         <Route path="Login" element={<Login/>}/>
-        <Route path="Homepage" element={<Homepage />}/>
-        <Route path="Profile" element={<Profile/>}/>
-        <Route path="THomepage" element={<TenantHomepage/>}/>
-        <Route path="HostelForm" element={<HostelForm/>}/>
-        <Route path="Hostel" element={<Hostel/>}/>
-        <Route path="THostel" element={<TenantHostel/>}/>
+        <Route element={<SafeRoutes/>}>
+          <Route element={<OwnerRoutes/>}>
+            <Route path="Homepage" element={<Homepage />}/>
+            <Route path="Profile" element={<Profile/>}/>
+            <Route path="Hostel" element={<Hostel/>}/>
+          </Route>   
+          <Route path="THomepage" element={<TenantHomepage/>}/>
+          <Route path="HostelForm" element={<HostelForm/>}/>
+          <Route path="THostel" element={<TenantHostel/>}/>
+        </Route>
+        
       </Routes>
     </div>
   )

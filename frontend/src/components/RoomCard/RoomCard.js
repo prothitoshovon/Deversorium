@@ -13,6 +13,7 @@ function RoomCard({ room, setCurrentId }) {
     const navigate = useNavigate();
     const userId = user?.result?._id;
     const classes = useStyles();
+    //Query to find the hostel associated with room.hostel_id 
     const book = ()=>{
 
         //Use getTenant by userID 
@@ -28,6 +29,7 @@ function RoomCard({ room, setCurrentId }) {
 
         //console.log(curForm)
         dispatch(createRoomRequest(curForm))
+        //Update tenant's bookedRoom boolean 
         navigate('/THomepage')
         //When book is called 
         //We first validate if user has already booked before 
