@@ -34,3 +34,6 @@ export const getTenantsByUserId = (id) => API.get(`/tenants/${id}`)
 
 
 export const bookRoom = (id, uid) => API.patch(`/rooms/book/r/${id}/u/${uid}`)
+
+//router.delete('/:id', auth, deleteRoomRequest);
+export const deleteRoomRequest = (id) => API.delete(`/roomRequests/${id}`)

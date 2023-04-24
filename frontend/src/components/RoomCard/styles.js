@@ -15,9 +15,9 @@ export default makeStyles({
   },
   card: {
     position: 'relative',
-    left: '26px',
+    left: '10px',
     right: '594px',
-    top: '133px',
+    top: '10px',
     bottom: '642px',
     display: 'flex',
     flexDirection: 'column',

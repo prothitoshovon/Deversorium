@@ -73,7 +73,7 @@ export const updateRoomRequest = async (req,res)=>{
 export const deleteRoomRequest = async (req,res)=>{
     const {id} = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(_id))
+    if(!mongoose.Types.ObjectId.isValid(id))
     {
         return res.status(404).send('No requests for rooms with that ID');
     }

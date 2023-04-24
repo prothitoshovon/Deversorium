@@ -8,6 +8,7 @@ import useStyles from './styles.js'
 import { updateTenant } from '../../actions/Tenants';
 import { getTenantsByUserId } from '../../actions/Tenants';
 import { bookRoom, getRoomsByRoomId } from '../../actions/Rooms';
+import { deleteRoomRequest } from '../../actions/RoomRequests';
 function RoomRequestCard({ roomRequest, setCurrentId }) {
 
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -29,6 +30,10 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
         
         dispatch(bookRoom(rooms[0]._id, tenants[0]._id))
         //Todo now delete this room request 
+    }
+    const dismiss = ()=>{
+        //console.log(roomRequest._id)
+        dispatch(deleteRoomRequest(roomRequest._id))
     }
     
   return (
@@ -52,7 +57,7 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <Button size='small' onClick={allow} >Allow tenant</Button>
-                <Button size='small' onClick={()=>{}} style={{marginTop:'30px'}}>Dismiss</Button>
+                <Button size='small' onClick={dismiss} style={{marginTop:'30px'}}>Dismiss</Button>
             </CardActions>
         </Card>
     // </Box>
