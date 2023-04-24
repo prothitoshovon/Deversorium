@@ -66,3 +66,18 @@ export const getHostelByOwnerId = async (req, res)=>{
         res.status(404).json({message: error.message});
     }
 }
+
+export const getHostelByHostelId = async (req, res)=>{
+    const {id} = req.params;
+    try {
+        const hostel = await hostelModel.findOne({_id: id});
+
+        if(!hostel)
+        {
+            return res.status(404).send('No hostels with that ID');
+        }
+        res.status(200).json(hostel);
+    } catch(error) {  
+        res.status(404).json({message: error.message});
+    }
+}
