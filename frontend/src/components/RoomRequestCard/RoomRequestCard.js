@@ -29,6 +29,7 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
     const allow = ()=>{
         
         dispatch(bookRoom(rooms[0]._id, tenants[0]._id))
+        dispatch(deleteRoomRequest(roomRequest._id))
         //Todo now delete this room request 
     }
     const dismiss = ()=>{
@@ -46,7 +47,7 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
             </CardMedia>
             <CardContent className={classes.overlay}>
                 <Typography gutterBottom variant='h5' component='div'>
-                user's name
+                user name
                 </Typography>
                 <Typography variant='body2' >
                 Room number
