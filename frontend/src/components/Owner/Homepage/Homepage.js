@@ -24,19 +24,21 @@ function Homepage({ setCurrentId }) {
     console.log(roomRequests)
   }
   
+
+  //Need for future use 
+  // <Link to="/HostelForm">
+  //   <Button variant="contained" startIcon={<AddIcon/>} >Create your hostel
+  //   </Button>
+  //   </Link>
   return (
     <div>
-    <Link to="/HostelForm">
-    <Button variant="contained" startIcon={<AddIcon/>} >Create your hostel
-    </Button>
-    </Link>
     <>
     {
       hostels.length == 0 ? (<h1> No hostels to show</h1>):
     (
   
     isLoading ? <CircularProgress /> : (
-      <Grid container alignItems="stretch" spacing={2}>
+      <Grid container alignItems="stretch" spacing={2} style={{display:'block'}}>
         {roomRequests?.map((roomRequest) => (
           <Grid key={roomRequest._id} >
             <RoomRequestCard roomRequest={roomRequest} setCurrentId={setCurrentId}/>
@@ -47,6 +49,8 @@ function Homepage({ setCurrentId }) {
     )
   }
     </>
+
+    
     </div>
     
   )

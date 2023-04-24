@@ -28,11 +28,7 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
     const allow = ()=>{
         
         dispatch(bookRoom(rooms[0]._id, tenants[0]._id))
-        //Now to just dispatch
-        //Book room
-
-        
-
+        //Todo now delete this room request 
     }
     
   return (
@@ -55,7 +51,8 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
                 </Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <Button size='small' onClick={allow}>Allow tenant</Button>
+                <Button size='small' onClick={allow} >Allow tenant</Button>
+                <Button size='small' onClick={()=>{}} style={{marginTop:'30px'}}>Dismiss</Button>
             </CardActions>
         </Card>
     // </Box>

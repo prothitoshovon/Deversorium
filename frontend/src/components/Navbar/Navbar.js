@@ -87,7 +87,7 @@ function ResponsiveAppBar() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'white',
               textDecoration: 'none',
             }}
           >
@@ -126,7 +126,7 @@ function ResponsiveAppBar() {
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link style={{textDecoration:"none", color:"white"}} to={`/${page}`}>
+                    <Link style={{ fontFamily:'tahoma',color:"white"}} to={`/${page}`}>
                     {page}
                     </Link>
                   </Typography>
