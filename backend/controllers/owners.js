@@ -38,7 +38,7 @@ export const updateOwner = async (req,res)=>{
 export const deleteOwner = async (req,res)=>{
     const {id} = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(_id))
+    if(!mongoose.Types.ObjectId.isValid(id))
     {
         return res.status(404).send('No owner with that ID');
     }

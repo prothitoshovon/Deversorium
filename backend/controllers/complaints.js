@@ -67,7 +67,7 @@ export const updateComplaint = async (req,res)=>{
 export const deleteComplaint = async (req,res)=>{
     const {id} = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(_id))
+    if(!mongoose.Types.ObjectId.isValid(id))
     {
         return res.status(404).send('No complaint with that ID');
     }

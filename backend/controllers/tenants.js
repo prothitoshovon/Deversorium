@@ -38,7 +38,7 @@ export const updateTenant = async (req,res)=>{
 export const deleteTenant = async (req,res)=>{
     const {id} = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(_id))
+    if(!mongoose.Types.ObjectId.isValid(id))
     {
         return res.status(404).send('No tenant with that ID');
     }
