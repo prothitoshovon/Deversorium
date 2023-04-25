@@ -12,7 +12,7 @@ function HostelFormRoutes() {
     },[])
   return (
     
-        hostels.length!==0?(
+         hostels || hostels.length !==0 ?(
             
             <BadGateway/>
         ):

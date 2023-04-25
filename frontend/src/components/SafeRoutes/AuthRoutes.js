@@ -4,6 +4,6 @@ import Register from "../Register/Register"
 
 const AuthRoutes = ()=>{
     const user = JSON.parse(localStorage.getItem('profile'));
-    return !user?<Outlet/>:(<div>ok</div>)
+    return !user?<Outlet/>:(<div>Beddop</div>)
 }
 export default AuthRoutes

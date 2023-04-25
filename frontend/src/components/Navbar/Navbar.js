@@ -79,7 +79,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href={!user?'/':user?.result.role===2?'/Homepage':'/THomepage'
+            href={!user?'/':'/Homepage'
             }
             sx={{
               mr: 2,
