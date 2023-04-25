@@ -6,7 +6,6 @@ const userSchema = mongoose.Schema({
     email : {type: String, required: true},
     password : {type: String, required: true},
     role : {type: Number, required: true}, // 1 for tenant, 2 for owner, 3 for superuser
-    id : {type: String}
 })
 
 
