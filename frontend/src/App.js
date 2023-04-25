@@ -17,6 +17,7 @@ import OwnerRoutes from './components/SafeRoutes/OwnerRoutes'
 import HostelFormRoutes from './components/SafeRoutes/HostelFormRoutes'
 import AuthRoutes from './components/SafeRoutes/AuthRoutes'
 import TenantRoutes from './components/SafeRoutes/TenantRoutes'
+import HostelCard from './components/HostelCard/HosetlCard'
 function App() {
 
   //TODO add safe routing for owners and tenants 
@@ -26,7 +27,7 @@ function App() {
     <div>
       
       <ResponsiveAppBar/>
-      {/* <RoomCard/> */}
+        {/* <HostelCard/> */}
       <Routes>
             <Route element={<AuthRoutes/>}>
               <Route exact path="/" element={<Register/>}/>
