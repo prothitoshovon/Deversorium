@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Box,Card, CardActions, CardContent, CardMedia, Typography, ButtonBase } from '@material-ui/core/';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import cardImage from '../../images/Order Placed.png'
@@ -28,6 +28,7 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
     },[])
     const allow = ()=>{
         
+        console.log(rooms)
         dispatch(bookRoom(rooms[0]._id, tenants[0]._id))
         dispatch(deleteRoomRequest(roomRequest._id))
         //Todo now delete this room request 
@@ -39,28 +40,37 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
     
   return (
     // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
-        <Card className={classes.card}raised elevation={6}>
-            <CardMedia
-                className={classes.media}
-                image={cardImage}
-            >
-            </CardMedia>
-            <CardContent className={classes.overlay}>
-                <Typography gutterBottom variant='h5' component='div'>
-                user name
-                </Typography>
-                <Typography variant='body2' >
-                Room number
-                </Typography>
-                <Typography variant='body2' >
-                user's phone number
-                </Typography>
-            </CardContent>
-            <CardActions className={classes.cardActions}>
-                <Button size='small' onClick={allow} >Allow tenant</Button>
-                <Button size='small' onClick={dismiss} style={{marginTop:'30px'}}>Dismiss</Button>
-            </CardActions>
-        </Card>
+        
+
+            rooms.length===0?(
+                <CircularProgress/>
+            ):
+            (
+                <Card className={classes.card}raised elevation={6}>
+                <CardMedia
+                    className={classes.media}
+                    image={cardImage}
+                >
+                </CardMedia>
+                <CardContent className={classes.overlay}>
+                    <Typography gutterBottom variant='h5' component='div'>
+                    ok
+                    </Typography>
+                    <Typography variant='body2' >
+                    {rooms[0].room_number}
+                    </Typography>
+                    <Typography variant='body2' >
+                    user's phone number
+                    </Typography>
+                </CardContent>
+                <CardActions className={classes.cardActions}>
+                    <Button size='small' onClick={allow} >Allow tenant</Button>
+                    <Button size='small' onClick={dismiss} style={{marginTop:'30px'}}>Dismiss</Button>
+                </CardActions>
+            </Card>
+            )
+        
+        
     // </Box>
     
   )

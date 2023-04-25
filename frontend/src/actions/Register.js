@@ -6,9 +6,9 @@ export const signup = (formData, router,role) => async (dispatch) => {
     const { data } = await api.signUp(formData);
 
     dispatch({ type: AUTH, data });
-    if(role === 2)
+   // if(role === 2)
       router('/Homepage')
-    else router('/THomepage')
+    //else router('/THomepage')
   } catch (error) {
     console.log(error);
   }

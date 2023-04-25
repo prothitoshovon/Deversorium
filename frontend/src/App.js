@@ -16,6 +16,7 @@ import SafeRoutes from './components/SafeRoutes/SafeRoutes.js'
 import OwnerRoutes from './components/SafeRoutes/OwnerRoutes'
 import HostelFormRoutes from './components/SafeRoutes/HostelFormRoutes'
 import AuthRoutes from './components/SafeRoutes/AuthRoutes'
+import TenantRoutes from './components/SafeRoutes/TenantRoutes'
 function App() {
 
   //TODO add safe routing for owners and tenants 
@@ -27,24 +28,18 @@ function App() {
       <ResponsiveAppBar/>
       {/* <RoomCard/> */}
       <Routes>
-            <Route exact path="/" element={<Register/>}/>
-            <Route exact path="Login" element={<Login/>}/>
-          
-              <Route element={<SafeRoutes/>}>
-              <Route element={<OwnerRoutes/>}>
-                <Route path="Homepage" element={<Homepage />}/>
-                <Route path="Profile" element={<Profile/>}/>
-                <Route path="Hostel" element={<Hostel/>}/>
-                <Route element={<HostelFormRoutes/> }>
-                  <Route path="HostelForm" element={<HostelForm/>}/>
-                </Route>
-              </Route>
-              <Route path="THomepage" element={<TenantHomepage/>}/>
-              <Route path="THostel" element={<TenantHostel/>}/>
+            <Route element={<AuthRoutes/>}>
+              <Route exact path="/" element={<Register/>}/>
+              <Route exact path="Login" element={<Login/>}/>
             </Route>
-          
-        
-         
+              <Route element={<SafeRoutes/>}>
+                    <Route path="Homepage" element={user?.result?.role===2?<Homepage />:<TenantHomepage/>}/>
+                    <Route path="Profile" element={<Profile/>}/>
+                    <Route path="Hostel" element={user?.result?.role===2?<Hostel/>:<TenantHostel/>}/>
+                    <Route element={<HostelFormRoutes/> }>
+                      <Route path="HostelForm" element={<HostelForm/>}/>
+                    </Route>       
+            </Route>
       </Routes>
     </div>
   )
