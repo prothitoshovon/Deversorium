@@ -8,7 +8,8 @@ const reviewSchema = mongoose.Schema({
     {
         type: Date,
         default: new Date()
-    }
+    },
+    stars: {type: Number, required: true}
 })
 
 const reviewModel = mongoose.model('reviewModel',reviewSchema);
