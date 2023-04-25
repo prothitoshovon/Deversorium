@@ -61,8 +61,10 @@ export default makeStyles({
     alignContent:'center',
   },
   cardAction: {
-    top:'300px',
-    bottom:'10px',
+    top:'10px',
+    left: '43px',
+    color:'white',
+    backgroundColor:'#0C21C1',
     display: 'block',
     textAlign: 'initial',
   },
@@ -72,11 +74,31 @@ export default makeStyles({
     color:'#0C21C1'
   },
   textField:{
-    top:'69px',
+    left:'43px',
+    width:'300px',
+    backgroundColor:'#F9F9F9',
+    color:'#F9F9F9'
+  },
+  crow:{
+    padding:'40px 10px 10px 43px',
     left:'43px'
   },
-  ratingHeader:{
-    top:'67px',
+  complaint:{
+    top:'10px',
+    backgroundRadius:'15px',
+    width:'300px',
+    backgroundColor:'#F9F9F9',
+    color:'#F9F9F9'
+  },
+  crow2:{
+    padding:'90px 0px 0px 0px',
     left:'43px'
+  },
+  cardAction2:{
+    top:'20px',
+    color:'white',
+    backgroundColor:'#0C21C1',
+    display: 'block',
+    textAlign: 'initial',
   }
 });
