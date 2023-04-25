@@ -25,3 +25,15 @@ export const getHostelByOwnerId = (id) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const getHostelByHostelId = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.getHostelByHostelId(id);
+    
+    dispatch({ type: FETCH_HOSTEL, payload: { hostel: data } });
+    dispatch({type: END_LOADING})
+  } catch (error) {
+    console.log(error);
+  }
+}

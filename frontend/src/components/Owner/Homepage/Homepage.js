@@ -16,7 +16,7 @@ function Homepage({ setCurrentId }) {
   const {isLoading,roomRequests} = useSelector((state) => state.roomRequests)
   useEffect(()=>{
         //Here will be a query to get all room requests that match his hostel ID 
-        
+        setUser(JSON.parse(localStorage.getItem('profile')))
         if(hostels.length == 0)dispatch(getHostelByOwnerId(user?.result?._id))        
         else dispatch(getRoomRequestsByHostelId(hostels._id))     
     },[hostels])

@@ -27,15 +27,9 @@ function App() {
       <ResponsiveAppBar/>
       {/* <RoomCard/> */}
       <Routes>
-        {
-          !user?(
-            <>
-            
             <Route exact path="/" element={<Register/>}/>
             <Route exact path="Login" element={<Login/>}/>
-            </>
-          ):
-          (
+          
               <Route element={<SafeRoutes/>}>
               <Route element={<OwnerRoutes/>}>
                 <Route path="Homepage" element={<Homepage />}/>
@@ -45,11 +39,11 @@ function App() {
                   <Route path="HostelForm" element={<HostelForm/>}/>
                 </Route>
               </Route>
-              <Route path="Homepage" element={<TenantHomepage/>}/>
-              <Route path="Hostel" element={<TenantHostel/>}/>
+              <Route path="THomepage" element={<TenantHomepage/>}/>
+              <Route path="THostel" element={<TenantHostel/>}/>
             </Route>
-          )
-        }
+          
+        
          
       </Routes>
     </div>

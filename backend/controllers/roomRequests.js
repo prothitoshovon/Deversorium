@@ -53,7 +53,7 @@ export const createRoomRequest = async (req,res)=>{
     try{
         const uid = newRoomRequest.user_id;
         const updatedUser = await tenantModel.updateOne({user_id: uid}, 
-            { $set: { is_booked: true} });
+            { $set: { has_booked: true} });
         await newRoomRequest.save();
         res.status(201).json(newRoomRequest);
     } catch(error){
