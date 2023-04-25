@@ -20,6 +20,25 @@ function Hostel() {
         <Button variant='contained' className={classes.cardActions}>
           Join meal system
         </Button>
+        <Typography className={classes.crow2}>
+         Any complaints ?
+        </Typography>
+        <TextField 
+        multiline 
+        minRows={3}
+        variant='outlined'
+        label='Your Message' 
+        color='textSecondary'
+        name='comment'
+        className={classes.complaint}
+        type='text'
+        >
+
+        </TextField>
+        <Button variant='contained' className={classes.cardAction2}>
+          Send
+        </Button>
+
       </Grid> 
       <Grid item xs={8} style={{display:'block'}} >
         
@@ -34,21 +53,30 @@ function Hostel() {
           }}
         />
         
+        
       </Grid>
       
-      <Grid item xs={4}>
-        <Typography className={classes.ratingHeader}>
-        Rate us
-        </Typography>
-        {/* <TextField multiline className={classes.textField}>
-        
-        </TextField> */}
-      </Grid>
       <Grid item xs={8}>
-        <Typography className={classes.ratingHeader}>
-        Rate us
+        <Typography className={classes.crow}>
+         Leave a detailed review
         </Typography>
+        <TextField 
+        multiline 
+        minRows={3}
+        variant='outlined'
+        label='Your Message' 
+        color='textSecondary'
+        name='comment'
+        className={classes.textField}
+        type='text'
+        >
+
+        </TextField>
+        <Button variant='contained' className={classes.cardAction}>
+          Send
+        </Button>
       </Grid>
+      
       
     </Grid>
   )
