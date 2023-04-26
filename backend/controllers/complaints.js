@@ -45,7 +45,7 @@ export const createComplaint = async (req,res)=>{
     const complaint = req.body;
     const newComplaint = new complaintModel(complaint);
     try{
-        await newHostel.save();
+        await newComplaint.save();
         res.status(201).json(newComplaint);
     } catch(error){
         res.status(409).json({message: error.message});

@@ -45,7 +45,7 @@ export const createReview = async (req,res)=>{
     const review = req.body;
     const newReview = new reviewModel(review);
     try{
-        await newHostel.save();
+        await newReview.save();
         res.status(201).json(newReview);
     } catch(error){
         res.status(409).json({message: error.message});
@@ -79,7 +79,7 @@ export const deleteReview = async (req,res)=>{
 
 export const getReviewsByUserAndHostel = async (req, res)=>{
     const uid = req.params.uid;
-    const hid = req.params.rid;
+    const hid = req.params.hid;
 
     try{     
         const reviews = await reviewModel.find({hostel_id: hid, user_id: uid});
