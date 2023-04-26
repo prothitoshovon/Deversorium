@@ -26,6 +26,10 @@ export const getRoomsByRoomId = (id) => API.get(`/rooms/${id}`)
 
 
 export const createRoomRequest = (newRoomRequest) => API.post('/roomRequests', newRoomRequest)
+
+export const createReview = (newReview) => API.post('/reviews',newReview)
+
+
 export const getRoomRequestsByHostelId = (id) => API.get(`/roomRequests/h/${id}`)
 
 export const updateTenant = (id, updatedTenant) => API.patch(`/tenants/${id}`, updatedTenant)
@@ -39,3 +43,4 @@ export const bookRoom = (id, uid, hid) => API.patch(`/rooms/book/r/${id}/u/${uid
 export const deleteRoomRequest = (id) => API.delete(`/roomRequests/${id}`)
 
 export const getHostelByHostelId = (id) => API.get(`/hostels/h/${id}`)
+
