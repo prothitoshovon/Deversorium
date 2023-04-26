@@ -57,13 +57,14 @@ function ReviewCard({ reviewer, review,setCurrentId }) {
                         
                         
                         <Typography variant='body2' color='textSecondary' >
-                            Really good place. The meal system management was spectacular! But place could use better hygiene practices!
+                            {review.comments}
                         </Typography>
                         <Typography gutterBottom variant='h4' >
-                            Reyadath
+                            Placeholder
                         </Typography>
                         <Rating
-                        value={4}
+                        precision={.5}
+                        value={review.stars}
                         readOnly
                         >
                         </Rating>

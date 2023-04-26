@@ -49,3 +49,4 @@ export const getHostelByHostelId = (id) => API.get(`/hostels/h/${id}`)
 // router.get('/userhostel/:uid/:hid',getReviewsByUserAndHostel);
 
 export const getReviewsByUserAndHostel = (uid, hid) => API.get(`reviews/userhostel/${uid}/${hid}`)
+export const getReviewsByHostel = (id) => API.get(`/reviews/h/${id}`)
