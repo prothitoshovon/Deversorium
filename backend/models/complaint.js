@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const complaintSchema = mongoose.Schema({
-    tenant_id: {type: String, required: true},
+    user_id: {type: String, required: true},
     description: {type: String, required: true},
     room_id: {type: String, required: true},
     room_number: String,

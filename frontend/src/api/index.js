@@ -29,6 +29,8 @@ export const createRoomRequest = (newRoomRequest) => API.post('/roomRequests', n
 
 export const createReview = (newReview) => API.post('/reviews',newReview)
 
+export const createComplaint = (newComplaint) => API.post('/complaints',newComplaint)
+
 
 export const getRoomRequestsByHostelId = (id) => API.get(`/roomRequests/h/${id}`)
 
@@ -44,3 +46,6 @@ export const deleteRoomRequest = (id) => API.delete(`/roomRequests/${id}`)
 
 export const getHostelByHostelId = (id) => API.get(`/hostels/h/${id}`)
 
+// router.get('/userhostel/:uid/:hid',getReviewsByUserAndHostel);
+
+export const getReviewsByUserAndHostel = (uid, hid) => API.get(`reviews/userhostel/${uid}/${hid}`)

@@ -7,4 +7,5 @@ import rooms from './rooms.js'
 import roomRequests from './roomRequests.js'
 import tenants from './tenants.js'
 import reviews from './reviews.js'
-export const reducers = combineReducers({ auth,hostels,users,rooms,roomRequests,tenants,reviews });
+import complaints from './complaints.js'
+export const reducers = combineReducers({ auth,hostels,users,rooms,roomRequests,tenants,reviews,complaints });
