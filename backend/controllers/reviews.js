@@ -43,9 +43,10 @@ export const getReviewsByUser = async(req,res) => {
 
 export const createReview = async (req,res)=>{
     const review = req.body;
+    console.log(review)
     const newReview = new reviewModel(review);
     try{
-        await newHostel.save();
+        await newReview.save();
         res.status(201).json(newReview);
     } catch(error){
         res.status(409).json({message: error.message});
