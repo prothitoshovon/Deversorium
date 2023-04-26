@@ -36,11 +36,11 @@ export const bookRoom = async(req,res)=>{
     try{
         const room = await roomModel.findById(rid);
         const vacancy_date = room.next_vacancy_date;
-
+        
+        const bookedTenant = await tenantModel.updateOne({ _id: uid }, 
+            { $set: { assigned_room: true,hostel_id:hid, room_id: rid, starting_date: vacancy_date } });
         const bookedRoom = await roomModel.updateOne({_id: rid}, 
             { $set: { next_vacancy_date: new Date("3000-01-01"), tenant_id: uid} },);    
-        const bookedTenant = await tenantModel.updateOne({ _id: uid }, 
-             { $set: { assigned_room: true,hostel_id:hid, room_id: rid, starting_date: vacancy_date } });
         res.json(bookedRoom);
     } catch (error) {
         console.log(error.message);
