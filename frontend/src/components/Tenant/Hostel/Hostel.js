@@ -6,7 +6,8 @@ import useStyles from './styles'
 import { useDispatch, useSelector } from 'react-redux';
 import { getTenantsByUserId } from '../../../actions/Tenants';
 import { getHostelByHostelId } from '../../../actions/hostels';
-import { createReview } from '../../../actions/Reviews';
+import { createReview, getReviewsByUserAndHostel } from '../../../actions/Reviews';
+import { createComplaint } from '../../../actions/Complaints';
 //TODO Fetch the tenant from its user ID 
 //If the tenant has a room assigned then we will display Hostel card 
 //If the tenant does not have  a room assigned, then we will display You are not part of any hostel 
@@ -14,33 +15,32 @@ import { createReview } from '../../../actions/Reviews';
 
 function Hostel() {
   const [user,setUser] = useState( JSON.parse(localStorage.getItem('profile')))
+  const [flag, setFlag] = useState(true)
   const classes = useStyles()
   const dispatch = useDispatch()
   const [value, setValue] = useState(5)
   const {tenants} =  useSelector((state)=>state.tenants)
   const {hostels} = useSelector((state)=> state.hostels)
+  const {reviews} = useSelector((state)=>state.reviews)
   const initialState = { comment: '', complaint: '' };
   const [form, setForm] = useState(initialState);
   useEffect(()=>{
       //Dispatch  so we get hostel related to the tenant
+      console.log('fire')
       if(tenants.length === 0)
       {
         console.log('dakse')
         dispatch(getTenantsByUserId(user?.result?._id))
       }
       else if(hostels.length === 0)dispatch(getHostelByHostelId(tenants[0].hostel_id))
+      if(reviews===null&& hostels.length !== 0 && flag ===true)
+      {
+        dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants[0].hostel_id))
+        setFlag(false)
+      }
     },[])
 
-    const sendReview = ()=>{
-      // user_id: {type: String, required: true},
-      // hostel_id: {type: String, required: true},
-      // comments: {type: String, required: true},
-      // date_posted: 
-      // {
-      //     type: Date,
-      //     default: new Date()
-      // },
-      // stars: {type: Number, required: true}
+    const sendReview = ()=> {
       var date = new Date()
       const curState={
 
@@ -53,8 +53,40 @@ function Hostel() {
 
 
       }
+      if(!reviews)dispatch(createReview(curState))
+      else 
+      {
+        const confirm  = prompt('You already reviewd this place. You cannot review it again','confirm')
+        
+      }
 
-      dispatch(createReview(curState))
+    }
+
+    const sendComplaint = () =>{
+
+      var date = new Date()
+      const curState={
+
+      
+        user_id: user?.result?._id,
+        description:form.complaint,
+        hostel_id:tenants[0].hostel_id,
+        room_id:tenants[0].room_id,
+        date_raised:date,
+
+      }
+      // user_id: {type: String, required: true},
+      // description: {type: String, required: true},
+      // room_id: {type: String, required: true},
+      // room_number: String,
+      // hostel_id: {type: String, required: true},
+      // hostel_name: String,
+      // date_raised: {
+      //     type: Date,
+      //     default: new Date()
+      // }
+      dispatch(createComplaint(curState))
+
 
     }
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -63,7 +95,7 @@ function Hostel() {
       <form>
       
       <Grid container spacing={2}>
-        <Grid item xs={8}>
+        <Grid item xs={8} >
           <HostelCard currentUser={user} currentHostel={hostels} currentTenant={tenants[0]} />
         </Grid>
         <Grid item xs={4}>
@@ -85,7 +117,7 @@ function Hostel() {
           >
 
           </TextField>
-          <Button variant='contained' className={classes.cardAction2}>
+          <Button variant='contained' onClick={sendComplaint} className={classes.cardAction2}>
             Send
           </Button>
 
