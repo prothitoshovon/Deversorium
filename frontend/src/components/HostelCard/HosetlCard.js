@@ -8,7 +8,7 @@ import image from '../../images/rajanigandha.png'
 import useStyles from './styles.js'
 import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
-function HostelCard({ room, setCurrentId }) {
+function HostelCard({ currentUser,currentHostel, setCurrentId }) {
 
     const [user,setUser] = useState( JSON.parse(localStorage.getItem('profile')))
     const dispatch = useDispatch();
@@ -48,10 +48,10 @@ function HostelCard({ room, setCurrentId }) {
                         </CardMedia>
                         <CardContent className={classes.overlay}>
                             
-                            <Typography  variant='body1'color='textSecondary' >
-                                Hello user! 
+                            <Typography  variant='body1' >
+                                Hello {currentUser.result.name}! 
                             </Typography>
-                            <Typography variant='body2' color='textSecondary'style={{marginLeft:'312px'}} >
+                            <Typography variant='body2' style={{marginLeft:'312px'}} >
                                 Tenant since June 2023
                             </Typography>
                             
@@ -60,9 +60,9 @@ function HostelCard({ room, setCurrentId }) {
                         <CardContent className={classes.overlay2}>
                             
                             <Typography  gutterBottom variant='h4' >
-                                You are living in Rajanigandha House
+                                You are living in {currentHostel.name}
                             </Typography>
-                            <Typography variant='body2' color='textSecondary' >
+                            <Typography variant='body2'  >
                                 Every hostel has a meal system. That requires at least one grocery shopping chore per person, every month. With meal system, you get to enjoy home made quality meals everyday for lunch and dinner. Care to join?
                             </Typography>
                             

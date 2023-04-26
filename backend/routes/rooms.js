@@ -7,7 +7,7 @@ router.get('/', getRooms);
 router.get('/available',getEmptyRooms);
 router.get('/:id',getRoomsByRoomId)
 
-router.patch('/book/r/:id/u/:uid',auth,bookRoom);
+router.patch('/book/r/:id/u/:uid/h/:hid',auth,bookRoom);
 router.post('/', auth, createRoom);
 router.patch('/:id', auth, updateRoom);
 router.delete('/:id', auth, deleteRoom);

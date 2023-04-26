@@ -17,8 +17,9 @@ function Homepage({ setCurrentId }) {
   useEffect(()=>{
         //Here will be a query to get all room requests that match his hostel ID 
         setUser(JSON.parse(localStorage.getItem('profile')))
-        if(hostels.length == 0)dispatch(getHostelByOwnerId(user?.result?._id))        
-        else dispatch(getRoomRequestsByHostelId(hostels._id))     
+        
+        if(hostels.length === 0)dispatch(getHostelByOwnerId(user?.result?._id))        
+        else if(roomRequests.length ===0)dispatch(getRoomRequestsByHostelId(hostels._id))     
     },[hostels])
   const test = ()=>{
     console.log(roomRequests)
@@ -48,7 +49,7 @@ function Homepage({ setCurrentId }) {
           (
             roomRequests?.map((roomRequest) => (
             <Grid key={roomRequest._id} >
-              <RoomRequestCard roomRequest={roomRequest} setCurrentId={setCurrentId}/>
+              <RoomRequestCard roomRequest={roomRequest} hostel={hostels} setCurrentId={setCurrentId}/>
             </Grid>
             ))
           )

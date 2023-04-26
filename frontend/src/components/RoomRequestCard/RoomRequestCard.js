@@ -9,7 +9,7 @@ import { updateTenant } from '../../actions/Tenants';
 import { getTenantsByUserId } from '../../actions/Tenants';
 import { bookRoom, getRoomsByRoomId } from '../../actions/Rooms';
 import { deleteRoomRequest } from '../../actions/RoomRequests';
-function RoomRequestCard({ roomRequest, setCurrentId }) {
+function RoomRequestCard({ roomRequest,hostel, setCurrentId }) {
 
     const user = JSON.parse(localStorage.getItem('profile'));
     const dispatch = useDispatch();
@@ -22,14 +22,14 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
     useEffect(()=>{
         //Here we will query the tenant 
         console.log(roomRequest.room_id)
-        dispatch(getTenantsByUserId(roomRequest.user_id))
+        if(tenants.length === 0)dispatch(getTenantsByUserId(roomRequest.user_id))
         dispatch(getRoomsByRoomId(roomRequest.room_id))
             
     },[])
     const allow = ()=>{
         
-        console.log(rooms)
-        dispatch(bookRoom(rooms[0]._id, tenants[0]._id))
+        console.log(roomRequest.hostel_id)
+        dispatch(bookRoom(rooms[0]._id, tenants[0]._id, roomRequest.hostel_id))
         dispatch(deleteRoomRequest(roomRequest._id))
         //Todo now delete this room request 
     }

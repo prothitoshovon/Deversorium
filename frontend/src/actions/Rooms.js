@@ -33,9 +33,9 @@ export const getRoomsByRoomId = (id)=> async (dispatch) =>{
     console.log(error)
   }
 }
-export const bookRoom = (id, uid) => async (dispatch) =>{
+export const bookRoom = (id, uid,hid) => async (dispatch) =>{
   try {
-    const {data} = await api.bookRoom(id,uid)
+    const {data} = await api.bookRoom(id,uid,hid)
     
     dispatch({type:BOOK, payload:{room:data}})
   } catch (error) {

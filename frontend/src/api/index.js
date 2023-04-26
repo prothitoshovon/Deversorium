@@ -33,7 +33,7 @@ export const updateTenant = (id, updatedTenant) => API.patch(`/tenants/${id}`, u
 export const getTenantsByUserId = (id) => API.get(`/tenants/${id}`)
 
 
-export const bookRoom = (id, uid) => API.patch(`/rooms/book/r/${id}/u/${uid}`)
+export const bookRoom = (id, uid, hid) => API.patch(`/rooms/book/r/${id}/u/${uid}/h/${hid}`)
 
 //router.delete('/:id', auth, deleteRoomRequest);
 export const deleteRoomRequest = (id) => API.delete(`/roomRequests/${id}`)
