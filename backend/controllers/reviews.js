@@ -76,3 +76,16 @@ export const deleteReview = async (req,res)=>{
 
     res.json('Review Deleted Successfully');
 }
+
+export const getReviewsByUserAndHostel = async (req, res)=>{
+    const uid = req.params.uid;
+    const hid = req.params.rid;
+
+    try{     
+        const reviews = await reviewModel.find({hostel_id: hid, user_id: uid});
+        console.log(reviews);
+        res.status(200).json(reviews);
+    } catch(error){
+        res.status(404).json({message: error.message});
+    }
+}
