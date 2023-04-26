@@ -9,6 +9,7 @@ import { getHostelByOwnerId } from '../../../actions/hostels';
 import {createRoom} from '../../../actions/Rooms'
 import Axios from 'axios';
 import moment from 'moment';
+import ReviewCard from '../../ReviewCard/ReviewCard';
 function Hostel() {
 
     const initialState = { number: '', area: '', rent: '' };
@@ -39,31 +40,39 @@ function Hostel() {
     <div>
         {
             hostels.length !== 0?(
-            <Grid >
-                <Paper elevation={20} style={paperStyle}>
-                    <Grid align='center'>
-                        <Typography variant="h5">
-                            Add a new Room
-                        </Typography>
-                        <Typography variant='caption' gutterBottom>
-                        Rent is for every individual per month
-                        </Typography>
-                    </Grid>
-                    <form onSubmit={handleSubmit}>
-                        <Grid container spacing = {2}>      
-                            <Input name="number" label="number" handleChange={handleChange} type="number" />
-                            <Input name="area" label="area" handleChange={handleChange} type="number" />
-                            <Input name="rent" label="rent" handleChange={handleChange} type="number" />
-                        </Grid>
-                        <Button 
-                        style={{marginTop:"20px", backgroundColor:'#0C21C1' , color:'white'}}
-                        type='submit' 
-                        variant='contained'
-                        >Add
-                        </Button>
-                    </form>
-                </Paper>
-            </Grid>
+                  <Grid container alignItems="stretch" spacing={1} style={{display:'flex'}}>
+                      <Grid item xs={6}>
+                        <ReviewCard/>
+                        <ReviewCard/>
+                        <ReviewCard/>
+                      </Grid>
+                      <Grid item xs={6}>
+                          <Paper elevation={20} style={paperStyle}>
+                              <Grid align='center'>
+                                  <Typography variant="h5">
+                                      Add a new Room
+                                  </Typography>
+                                  <Typography variant='caption' gutterBottom>
+                                      Rent is for every individual per month
+                                  </Typography>
+                              </Grid>
+                              <form onSubmit={handleSubmit}>
+                                  <Grid container spacing={2}>
+                                      <Input name="number" label="number" handleChange={handleChange} type="number" />
+                                      <Input name="area" label="area" handleChange={handleChange} type="number" />
+                                      <Input name="rent" label="rent" handleChange={handleChange} type="number" />
+                                  </Grid>
+                                  <Button
+                                      style={{ marginTop: "20px", backgroundColor: '#0C21C1', color: 'white' }}
+                                      type='submit'
+                                      variant='contained'
+                                  >Add
+                                  </Button>
+                              </form>
+                          </Paper>
+                      </Grid>
+
+                  </Grid>
             ):
             (
                 <Grid>

@@ -1,20 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import HostelCard from '../../HostelCard/HosetlCard'
 import {Button, Typography,TextField} from '@material-ui/core'
 import {  CircularProgress,Rating, Grid } from '@mui/material';
 import useStyles from './styles'
+import { useDispatch, useSelector } from 'react-redux';
+import { getTenantsByUserId } from '../../../actions/Tenants';
+import { getHostelByHostelId } from '../../../actions/hostels';
 //TODO Fetch the tenant from its user ID 
 //If the tenant has a room assigned then we will display Hostel card 
 //If the tenant does not have  a room assigned, then we will display You are not part of any hostel 
 //If tenant has requested and not assigned, then owner has not approved your request. cancel ?
 
 function Hostel() {
+  const [user,setUser] = useState( JSON.parse(localStorage.getItem('profile')))
   const classes = useStyles()
+  const dispatch = useDispatch()
   const [value, setValue] = useState(5)
+  const {tenants} =  useSelector((state)=>state.tenants)
+  const {hostels} = useSelector((state)=> state.hostels)
+  useEffect(()=>{
+      //Dispatch  so we get hostel related to the tenant
+      if(tenants.length === 0)dispatch(getTenantsByUserId(user?.result?._id))
+      else if(hostels.lenght === 0)dispatch(getHostelByHostelId(tenants[0].hostel_id))
+    },[])
   return (
     <Grid container spacing={2}>
       <Grid item xs={8}>
-        <HostelCard/>
+        <HostelCard currentUser={user} currentHostel={hostels}/>
       </Grid>
       <Grid item xs={4}>
         <Button variant='contained' className={classes.cardActions}>
@@ -28,7 +40,6 @@ function Hostel() {
         minRows={3}
         variant='outlined'
         label='Your Message' 
-        color='textSecondary'
         name='comment'
         className={classes.complaint}
         type='text'
@@ -65,7 +76,6 @@ function Hostel() {
         minRows={3}
         variant='outlined'
         label='Your Message' 
-        color='textSecondary'
         name='comment'
         className={classes.textField}
         type='text'
