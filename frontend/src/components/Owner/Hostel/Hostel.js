@@ -10,6 +10,8 @@ import {createRoom} from '../../../actions/Rooms'
 import Axios from 'axios';
 import moment from 'moment';
 import ReviewCard from '../../ReviewCard/ReviewCard';
+import { getReviewsByHostel } from '../../../actions/Reviews';
+import { getTenantsByUserId } from '../../../actions/Tenants';
 function Hostel() {
 
     const initialState = { number: '', area: '', rent: '' };
@@ -23,6 +25,8 @@ function Hostel() {
     const marginTop = { marginTop: 20 }
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const { hostels } = useSelector((state) => state.hostels);
+    const {reviews} = useSelector((state) => state.reviews)
+    const {tenants } = useSelector((state) => state.tenants)
     const handleSubmit =  (e) => {
         //Query to find hostelID using ownerID 
         e.preventDefault()
@@ -34,6 +38,15 @@ function Hostel() {
     }
     useEffect(()=>{
         dispatch(getHostelByOwnerId(user?.result?._id))
+         
+        if(hostels !==null){
+            dispatch(getReviewsByHostel(hostels._id))
+            
+        }
+        if(reviews !== null)
+        {
+            dispatch(getTenantsByUserId(reviews.user_id))
+        }
     },[])
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   return (
@@ -42,9 +55,19 @@ function Hostel() {
             hostels.length !== 0?(
                   <Grid container alignItems="stretch" spacing={1} style={{display:'flex'}}>
                       <Grid item xs={6}>
-                        <ReviewCard/>
-                        <ReviewCard/>
-                        <ReviewCard/>
+                          {
+                              reviews && tenants? (
+                                  reviews?.map((review) => (
+                                      <Grid key={review._id} >
+                                          <ReviewCard review={review} reviewer={tenants} />
+                                      </Grid>
+                                  ))
+                              ) :
+                                  (
+                                      <div>ok</div>
+                                  )
+
+                          }          
                       </Grid>
                       <Grid item xs={6}>
                           <Paper elevation={20} style={paperStyle}>

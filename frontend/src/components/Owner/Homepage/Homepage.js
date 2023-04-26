@@ -13,6 +13,7 @@ function Homepage({ setCurrentId }) {
   const dispatch = useDispatch();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const { hostels } = useSelector((state) => state.hostels);
+  
   const {isLoading,roomRequests} = useSelector((state) => state.roomRequests)
   useEffect(()=>{
         //Here will be a query to get all room requests that match his hostel ID 
