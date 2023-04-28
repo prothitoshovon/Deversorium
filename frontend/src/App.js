@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Route, Routes} from "react-router"
 import ResponsiveAppBar from './components/Navbar/Navbar'
 import Homepage from './components/Owner/Homepage/Homepage'
@@ -22,7 +22,11 @@ import ReviewCard from './components/ReviewCard/ReviewCard'
 function App() {
 
   //TODO add safe routing for owners and tenants 
-  const user = JSON.parse(localStorage.getItem('profile'));
+  const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
+  useEffect(()=>{
+    setUser(JSON.parse(localStorage.getItem('profile')))
+  },[user]
+  )
 
   return (
     <div>

@@ -38,7 +38,7 @@ function Hostel() {
         dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants[0].hostel_id))
         setFlag(false)
       }
-    },[])
+    },[tenants, hostels])
 
     const sendReview = ()=> {
       var date = new Date()
@@ -75,23 +75,14 @@ function Hostel() {
         date_raised:date,
 
       }
-      // user_id: {type: String, required: true},
-      // description: {type: String, required: true},
-      // room_id: {type: String, required: true},
-      // room_number: String,
-      // hostel_id: {type: String, required: true},
-      // hostel_name: String,
-      // date_raised: {
-      //     type: Date,
-      //     default: new Date()
-      // }
+
       dispatch(createComplaint(curState))
 
 
     }
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   return (
-    tenants.length !== 0 ?(
+    !hostels ?(
       <form>
       
       <Grid container spacing={2}>
@@ -165,7 +156,7 @@ function Hostel() {
     </form>
     ):
     (
-      <div>hehe</div>
+      <h1> You are not part of any hostel at this moment</h1>
     )
     
   )
