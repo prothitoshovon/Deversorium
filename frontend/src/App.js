@@ -25,13 +25,14 @@ function App() {
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
   useEffect(()=>{
     setUser(JSON.parse(localStorage.getItem('profile')))
-  },[user]
+    console.log(user)
+  },[]
   )
 
   return (
     <div>
       
-      <ResponsiveAppBar/>
+      <ResponsiveAppBar user={user} setUser={setUser}/>
         {/* <ReviewCard/> */}
       <Routes>
             <Route element={<AuthRoutes/>}>
@@ -39,7 +40,7 @@ function App() {
               <Route exact path="Login" element={<Login/>}/>
             </Route>
               <Route element={<SafeRoutes/>}>
-                    <Route path="Homepage" element={user?.result?.role===2?<Homepage />:<TenantHomepage/>}/>
+                    <Route path="Homepage" element={user?.result?.role===2?<Homepage user={user} />:<TenantHomepage/>}/>
                     <Route path="Profile" element={<Profile/>}/>
                     <Route path="Hostel" element={user?.result?.role===2?<Hostel/>:<TenantHostel/>}/>
                     <Route element={<HostelFormRoutes/> }>

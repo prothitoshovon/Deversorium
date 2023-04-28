@@ -56,7 +56,7 @@ function Hostel() {
                   <Grid container alignItems="stretch" spacing={1} style={{display:'flex'}}>
                       <Grid item xs={6}>
                           {
-                              reviews && tenants? (
+                              reviews && tenants ? (
                                   reviews?.map((review) => (
                                       <Grid key={review._id} >
                                           <ReviewCard review={review} reviewer={tenants} />

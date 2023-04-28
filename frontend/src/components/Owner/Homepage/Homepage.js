@@ -9,40 +9,28 @@ import { Grid, TextField, Button, Card, CardContent, Typography,CircularProgress
 import { getHostelByOwnerId } from '../../../actions/hostels';
 import { getRoomRequestsByHostelId } from '../../../actions/RoomRequests';
 import RoomRequestCard from '../../RoomRequestCard/RoomRequestCard';
-function Homepage({ setCurrentId }) {
+function Homepage({ setCurrentId, user }) {
+
   const dispatch = useDispatch();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const { hostels } = useSelector((state) => state.hostels);
-  
   const {isLoading,roomRequests} = useSelector((state) => state.roomRequests)
   useEffect(()=>{
-        //Here will be a query to get all room requests that match his hostel ID 
-        setUser(JSON.parse(localStorage.getItem('profile')))
-        
-        if(hostels.length === 0)dispatch(getHostelByOwnerId(user?.result?._id))        
-        else if(roomRequests.length ===0)dispatch(getRoomRequestsByHostelId(hostels._id))     
-    },[hostels])
-  const test = ()=>{
-    console.log(roomRequests)
-  }
-  
+    console.log(hostels)
+        if(hostels === null || hostels.length === 0)dispatch(getHostelByOwnerId(user?.result?._id))        
+        if(hostels !== null && roomRequests === null)dispatch(getRoomRequestsByHostelId(hostels._id))     
+    },[])
 
-  //Need for future use 
-  // <Link to="/HostelForm">
-  //   <Button variant="contained" startIcon={<AddIcon/>} >Create your hostel
-  //   </Button>
-  //   </Link>
   return (
     <div>
     <>
     {
-      hostels.length === 0 ? (<h1 style={{fontFamily:'sans-serif'}}> You do not have a hostel right now</h1>):
+      hostels === null || hostels.length === 0 ?(<h1 style={{fontFamily:'sans-serif'}}> You do not have a hostel right now</h1>):
     (
   
     isLoading ? <CircularProgress /> : (
       <Grid container alignItems="stretch" spacing={2} style={{display:'block'}}>
         {
-          roomRequests.length===0?(
+          roomRequests===null || roomRequests.length === 0 ?(
               <Grid  style={{marginLeft:'15px'}}>
               <h2>No Requests pending</h2>
               </Grid>
