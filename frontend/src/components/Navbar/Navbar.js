@@ -19,10 +19,10 @@ import decode from 'jwt-decode';
 const pages = ['Hostel', 'Profile', 'Mealsheet'];
 const settings = ['About', 'Logout'];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({user, setUser}) {
 
 
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  //const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   //console.log(user?.result)
   const dispatch = useDispatch();
   const location = useLocation();
