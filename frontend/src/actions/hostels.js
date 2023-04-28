@@ -2,6 +2,17 @@ import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, START_LOADING, FETCH_HOSTEL, E
 
 import * as api from '../api/index.js';
  
+export const getHostels = ()  => async(dispatch) =>{
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.getHostels();
+    
+    dispatch({ type: FETCH_ALL, payload: { hostels: data } });
+    dispatch({type: END_LOADING})
+  } catch (error) {
+    console.log(error);
+  }
+}
 export const createHostel = (newHostel) => async (dispatch) =>{
     try {
       dispatch({ type: START_LOADING });
