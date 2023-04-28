@@ -8,7 +8,6 @@ import AddIcon from '@mui/icons-material/Add';
 import { Grid, TextField, Button, Card, CardContent, Typography,CircularProgress } from '@material-ui/core';
 import { getHostelByOwnerId } from '../../../actions/hostels';
 import { getRoomRequestsByHostelId } from '../../../actions/RoomRequests';
-import RoomRequestCard from '../../RoomRequestCard/RoomRequestCard';
 import RoomRequestList from '../../RoomRequests/RoomRequestList'; 
 function Homepage({ setCurrentId, user }) {
 

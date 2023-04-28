@@ -29,15 +29,17 @@ function RoomCard({ room,setCurrentId }) {
 
         //Use getTenant by userID 
         var date = new Date()
-        const curForm = {user_id:userId, 
+        const curForm = {
+        user_id:userId,
         user_name:user?.result?.name,
+        user_phone:user?.result.phone,
         room_id:room._id,
         room_number: room.room_number,
         hostel_id:room.hostel_id,
         hostel_name:'',
         date_issued: date
         }
-         console.log(tenants)
+
         if(tenants[0].has_booked === true)prompt('you already have a booking')
         else
         {
@@ -63,7 +65,7 @@ function RoomCard({ room,setCurrentId }) {
                           {room.hostel_name}
                       </Typography>
                       <Typography  variant='body2' >
-                          Address: empty rn
+                          Address: {room.hostel_address}
                       </Typography>
                       <Typography variant='body2' >
                           Rent: {room.rent} BDT

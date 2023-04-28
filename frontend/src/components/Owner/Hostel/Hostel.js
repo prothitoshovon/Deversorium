@@ -31,7 +31,16 @@ function Hostel() {
         //Query to find hostelID using ownerID 
         e.preventDefault()
         var date = new Date()
-        dispatch(createRoom({room_number:form.number, hostel_id:hostels._id, hostel_name:hostels.name,area:form.area,rent:form.rent, next_vacancy_date:date}))
+        dispatch(createRoom({
+            room_number:form.number,
+            area:form.area,
+            rent:form.rent,
+            hostel_id:hostels._id,
+            hostel_address:hostels.address,
+            hostel_name:hostels.name,
+            next_vacancy_date:date
+            }))
+
         setForm(initialState)
         window.location.reload(false)
 
