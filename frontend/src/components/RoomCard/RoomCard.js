@@ -18,7 +18,7 @@ function RoomCard({ room,setCurrentId }) {
     const userId = user?.result?._id;
     const classes = useStyles();
     const {tenants} = useSelector((state) => state.tenants)
-    console.log('re rendered')
+
     useEffect(()=>{
         
      
