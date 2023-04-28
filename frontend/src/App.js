@@ -40,7 +40,7 @@ function App() {
               <Route exact path="Login" element={<Login/>}/>
             </Route>
               <Route element={<SafeRoutes/>}>
-                    <Route path="Homepage" element={user?.result?.role===2?<Homepage user={user} />:<TenantHomepage/>}/>
+                    <Route path="Homepage" element={user?.result?.role===2?<Homepage user={user} />:<TenantHomepage user={user}/>}/>
                     <Route path="Profile" element={<Profile/>}/>
                     <Route path="Hostel" element={user?.result?.role===2?<Hostel/>:<TenantHostel/>}/>
                     <Route element={<HostelFormRoutes/> }>

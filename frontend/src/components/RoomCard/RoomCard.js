@@ -8,25 +8,20 @@ import image from '../../images/searching.png'
 import useStyles from './styles.js'
 import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
-function RoomCard({ room, setCurrentId }) {
+import { createSelector } from 'reselect';
+function RoomCard({ room,setCurrentId }) {
 
+   
     const [user,setUser] = useState( JSON.parse(localStorage.getItem('profile')))
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userId = user?.result?._id;
     const classes = useStyles();
-    const {hostels} = useSelector((state) => state.hostels)
     const {tenants} = useSelector((state) => state.tenants)
+    console.log('re rendered')
     useEffect(()=>{
         
-        //Query to find the hostel associated with room.hostel_id 
-        //
-        console.log('rapid fire')
-        setUser(JSON.parse(localStorage.getItem('profile')))
-        if(tenants.length===0)dispatch(getTenantsByUserId(user?.result?._id))
-        if(hostels.length===0)dispatch(getHostelByHostelId(room.hostel_id))
-        
-            
+     
     },[])
     
     
@@ -42,7 +37,6 @@ function RoomCard({ room, setCurrentId }) {
         hostel_name:'',
         date_issued: date
         }
-         console.log(hostels)
          console.log(tenants)
         if(tenants[0].has_booked === true)prompt('you already have a booking')
         else
@@ -51,19 +45,11 @@ function RoomCard({ room, setCurrentId }) {
             dispatch(createRoomRequest(curForm))
             window.location.reload(false)
         }
-        
-
-
-        //When book is called 
-        //We first validate if user has already booked before 
-        //If yes , then prompt user that they can only book once
-        //iF no , ask user to confirm if he wants to go on
-
     }
   return (
     // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
         
-      hostels.length === 0 ? (<CircularProgress />) :
+      true===false ?(<CircularProgress />) :
           (
               <Card raised elevation={6} className={classes.card}>
                   <CardMedia
@@ -74,10 +60,10 @@ function RoomCard({ room, setCurrentId }) {
                   </CardMedia>
                   <CardContent className={classes.overlay}>
                       <Typography gutterBottom variant='h6' component='div'>
-                          {hostels.name}
+                          {room.hostel_name}
                       </Typography>
                       <Typography  variant='body2' >
-                          Address: {hostels.address}
+                          Address: empty rn
                       </Typography>
                       <Typography variant='body2' >
                           Rent: {room.rent} BDT
