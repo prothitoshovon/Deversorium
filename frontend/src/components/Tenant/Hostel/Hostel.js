@@ -26,11 +26,11 @@ function Hostel() {
   const [form, setForm] = useState(initialState);
   useEffect(()=>{
       //Dispatch  so we get hostel related to the tenant
-      console.log('fire')
+      //console.log('fire')
+      console.log(tenants[0])
       if(tenants.length === 0)
       {
         console.log('dakse')
-        dispatch(getTenantsByUserId(user?.result?._id))
       }
       else if(hostels.length === 0)dispatch(getHostelByHostelId(tenants[0].hostel_id))
       if(reviews===null&& hostels.length !== 0 && flag ===true)
@@ -82,7 +82,7 @@ function Hostel() {
     }
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   return (
-    !hostels ?(
+    tenants[0].hostel_id === "Unassigned" ?(
       <form>
       
       <Grid container spacing={2}>

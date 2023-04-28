@@ -55,13 +55,13 @@ function RoomRequestCard({ roomRequest,hostel, setCurrentId }) {
                 </CardMedia>
                 <CardContent className={classes.overlay}>
                     <Typography gutterBottom variant='h5' component='div'>
-                    ok
+                    {roomRequest.user_name}
                     </Typography>
                     <Typography variant='body2' >
-                    wowok
+                    Room #{roomRequest.room_number}
                     </Typography>
                     <Typography variant='body2' >
-                    user's phone number
+                    {roomRequest.user_phone}
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
