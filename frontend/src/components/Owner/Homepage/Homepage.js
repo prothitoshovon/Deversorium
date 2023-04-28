@@ -9,16 +9,21 @@ import { Grid, TextField, Button, Card, CardContent, Typography,CircularProgress
 import { getHostelByOwnerId } from '../../../actions/hostels';
 import { getRoomRequestsByHostelId } from '../../../actions/RoomRequests';
 import RoomRequestCard from '../../RoomRequestCard/RoomRequestCard';
+import RoomRequestList from '../../RoomRequests/RoomRequestList'; 
 function Homepage({ setCurrentId, user }) {
 
   const dispatch = useDispatch();
   const { hostels } = useSelector((state) => state.hostels);
-  const {isLoading,roomRequests} = useSelector((state) => state.roomRequests)
+  //const {isLoading,roomRequests} = useSelector((state) => state.roomRequests)
   useEffect(()=>{
     console.log(hostels)
         if(hostels === null || hostels.length === 0)dispatch(getHostelByOwnerId(user?.result?._id))        
-        if(hostels !== null && roomRequests === null)dispatch(getRoomRequestsByHostelId(hostels._id))     
-    },[])
+        if(hostels !== null )
+        {
+          console.log(hostels._id)
+          dispatch(getRoomRequestsByHostelId(hostels._id))    
+        } 
+    },[hostels])
 
   return (
     <div>
@@ -27,27 +32,28 @@ function Homepage({ setCurrentId, user }) {
       hostels === null || hostels.length === 0 ?(<h1 style={{fontFamily:'sans-serif'}}> You do not have a hostel right now</h1>):
     (
   
-    isLoading ? <CircularProgress /> : (
-      <Grid container alignItems="stretch" spacing={2} style={{display:'block'}}>
-        {
-          roomRequests===null || roomRequests.length === 0 ?(
-              <Grid  style={{marginLeft:'15px'}}>
-              <h2>No Requests pending</h2>
-              </Grid>
-          ):
-          (
-            roomRequests?.map((roomRequest) => (
-            <Grid key={roomRequest._id} >
-              <RoomRequestCard roomRequest={roomRequest} hostel={hostels} setCurrentId={setCurrentId}/>
-            </Grid>
-            ))
-          )
+    
+      <RoomRequestList />
+      // <Grid container alignItems="stretch" spacing={2} style={{display:'block'}}>
+      //   {
+      //     roomRequests===null || roomRequests.length === 0 ?(
+      //         <Grid  style={{marginLeft:'15px'}}>
+      //         <h2>No Requests pending</h2>
+      //         </Grid>
+      //     ):
+      //     (
+      //       roomRequests?.map((roomRequest) => (
+      //       <Grid key={roomRequest._id} >
+      //         <RoomRequestCard roomRequest={roomRequest} hostel={hostels} setCurrentId={setCurrentId}/>
+      //       </Grid>
+      //       ))
+      //     )
         
         
-        }
-      </Grid>
+      //   }
+      // </Grid>
     )
-    )
+    
   }
     </>
 

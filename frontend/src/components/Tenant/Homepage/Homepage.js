@@ -12,7 +12,6 @@ import { getHostelByOwnerId, getHostels } from '../../../actions/hostels';
 function Homepage({ setCurrentId, user }) {
 
   const dispatch = useDispatch();
-  console.log('homepage')
   useEffect(()=>{
       //Dispatch so that rooms are populated 
       
