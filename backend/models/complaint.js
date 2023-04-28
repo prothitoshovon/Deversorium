@@ -2,9 +2,10 @@ import mongoose from 'mongoose';
 
 const complaintSchema = mongoose.Schema({
     tenant_id: {type: String, required: true},
+    tenant_name: String,
     description: {type: String, required: true},
     room_id: {type: String, required: true},
-    room_number: String,
+    room_number: {type: String, required: true},
     hostel_id: {type: String, required: true},
     hostel_name: String,
     date_raised: {
