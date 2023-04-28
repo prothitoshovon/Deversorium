@@ -50,11 +50,12 @@ function ResponsiveAppBar() {
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
+    setUser(null);
     navigate('/')
     //history.push('/auth');
     console.log('logout called')
 
-    setUser(null);
+    
 
   };
   useEffect(() => {
