@@ -60,7 +60,7 @@ function Hostel() {
     return (
         
             
-                hostels.length !== 0 ? (
+                hostels ? (
                     <Grid container  spacing={1} >
                         <Grid item xs={6}>
                             {
