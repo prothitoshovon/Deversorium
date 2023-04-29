@@ -35,7 +35,7 @@ function App() {
   return (
     <div>
       
-      <ResponsiveAppBar user={user} setUser={setUser}/>
+      <ResponsiveAppBar  user={user} setUser={setUser}/>
         {/* <ReviewCard/> */}
       <Routes>
             <Route element={<AuthRoutes/>}>

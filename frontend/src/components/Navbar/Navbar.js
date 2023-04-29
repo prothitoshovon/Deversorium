@@ -16,6 +16,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as actionType from '../../constants/actionTypes';
 import decode from 'jwt-decode';
+import zIndex from '@material-ui/core/styles/zIndex';
 const pages = ['Hostel', 'Profile', 'Mealsheet'];
 const settings = ['About', 'Logout'];
 
@@ -71,8 +72,10 @@ function ResponsiveAppBar({user, setUser}) {
   }, [location]);
 
   return (
-
-    <AppBar position="static" style={{backgroundColor:"#0C21C1"}}>
+    <div>
+    
+    
+    <AppBar position="static" style={{backgroundColor:"#0C21C1", zIndex:'999', top:'0', width:'100%'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters >
 
@@ -225,6 +228,7 @@ function ResponsiveAppBar({user, setUser}) {
         </Toolbar>
       </Container>
     </AppBar>
+    </div>
   );
 }
 export default ResponsiveAppBar;
