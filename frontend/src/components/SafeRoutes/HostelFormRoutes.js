@@ -11,14 +11,16 @@ function HostelFormRoutes() {
        dispatch(getHostelByOwnerId(user?.result?._id))   
     },[])
   return (
-    
-         hostels === null || hostels.length !==0 ?(
-            
-            <BadGateway/>
-        ):
-        (
-            <HostelForm/>
+        hostels?(<BadGateway/>):(
+          <HostelForm/>
         )
+        //  hostels === null || hostels.length !==0 ?(
+            
+        //     <BadGateway/>
+        // ):
+        // (
+        //     <HostelForm/>
+        // )
     
   )
 }

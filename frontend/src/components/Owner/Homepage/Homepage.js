@@ -12,11 +12,11 @@ import RoomRequestList from '../../RoomRequests/RoomRequestList';
 function Homepage({ setCurrentId }) {
 
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
-  console.log(user?.result.name)
+  //console.log(user?.result.name)
   const dispatch = useDispatch();
   const { isLoading, hostels } = useSelector((state) => state.hostels);
   //const {isLoading,roomRequests} = useSelector((state) => state.roomRequests)
-  console.log('owner homepage rendered')
+  //console.log('owner homepage rendered')
   useEffect(()=>{
         console.log('owner homepage useEffect')
         dispatch(getHostelByOwnerId(user?.result?._id))        
@@ -33,24 +33,9 @@ function Homepage({ setCurrentId }) {
     {
       isLoading? <CircularProgress/>:(
         
-          !hostels ||hostels.length === 0? <h2>You do not have any hostels right now, go to hostel page to make one</h2>:<RoomRequestList/>
-          
-        
+          !hostels ||hostels.length === 0? <h2>You do not have any hostels right now, go to hostel page to make one</h2>:<RoomRequestList/>    
       )
     }
-    {/* <>
-    {
-      !hostels || hostels.length === 0 ?(<h1 style={{fontFamily:'sans-serif'}}> You do not have a hostel right now</h1>):
-    (
-  
-    
-      <RoomRequestList />
-    )
-    
-  }
-    </>
-
-     */}
     </div>
     
   )

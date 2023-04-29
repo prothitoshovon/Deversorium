@@ -25,8 +25,10 @@ function HostelForm() {
             owner_name: user?.result?.name, 
             owner_id:user?.result?._id 
          }
-        dispatch(createHostel(curState));
-        navigate('/Homepage')
+        dispatch(createHostel(curState)).then(()=>{
+            navigate('/Homepage')
+        })
+        
 
     }
   return (
