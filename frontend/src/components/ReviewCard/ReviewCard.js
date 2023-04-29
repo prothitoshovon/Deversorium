@@ -9,7 +9,7 @@ import quote from '../../images/quote.png'
 import useStyles from './styles.js'
 import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
-function ReviewCard({ reviewer, review,setCurrentId }) {
+function ReviewCard({  review,setCurrentId }) {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const dispatch = useDispatch();
@@ -60,7 +60,7 @@ function ReviewCard({ reviewer, review,setCurrentId }) {
                             {review.comments}
                         </Typography>
                         <Typography gutterBottom variant='h4' >
-                            Placeholder
+                            {review.user_name}
                         </Typography>
                         <Rating
                         precision={.5}

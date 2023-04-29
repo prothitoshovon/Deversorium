@@ -19,6 +19,7 @@ import AuthRoutes from './components/SafeRoutes/AuthRoutes'
 import TenantRoutes from './components/SafeRoutes/TenantRoutes'
 import HostelCard from './components/HostelCard/HosetlCard'
 import ReviewCard from './components/ReviewCard/ReviewCard'
+import {Grid} from '@material-ui/core'
 function App() {
 
   //TODO add safe routing for owners and tenants 
@@ -34,10 +35,12 @@ function App() {
 
   return (
     <div>
-      
-      <ResponsiveAppBar  user={user} setUser={setUser}/>
-        {/* <ReviewCard/> */}
-      <Routes>
+      <Grid>
+        <Grid>
+          <ResponsiveAppBar  user={user} setUser={setUser}/>
+        </Grid>
+        <Grid>
+          <Routes>
             <Route element={<AuthRoutes/>}>
               <Route exact path="/" element={<Register/>}/>
               <Route exact path="Login" element={<Login/>}/>
@@ -51,6 +54,11 @@ function App() {
                     </Route>       
             </Route>
       </Routes>
+        </Grid>
+      </Grid>
+      
+        {/* <ReviewCard/> */}
+      
     </div>
   )
 }

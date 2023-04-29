@@ -59,7 +59,8 @@ function Hostel() {
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
     return (
         
-            
+            <div>
+            {
                 hostels ? (
                     <Grid container  spacing={1} >
                         <Grid item xs={6}>
@@ -78,12 +79,12 @@ function Hostel() {
                             }
                         </Grid>
                         <Grid item xs={6}>
-                            <Card style={{ maxWidth: 450, padding: "20px 5px", margin: "60px auto" }}>
+                            <Card style={{ maxWidth: 450, padding: "20px 5px", margin: "10px auto" }}>
                                 <CardContent>
-                                    {/* <Typography gutterBottom variant="h5" style={{marginTop:'0'}}>
+                                    <Typography gutterBottom variant="h5" style={{marginTop:'0'}}>
                                         Add new room to your hostel
-                                    </Typography> */}
-                                    {/* <form onSubmit={handleSubmit}>
+                                    </Typography>
+                                    <form onSubmit={handleSubmit}>
                                         <Grid container spacing={1}>
                                             <Grid xs={12} sm={6} item>
                                                 <Input name="number" label="Enter room number" handleChange={handleChange} type="number" />
@@ -100,7 +101,7 @@ function Hostel() {
                                             </Grid>
 
                                         </Grid>
-                                    </form> */}
+                                    </form>
                                 </CardContent>
                             </Card>
                         </Grid>
@@ -118,8 +119,8 @@ function Hostel() {
 
                     )
 
-            
-
+        }
+        </div>
         
     )
 }

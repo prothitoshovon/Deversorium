@@ -27,7 +27,7 @@ function Hostel() {
   console.log('gu ekhon kene render or')
   useEffect(()=>{
       //Dispatch  so we get hostel related to the tenant
-      //console.log('fire')
+      console.log('fire')
       console.log(tenants)
       if(tenants.length === 0)
       {
@@ -40,19 +40,18 @@ function Hostel() {
         setFlag(false)
       }
     },[tenants, hostels])
-
+    //dispatch(getHostelByHostelId(tenants.hostel_id))
+    //dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
     const sendReview = ()=> {
       var date = new Date()
       const curState={
 
-      
+      user_name:user?.result?.name,
       user_id: user?.result?._id,
-      hostel_id:tenants[0].hostel_id,
+      hostel_id:tenants.hostel_id,
       stars:value,
       comments:form.comment,
       date_posted: date,
-
-
       }
       if(!reviews)dispatch(createReview(curState))
       else 
@@ -66,15 +65,13 @@ function Hostel() {
     const sendComplaint = () =>{
 
       var date = new Date()
-      const curState={
-
-      
-        user_id: user?.result?._id,
+      const curState={    
+        tenant_id: user?.result?._id,
+        tenant_name: user?.result?.name,
         description:form.complaint,
-        hostel_id:tenants[0].hostel_id,
-        room_id:tenants[0].room_id,
+        hostel_id:tenants.hostel_id,
+        room_id:tenants.room_id,
         date_raised:date,
-
       }
 
       dispatch(createComplaint(curState))
@@ -88,7 +85,7 @@ function Hostel() {
       
       <Grid container spacing={2}>
         <Grid item xs={8} >
-          <HostelCard currentUser={user} currentHostel={hostels} currentTenant={tenants[0]} />
+          <HostelCard currentUser={user} currentHostel={hostels} currentTenant={tenants} />
         </Grid>
         <Grid item xs={4}>
           <Button variant='contained' className={classes.cardActions}>
