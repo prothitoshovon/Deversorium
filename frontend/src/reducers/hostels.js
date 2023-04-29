@@ -12,7 +12,7 @@ export default (state = { isLoading: true, hostels: [] }, action) => {
         case CREATE:
             return { ...state, hostels: [...state.hostels, action.payload] };
         case FETCH_HOSTEL:
-            return { ...state, hostels: action.payload.hostel };
+             return{ ...state, hostels: action.payload.hostel };
         default:
             return state
     }

@@ -16,7 +16,6 @@ import Input from '../Input/Input.js'
 import { signin } from '../../actions/Login.js';
 import { getUserByEmail } from '../../actions/Users.js';
 import { AUTH } from '../../constants/actionTypes';
-import { getHostelByOwnerId } from '../../actions/hostels.js';
 
 function Login() {
 
@@ -44,7 +43,8 @@ function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(signin(form, navigate));
-        dispatch(getHostelByOwnerId(user?.result?._id)) 
+        
+        //dispatch(getHostelByOwnerId(user?.result?._id)) 
 
         //const val = dispatch(getUserByEmail(form.email))
         //console.log(val)

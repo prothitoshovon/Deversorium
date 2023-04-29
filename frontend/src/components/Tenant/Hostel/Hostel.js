@@ -24,18 +24,19 @@ function Hostel() {
   const {reviews} = useSelector((state)=>state.reviews)
   const initialState = { comment: '', complaint: '' };
   const [form, setForm] = useState(initialState);
+  console.log('gu ekhon kene render or')
   useEffect(()=>{
       //Dispatch  so we get hostel related to the tenant
       //console.log('fire')
-      console.log(tenants[0])
+      console.log(tenants)
       if(tenants.length === 0)
       {
         console.log('dakse')
       }
-      else if(hostels.length === 0)dispatch(getHostelByHostelId(tenants[0].hostel_id))
+      else if(hostels.length === 0)dispatch(getHostelByHostelId(tenants.hostel_id))
       if(reviews===null&& hostels.length !== 0 && flag ===true)
       {
-        dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants[0].hostel_id))
+        dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
         setFlag(false)
       }
     },[tenants, hostels])
@@ -82,7 +83,7 @@ function Hostel() {
     }
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   return (
-    tenants[0].hostel_id === "Unassigned" ?(
+    tenants.hostel_id !== "Unassigned" ?(
       <form>
       
       <Grid container spacing={2}>

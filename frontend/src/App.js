@@ -22,10 +22,13 @@ import ReviewCard from './components/ReviewCard/ReviewCard'
 function App() {
 
   //TODO add safe routing for owners and tenants 
+  console.log('app ni ')
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
   useEffect(()=>{
     setUser(JSON.parse(localStorage.getItem('profile')))
     console.log(user)
+    //window.location.reload(false);
+
   },[]
   )
 
@@ -40,7 +43,7 @@ function App() {
               <Route exact path="Login" element={<Login/>}/>
             </Route>
               <Route element={<SafeRoutes/>}>
-                    <Route path="Homepage" element={user?.result?.role===2?<Homepage user={user} />:<TenantHomepage user={user}/>}/>
+                    <Route path="Homepage" element={user?.result?.role===2?<Homepage  />:<TenantHomepage />}/>
                     <Route path="Profile" element={<Profile/>}/>
                     <Route path="Hostel" element={user?.result?.role===2?<Hostel/>:<TenantHostel/>}/>
                     <Route element={<HostelFormRoutes/> }>

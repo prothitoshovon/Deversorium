@@ -52,7 +52,7 @@ export const getTenantsByUserId = async (req,res)=>{
     const id = req.params.id;
     try{
         
-        const tenants = await tenantModel.find({user_id: id});
+        const tenants = await tenantModel.findOne({user_id: id});
         console.log(tenants);
         res.status(200).json(tenants);
     } catch(error){
