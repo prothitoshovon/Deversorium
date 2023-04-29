@@ -9,13 +9,12 @@ import { Grid, TextField, Button, Card, CardContent, Typography,CircularProgress
 import { getHostelByOwnerId } from '../../../actions/hostels';
 import { getRoomRequestsByHostelId } from '../../../actions/RoomRequests';
 import RoomRequestList from '../../RoomRequests/RoomRequestList'; 
-function Homepage({ setCurrentId, user }) {
-
+function Homepage({ setCurrentId }) {
+  const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
   const dispatch = useDispatch();
   const { hostels } = useSelector((state) => state.hostels);
   //const {isLoading,roomRequests} = useSelector((state) => state.roomRequests)
   useEffect(()=>{
-    console.log(hostels)
         if(hostels === null || hostels.length === 0)dispatch(getHostelByOwnerId(user?.result?._id))        
         if(hostels !== null )
         {

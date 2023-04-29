@@ -18,7 +18,7 @@ function RoomCard({ room,setCurrentId }) {
     const userId = user?.result?._id;
     const classes = useStyles();
     const {tenants} = useSelector((state) => state.tenants)
-
+    console.log(tenants)
     useEffect(()=>{
         
      
@@ -39,8 +39,8 @@ function RoomCard({ room,setCurrentId }) {
         hostel_name:'',
         date_issued: date
         }
-
-        if(tenants[0].has_booked === true)prompt('you already have a booking')
+        console.log(tenants)
+        if(tenants.has_booked === true)prompt('you already have a booking')
         else
         {
             const confirm  = prompt('You can only book one room at a time.Type confirm and ok to Continue?','confirm')
