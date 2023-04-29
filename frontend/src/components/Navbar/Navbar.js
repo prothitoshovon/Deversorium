@@ -75,7 +75,7 @@ function ResponsiveAppBar({user, setUser}) {
     <div>
     
     
-    <AppBar position="static" style={{backgroundColor:"#0C21C1", zIndex:'999', top:'0', width:'100%'}}>
+    <AppBar position="static" style={{backgroundColor:"#0C21C1", zIndex:'999', top:'0', width:'100%' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters >
 

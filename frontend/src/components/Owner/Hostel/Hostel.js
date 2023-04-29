@@ -58,11 +58,10 @@ function Hostel() {
     }, [])
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
     return (
-        <div>
-            {
+        
+            
                 hostels.length !== 0 ? (
-                    <div>
-                    <Grid container alignItems="stretch" spacing={2} style={{ display: 'flex' }}>
+                    <Grid container  spacing={1} >
                         <Grid item xs={6}>
                             {
                                 reviews && tenants ? (
@@ -79,18 +78,12 @@ function Hostel() {
                             }
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography gutterBottom variant='h5' align = 'center'>
-                            Add new room to your hostel
-                            </Typography>
                             <Card style={{ maxWidth: 450, padding: "20px 5px", margin: "60px auto" }}>
                                 <CardContent>
-                                    <Typography gutterBottom variant="h5">
-                                        Contact Us
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
-                                        Fill up the form and our team will get back to you within 24 hours.
-                                    </Typography>
-                                    <form onSubmit={handleSubmit}>
+                                    {/* <Typography gutterBottom variant="h5" style={{marginTop:'0'}}>
+                                        Add new room to your hostel
+                                    </Typography> */}
+                                    {/* <form onSubmit={handleSubmit}>
                                         <Grid container spacing={1}>
                                             <Grid xs={12} sm={6} item>
                                                 <Input name="number" label="Enter room number" handleChange={handleChange} type="number" />
@@ -107,13 +100,12 @@ function Hostel() {
                                             </Grid>
 
                                         </Grid>
-                                    </form>
+                                    </form> */}
                                 </CardContent>
                             </Card>
                         </Grid>
 
                     </Grid>
-                    </div>
                 ) :
                     (
                         <Grid>
@@ -126,9 +118,9 @@ function Hostel() {
 
                     )
 
-            }
+            
 
-        </div>
+        
     )
 }
 
