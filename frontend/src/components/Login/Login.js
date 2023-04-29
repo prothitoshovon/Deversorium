@@ -43,7 +43,6 @@ function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(signin(form, navigate));
-        
         //dispatch(getHostelByOwnerId(user?.result?._id)) 
 
         //const val = dispatch(getUserByEmail(form.email))

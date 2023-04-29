@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, START_LOADING, FETCH_HOSTEL, END_LOADING } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, START_LOADING, FETCH_HOSTEL, END_LOADING, ERROR } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
  
@@ -33,6 +33,7 @@ export const getHostelByOwnerId = (id) => async (dispatch) => {
     dispatch({ type: FETCH_HOSTEL, payload: { hostel: data } });
     dispatch({type: END_LOADING})
   } catch (error) {
+    dispatch({type:ERROR})
     console.log(error);
   }
 };
