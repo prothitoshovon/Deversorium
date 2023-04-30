@@ -27,7 +27,8 @@ export const getReviewsByUserAndHostel = (uid,hid) => async (dispatch) =>{
 export const getReviewsByHostel = (id) => async (dispatch) =>{
     try {
     dispatch({type:START_LOADING})
-
+    console.log('ore shuor re')
+    console.log(id)
     const {data} = await api.getReviewsByHostel(id)
     dispatch({type:FETCH_REVIEWS_BY_HOSTEL,payload:{reviews:data }})
     dispatch({type: END_LOADING})
