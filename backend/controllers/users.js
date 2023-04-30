@@ -85,14 +85,13 @@ export const getuserbyuserid = async(req,res) => {
 
 export const updateuser = async (req,res)=>{
     const _id = req.params.uid;
-    const password = req.params.password;
     const user = req.body;
     const foundUser = await userModel.findOne({_id: _id});
     if(!foundUser)
     {
          return res.status(404).send('No users with that ID');
     }
-    const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
+    const isPasswordCorrect = await bcrypt.compare(user.password, foundUser.password);
 
     if(!isPasswordCorrect) return res.status(400).json({message: "Incorrect password."});
 
