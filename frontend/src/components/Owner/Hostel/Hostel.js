@@ -24,6 +24,8 @@ function Hostel() {
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const marginTop = { marginTop: 20 }
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    // console.log('WOW ok')
+    // console.log(user)
     const { hostels } = useSelector((state) => state.hostels);
     const { reviews } = useSelector((state) => state.reviews)
     const { tenants } = useSelector((state) => state.tenants)
@@ -46,16 +48,21 @@ function Hostel() {
 
     }
     useEffect(() => {
-        dispatch(getHostelByOwnerId(user?.result?._id))
-
-        if (hostels !== null) {
+        
+        if(hostels.length === 0)
+        {
+            console.log('hehehe')
+            console.log(user?.result?._id)
+            dispatch(getHostelByOwnerId(user?.result?._id))
+        }
+        else
+        {
+            console.log('srsly')
             dispatch(getReviewsByHostel(hostels._id))
+        }
 
-        }
-        if (reviews !== null) {
-            dispatch(getTenantsByUserId(reviews.user_id))
-        }
-    }, [])
+        
+    }, [hostels])
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
     return (
         
@@ -65,7 +72,7 @@ function Hostel() {
                     <Grid container  spacing={1} >
                         <Grid item xs={6}>
                             {
-                                reviews && tenants ? (
+                                reviews ? (
                                     reviews?.map((review) => (
                                         <Grid key={review._id} >
                                             <ReviewCard review={review} reviewer={tenants} />

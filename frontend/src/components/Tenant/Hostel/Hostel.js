@@ -53,12 +53,17 @@ function Hostel() {
       comments:form.comment,
       date_posted: date,
       }
-      if(!reviews)dispatch(createReview(curState))
-      else 
+      dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id)).then(()=>
       {
-        const confirm  = prompt('You already reviewd this place. You cannot review it again','confirm')
-        
-      }
+        console.log(reviews)
+        if(!reviews || reviews.length === 0 )dispatch(createReview(curState))
+        else 
+        {
+          const confirm  = prompt('You already reviewd this place. You cannot review it again','confirm')
+          
+        }
+      })
+      
 
     }
 
