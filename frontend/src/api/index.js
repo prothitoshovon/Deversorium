@@ -50,3 +50,6 @@ export const getHostelByHostelId = (id) => API.get(`/hostels/h/${id}`)
 
 export const getReviewsByUserAndHostel = (uid, hid) => API.get(`reviews/userhostel/${uid}/${hid}`)
 export const getReviewsByHostel = (id) => API.get(`/reviews/h/${id}`)
+
+// router.patch('/update/:uid',updateuser)
+export const updateuser = (uid, newUser) => API.patch(`/user/update/${uid}`,newUser)
