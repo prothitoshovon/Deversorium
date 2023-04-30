@@ -71,7 +71,7 @@ export const getuserbyemail = async(req, res) => {
 export const getuserbyuserid = async(req,res) => {
     const {id} = req.params;
     try {
-        const user = await userModel.findOne({_id: id});
+        const user = await UserModel.findOne({_id: id});
 
         if(!user)
         {
@@ -86,7 +86,9 @@ export const getuserbyuserid = async(req,res) => {
 export const updateuser = async (req,res)=>{
     const _id = req.params.uid;
     const user = req.body;
-    const foundUser = await userModel.findOne({_id: _id});
+    console.log(_id)
+    console.log(user)
+    const foundUser = await UserModel.findOne({_id: _id});
     if(!foundUser)
     {
          return res.status(404).send('No users with that ID');
@@ -95,6 +97,6 @@ export const updateuser = async (req,res)=>{
 
     if(!isPasswordCorrect) return res.status(400).json({message: "Incorrect password."});
 
-    const updatedUser = await userModel.findByIdAndUpdate(_id, {...user, _id}, {new: true});
+    const updatedUser = await UserModel.findByIdAndUpdate(_id, {...user, _id}, {new: true});
     res.json(updatedUser);
 }

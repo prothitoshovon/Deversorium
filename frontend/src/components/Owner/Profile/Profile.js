@@ -4,9 +4,10 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
 import Input from '../../Input/Input'
+import { updateuser } from '../../../actions/Users';
 function Profile() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  const initialState = { name:user?.result?.name, phone:user?.result?.phone, email: user?.result?.email, password: '' };
+  const initialState = { _id:user?.result?._id,name:user?.result?.name, phone:user?.result?.phone, email: user?.result?.email, password: '' };
   const [form, setForm] = useState(initialState);
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -18,9 +19,9 @@ function Profile() {
 
   const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(form)
+       // console.log(form)
         //dispatch(getHostelByOwnerId(user?.result?._id)) 
-
+        dispatch(updateuser(user?.result?._id,{...form, _id:user?.result?._id}))
         //const val = dispatch(getUserByEmail(form.email))
         //console.log(val)
     }
