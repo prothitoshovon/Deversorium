@@ -4,8 +4,8 @@ import {signin, signup, getuserbyemail, getuserbyuserid, updateuser} from '../co
 
 const router = express.Router();
 
-router.post('/signin',signin);
 router.post('/signup',signup);
+router.post('/signin',signin);
 router.get('/email/:email',getuserbyemail)
 router.patch('/update/:uid/:password',updateuser)
 router.get('/:id',getuserbyuserid);

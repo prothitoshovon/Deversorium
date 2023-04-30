@@ -1,8 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/user.js';
-import { createTenant } from './tenants.js';
-import { createOwner } from './owners.js';
 import tenantModel from '../models/tenant.js';
 import ownerModel from '../models/owner.js';
 export const signin = async (req, res) => {
