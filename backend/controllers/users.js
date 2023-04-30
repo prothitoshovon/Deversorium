@@ -84,3 +84,20 @@ export const getuserbyuserid = async(req,res) => {
         res.status(404).json({message: error.message});
     }
 }
+
+export const updateuser = async (req,res)=>{
+    const _id = req.params.uid;
+    const password = req.params.password;
+    const user = req.body;
+    const foundUser = await userModel.findOne({_id: _id});
+    if(!foundUser)
+    {
+         return res.status(404).send('No users with that ID');
+    }
+    const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
+
+    if(!isPasswordCorrect) return res.status(400).json({message: "Incorrect password."});
+
+    const updatedUser = await userModel.findByIdAndUpdate(_id, {...user, _id}, {new: true});
+    res.json(updatedUser);
+}
