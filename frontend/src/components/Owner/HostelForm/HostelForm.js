@@ -18,14 +18,18 @@ function HostelForm() {
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
      const handleSubmit = (e) => {
         e.preventDefault();
-        console.log( { form, owner_name: user?.result?.name, owner_id:user?.result?._id })
-        dispatch(createHostel({ name:form.name,address:form.address,phone:form.phone,
-         owner_name: user?.result?.name, owner_id:user?.result?._id }));
-         navigate('/Homepage')
-       // dispatch(signin(form, navigate));
+        const curState = { 
+            name:form.name,
+            address:form.address,
+            phone:form.phone,
+            owner_name: user?.result?.name, 
+            owner_id:user?.result?._id 
+         }
+        dispatch(createHostel(curState)).then(()=>{
+            navigate('/Homepage')
+        })
+        
 
-        //const val = dispatch(getUserByEmail(form.email))
-        //console.log(val)
     }
   return (
       <div>

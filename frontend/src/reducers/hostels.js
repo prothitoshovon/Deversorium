@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_HOSTEL } from '../constants/actionTypes'
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_HOSTEL, ERROR } from '../constants/actionTypes'
 
 export default (state = { isLoading: true, hostels: [] }, action) => {
     switch(action.type)
@@ -12,9 +12,9 @@ export default (state = { isLoading: true, hostels: [] }, action) => {
         case CREATE:
             return { ...state, hostels: [...state.hostels, action.payload] };
         case FETCH_HOSTEL:
-            // console.log('at the reducers')
-            // console.log(action.payload.hostel)
-            return { ...state, hostels: action.payload.hostel };
+             return{ ...state, hostels: action.payload.hostel };
+        case ERROR:
+            return {...state, isLoading:false,hostels: null}
         default:
             return state
     }

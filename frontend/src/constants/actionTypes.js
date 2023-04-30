@@ -1,10 +1,12 @@
 export const CREATE = 'CREATE';
 export const UPDATE = 'UPDATE';
 export const DELETE = 'DELETE';
+export const ERROR = 'ERROR';
 export const FETCH_ALL = 'FETCH_ALL';
-
+export const FETCH = 'FETCH'
 export const FETCH_EMPTY_ROOMS = 'FETCH_EMPTY_ROOMS'
 export const LIKE = 'LIKE';
+export const FETCH_REVIEWS_BY_HOSTEL = 'FETCH_REVIEWS_BY_HOSTEL'
 
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';

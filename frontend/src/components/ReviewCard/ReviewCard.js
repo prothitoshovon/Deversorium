@@ -9,7 +9,7 @@ import quote from '../../images/quote.png'
 import useStyles from './styles.js'
 import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
-function ReviewCard({ reviewer, review,setCurrentId }) {
+function ReviewCard({  review,setCurrentId }) {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const dispatch = useDispatch();
@@ -57,13 +57,14 @@ function ReviewCard({ reviewer, review,setCurrentId }) {
                         
                         
                         <Typography variant='body2' color='textSecondary' >
-                            Really good place. The meal system management was spectacular! But place could use better hygiene practices!
+                            {review.comments}
                         </Typography>
                         <Typography gutterBottom variant='h4' >
-                            Reyadath
+                            {review.user_name}
                         </Typography>
                         <Rating
-                        value={4}
+                        precision={.5}
+                        value={review.stars}
                         readOnly
                         >
                         </Rating>

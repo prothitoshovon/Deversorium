@@ -8,6 +8,7 @@ export const signin = (formData, router) => async (dispatch) => {
     
     dispatch({ type: AUTH, data });
     const user = JSON.parse(localStorage.getItem('profile'))
+    
     // console.log('ayo')
     // console.log(user.result.role)
     //if(user.result.role == 1)router('/THomepage')

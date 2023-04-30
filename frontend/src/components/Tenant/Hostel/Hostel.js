@@ -6,6 +6,8 @@ import useStyles from './styles'
 import { useDispatch, useSelector } from 'react-redux';
 import { getTenantsByUserId } from '../../../actions/Tenants';
 import { getHostelByHostelId } from '../../../actions/hostels';
+import { createReview, getReviewsByUserAndHostel } from '../../../actions/Reviews';
+import { createComplaint } from '../../../actions/Complaints';
 //TODO Fetch the tenant from its user ID 
 //If the tenant has a room assigned then we will display Hostel card 
 //If the tenant does not have  a room assigned, then we will display You are not part of any hostel 
@@ -13,82 +15,153 @@ import { getHostelByHostelId } from '../../../actions/hostels';
 
 function Hostel() {
   const [user,setUser] = useState( JSON.parse(localStorage.getItem('profile')))
+  const [flag, setFlag] = useState(true)
   const classes = useStyles()
   const dispatch = useDispatch()
   const [value, setValue] = useState(5)
   const {tenants} =  useSelector((state)=>state.tenants)
   const {hostels} = useSelector((state)=> state.hostels)
+  const {reviews} = useSelector((state)=>state.reviews)
+  const initialState = { comment: '', complaint: '' };
+  const [form, setForm] = useState(initialState);
+  console.log('gu ekhon kene render or')
   useEffect(()=>{
       //Dispatch  so we get hostel related to the tenant
-      if(tenants.length === 0)dispatch(getTenantsByUserId(user?.result?._id))
-      else if(hostels.lenght === 0)dispatch(getHostelByHostelId(tenants[0].hostel_id))
-    },[])
-  return (
-    <Grid container spacing={2}>
-      <Grid item xs={8}>
-        <HostelCard currentUser={user} currentHostel={hostels}/>
-      </Grid>
-      <Grid item xs={4}>
-        <Button variant='contained' className={classes.cardActions}>
-          Join meal system
-        </Button>
-        <Typography className={classes.crow2}>
-         Any complaints ?
-        </Typography>
-        <TextField 
-        multiline 
-        minRows={3}
-        variant='outlined'
-        label='Your Message' 
-        name='comment'
-        className={classes.complaint}
-        type='text'
-        >
+      console.log('fire')
+      console.log(tenants)
+      if(tenants.length === 0)
+      {
+        console.log('dakse')
+      }
+      else if(hostels.length === 0)dispatch(getHostelByHostelId(tenants.hostel_id))
+      if(reviews===null&& hostels.length !== 0 && flag ===true)
+      {
+        dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
+        setFlag(false)
+      }
+    },[tenants, hostels])
+    //dispatch(getHostelByHostelId(tenants.hostel_id))
+    //dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
+    const sendReview = ()=> {
+      var date = new Date()
+      const curState={
 
-        </TextField>
-        <Button variant='contained' className={classes.cardAction2}>
-          Send
-        </Button>
-
-      </Grid> 
-      <Grid item xs={8} style={{display:'block'}} >
-        
-        <Rating
+      user_name:user?.result?.name,
+      user_id: user?.result?._id,
+      hostel_id:tenants.hostel_id,
+      stars:value,
+      comments:form.comment,
+      date_posted: date,
+      }
+      dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id)).then(()=>
+      {
+        console.log(reviews)
+        if(!reviews || reviews.length === 0 )dispatch(createReview(curState))
+        else 
+        {
+          const confirm  = prompt('You already reviewd this place. You cannot review it again','confirm')
           
-          className={classes.rating}
-          precision={0.5}
-          name="simple-controlled"
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-        />
-        
-        
-      </Grid>
+        }
+      })
       
-      <Grid item xs={8}>
-        <Typography className={classes.crow}>
-         Leave a detailed review
-        </Typography>
-        <TextField 
-        multiline 
-        minRows={3}
-        variant='outlined'
-        label='Your Message' 
-        name='comment'
-        className={classes.textField}
-        type='text'
-        >
 
-        </TextField>
-        <Button variant='contained' className={classes.cardAction}>
-          Send
-        </Button>
-      </Grid>
+    }
+
+    const sendComplaint = () =>{
+
+      var date = new Date()
+      const curState={    
+        tenant_id: user?.result?._id,
+        tenant_name: user?.result?.name,
+        description:form.complaint,
+        hostel_id:tenants.hostel_id,
+        room_id:tenants.room_id,
+        date_raised:date,
+      }
+
+      dispatch(createComplaint(curState))
+
+
+    }
+    const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  return (
+    tenants.hostel_id !== "Unassigned" ?(
+      <form>
       
-      
+      <Grid container spacing={2}>
+        <Grid item xs={8} >
+          <HostelCard currentUser={user} currentHostel={hostels} currentTenant={tenants} />
+        </Grid>
+        <Grid item xs={4}>
+          <Button variant='contained' className={classes.cardActions}>
+            Join meal system
+          </Button>
+          <Typography className={classes.crow2}>
+            Any complaints ?
+          </Typography>
+          <TextField
+            onChange={handleChange}
+            multiline
+            minRows={3}
+            variant='outlined'
+            label='Your Message'
+            name='complaint'
+            className={classes.complaint}
+            type='text'
+          >
+
+          </TextField>
+          <Button variant='contained' onClick={sendComplaint} className={classes.cardAction2}>
+            Send
+          </Button>
+
+        </Grid>
+        <Grid item xs={8} style={{ display: 'block' }} >
+
+          <Rating
+
+            className={classes.rating}
+            precision={0.5}
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          />
+
+
+        </Grid>
+
+        <Grid item xs={8}>
+        
+          <Typography className={classes.crow}>
+            Leave a detailed review
+          </Typography>
+          <TextField
+            onChange={handleChange}
+            multiline
+            minRows={3}
+            variant='outlined'
+            label='Your Message'
+            name='comment'
+            className={classes.textField}
+            type='text'
+          >
+
+          </TextField>
+          <Button variant='contained' onClick={sendReview} className={classes.cardAction}>
+            Send
+          </Button>
+        </Grid>
+
+
     </Grid>
+    </form>
+    ):
+    (
+      <h1> You are not part of any hostel at this moment</h1>
+    )
+    
   )
 }
 
