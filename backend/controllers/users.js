@@ -97,6 +97,7 @@ export const updateuser = async (req,res)=>{
 
     if(!isPasswordCorrect) return res.status(400).json({message: "Incorrect password."});
 
+    user.password = await bcrypt.hash(user.password, 12);
     const updatedUser = await UserModel.findByIdAndUpdate(_id, {...user, _id}, {new: true});
     res.json(updatedUser);
 }
