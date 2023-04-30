@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Route, Routes} from "react-router"
 import ResponsiveAppBar from './components/Navbar/Navbar'
 import Homepage from './components/Owner/Homepage/Homepage'
@@ -19,23 +19,34 @@ import AuthRoutes from './components/SafeRoutes/AuthRoutes'
 import TenantRoutes from './components/SafeRoutes/TenantRoutes'
 import HostelCard from './components/HostelCard/HosetlCard'
 import ReviewCard from './components/ReviewCard/ReviewCard'
+import {Grid} from '@material-ui/core'
 function App() {
 
   //TODO add safe routing for owners and tenants 
-  const user = JSON.parse(localStorage.getItem('profile'));
+  console.log('app ni ')
+  const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
+  useEffect(()=>{
+    setUser(JSON.parse(localStorage.getItem('profile')))
+    console.log(user)
+    //window.location.reload(false);
+
+  },[]
+  )
 
   return (
     <div>
-      
-      <ResponsiveAppBar/>
-        {/* <ReviewCard/> */}
-      <Routes>
+      <Grid>
+        <Grid>
+          <ResponsiveAppBar  user={user} setUser={setUser}/>
+        </Grid>
+        <Grid>
+          <Routes>
             <Route element={<AuthRoutes/>}>
               <Route exact path="/" element={<Register/>}/>
               <Route exact path="Login" element={<Login/>}/>
             </Route>
               <Route element={<SafeRoutes/>}>
-                    <Route path="Homepage" element={user?.result?.role===2?<Homepage />:<TenantHomepage/>}/>
+                    <Route path="Homepage" element={user?.result?.role===2?<Homepage  />:<TenantHomepage />}/>
                     <Route path="Profile" element={<Profile/>}/>
                     <Route path="Hostel" element={user?.result?.role===2?<Hostel/>:<TenantHostel/>}/>
                     <Route element={<HostelFormRoutes/> }>
@@ -43,6 +54,11 @@ function App() {
                     </Route>       
             </Route>
       </Routes>
+        </Grid>
+      </Grid>
+      
+        {/* <ReviewCard/> */}
+      
     </div>
   )
 }

@@ -8,17 +8,20 @@ import image from '../../images/rajanigandha.png'
 import useStyles from './styles.js'
 import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
-function HostelCard({ currentUser,currentHostel, setCurrentId }) {
+
+function HostelCard({ currentUser,currentHostel, currentTenant,setCurrentId }) {
 
     const [user,setUser] = useState( JSON.parse(localStorage.getItem('profile')))
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userId = user?.result?._id;
     const classes = useStyles();
+
+
     // const {hostels} = useSelector((state) => state.hostels)
     // const {tenants} = useSelector((state) => state.tenants)
     useEffect(()=>{
-        
+        console.log(currentTenant)
         //Query to find the hostel associated with room.hostel_id 
         //
         // console.log('rapid fire')
@@ -52,7 +55,7 @@ function HostelCard({ currentUser,currentHostel, setCurrentId }) {
                                 Hello {currentUser.result.name}! 
                             </Typography>
                             <Typography variant='body2' style={{marginLeft:'312px'}} >
-                                Tenant since June 2023
+                                {currentTenant.starting_date}
                             </Typography>
                             
                         </CardContent>

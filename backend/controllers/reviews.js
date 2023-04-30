@@ -43,6 +43,7 @@ export const getReviewsByUser = async(req,res) => {
 
 export const createReview = async (req,res)=>{
     const review = req.body;
+    console.log(review)
     const newReview = new reviewModel(review);
     try{
         await newReview.save();

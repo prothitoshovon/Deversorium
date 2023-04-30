@@ -14,7 +14,7 @@ export const signIn = (formData) => API.post('/user/signin', formData)
 export const signUp = (formData) => API.post('/user/signup', formData)
 export const createRoom = (newRoom) => API.post('/rooms',newRoom )
 
-
+export const getHostels = () => API.get('/hostels')
 export const getUserByEmail = (email) => API.post(`/user/${email}`,email)
 
 
@@ -26,6 +26,12 @@ export const getRoomsByRoomId = (id) => API.get(`/rooms/${id}`)
 
 
 export const createRoomRequest = (newRoomRequest) => API.post('/roomRequests', newRoomRequest)
+
+export const createReview = (newReview) => API.post('/reviews',newReview)
+
+export const createComplaint = (newComplaint) => API.post('/complaints',newComplaint)
+
+
 export const getRoomRequestsByHostelId = (id) => API.get(`/roomRequests/h/${id}`)
 
 export const updateTenant = (id, updatedTenant) => API.patch(`/tenants/${id}`, updatedTenant)
@@ -39,3 +45,8 @@ export const bookRoom = (id, uid, hid) => API.patch(`/rooms/book/r/${id}/u/${uid
 export const deleteRoomRequest = (id) => API.delete(`/roomRequests/${id}`)
 
 export const getHostelByHostelId = (id) => API.get(`/hostels/h/${id}`)
+
+// router.get('/userhostel/:uid/:hid',getReviewsByUserAndHostel);
+
+export const getReviewsByUserAndHostel = (uid, hid) => API.get(`reviews/userhostel/${uid}/${hid}`)
+export const getReviewsByHostel = (id) => API.get(`/reviews/h/${id}`)

@@ -21,15 +21,16 @@ function RoomRequestCard({ roomRequest,hostel, setCurrentId }) {
     
     useEffect(()=>{
         //Here we will query the tenant 
-        console.log(roomRequest.room_id)
-        if(tenants.length === 0)dispatch(getTenantsByUserId(roomRequest.user_id))
-        dispatch(getRoomsByRoomId(roomRequest.room_id))
+        console.log(roomRequest)
+        console.log('bro what')
+        //if(tenants.length === 0)dispatch(getTenantsByUserId(roomRequest.user_id))
+        //dispatch(getRoomsByRoomId(roomRequest.room_id))
             
     },[])
     const allow = ()=>{
         
-        console.log(roomRequest.hostel_id)
-        dispatch(bookRoom(rooms[0]._id, tenants[0]._id, roomRequest.hostel_id))
+        console.log(roomRequest)
+        dispatch(bookRoom(roomRequest.room_id, roomRequest.user_id, roomRequest.hostel_id))
         dispatch(deleteRoomRequest(roomRequest._id))
         //Todo now delete this room request 
     }
@@ -42,7 +43,7 @@ function RoomRequestCard({ roomRequest,hostel, setCurrentId }) {
     // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
         
 
-            rooms.length===0?(
+            true===false?(
                 <CircularProgress/>
             ):
             (
@@ -54,13 +55,13 @@ function RoomRequestCard({ roomRequest,hostel, setCurrentId }) {
                 </CardMedia>
                 <CardContent className={classes.overlay}>
                     <Typography gutterBottom variant='h5' component='div'>
-                    ok
+                    {roomRequest.user_name}
                     </Typography>
                     <Typography variant='body2' >
-                    {rooms[0].room_number}
+                    Room #{roomRequest.room_number}
                     </Typography>
                     <Typography variant='body2' >
-                    user's phone number
+                    {roomRequest.user_phone}
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
