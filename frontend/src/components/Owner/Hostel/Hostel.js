@@ -59,7 +59,7 @@ function Hostel() {
     }
     useEffect(() => {
         
-        if(hostels.length === 0)
+        if(!hostels || hostels.length === 0)
         {
             console.log('hehehe')
             console.log(user?.result?._id)

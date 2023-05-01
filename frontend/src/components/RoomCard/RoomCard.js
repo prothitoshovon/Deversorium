@@ -20,7 +20,7 @@ function RoomCard({ room,setCurrentId }) {
     const {tenants} = useSelector((state) => state.tenants)
     console.log(tenants)
     useEffect(()=>{
-        
+        if(tenants.length === 0)dispatch(getTenantsByUserId(user?.result?._id))
      
     },[])
     
