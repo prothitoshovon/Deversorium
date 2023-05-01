@@ -48,6 +48,25 @@ export const bookRoom = async(req,res)=>{
            
 }
 
+export const leaveRoom = async(req,res)=>{
+    const rid = req.params.id;
+    const uid = req.params.uid;
+    const hid = req.params.hid;
+    console.log('at backenddd')
+    console.log(rid,uid,hid)
+    try{
+        const today = new Date();
+        const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+        const firstDateOfNextMonth = nextMonth.toISOString().slice(0, 10);
+        const leavingTenant = await tenantModel.updateOne({ user_id: uid }, 
+            { $set: { assigned_room: false,hostel_id:"Unassigned", room_id: "Unassigned", starting_date: new Date("3000-01-01") } });
+        const emptyRoom = await roomModel.updateOne({_id: rid}, 
+            { $set: { next_vacancy_date: new Date(firstDateOfNextMonth), tenant_id: "Unassigned"} },);    
+        res.json(emptyRoom);
+    } catch (error) {
+        console.log(error.message);
+    }   
+}
 
 export const createRoom = async (req,res)=>{
     const room = req.body;
