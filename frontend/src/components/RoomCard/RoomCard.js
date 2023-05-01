@@ -48,8 +48,12 @@ function RoomCard({ room,setCurrentId }) {
             window.location.reload(false)
         }
     }
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const date =new Date( room.next_vacancy_date)
+    console.log(date)
   return (
     // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
+        
         
       true===false ?(<CircularProgress />) :
           (
@@ -73,6 +77,11 @@ function RoomCard({ room,setCurrentId }) {
                       <Typography variant='body2' >
                           Area: {room.area} sqft
                       </Typography>
+                  </CardContent>
+                  <CardContent className={classes.overlay2}>
+                    <Typography variant='body2'>
+                        Free from {monthNames[date.getMonth()]} {date.getFullYear()}
+                    </Typography>
                   </CardContent>
                   <CardActions className={classes.cardActions}>
                       <Button size='small' onClick={book}>Book now</Button>

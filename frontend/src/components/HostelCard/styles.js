@@ -51,14 +51,15 @@ export default makeStyles({
     padding: '0 16px',
   },
   cardActions: {
-    top:'52px',
+    marginTop:'270px',
+    marginLeft:'900px',
     display: 'flex',
     justifyContent: 'space-between',
     borderRadius:'25px',
     backgroundColor:'#0C21C1',
     fontSize:'14px',
-    width:'167px',
-    height:'61px',
+    width:'70px',
+    height:'31px',
     color:'white',
     alignContent:'center',
 
