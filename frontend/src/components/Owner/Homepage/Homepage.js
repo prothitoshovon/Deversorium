@@ -36,9 +36,10 @@ function Homepage({ setCurrentId }) {
   useEffect(()=>{
         console.log('owner homepage useEffect')
         // if( hostels.length ===0)     
-        if(hostels !== null )
+        if(hostels )
         {
-          //console.log('TEST')
+          console.log('\\test')
+          console.log(hostels)
           //console.log(hostels._id)
           dispatch(getComplaintsByHostel(hostels._id))
           dispatch(getRoomRequestsByHostelId(hostels._id))    
@@ -49,8 +50,8 @@ function Homepage({ setCurrentId }) {
     <div>
     {
       isLoading? <CircularProgress/>:(
-        
-          !hostels ||hostels.length === 0? <h2>You do not have any hostels right now, go to hostel page to make one</h2>:<RoomRequestList/>    
+          
+          !hostels ||hostels.length === 0? <Typography gutterBottom variant='h5'>You do not have a hostel right now. Go to hostel page to make one</Typography>:<RoomRequestList/>    
       )
     }
     </div>
