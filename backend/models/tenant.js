@@ -27,6 +27,10 @@ const tenantSchema = mongoose.Schema({
     starting_date: {
         type: Date,
         default: new Date("3000-01-01")
+    },
+    bill_paid: {
+        type: Boolean,
+        default: true 
     }
 })
 
