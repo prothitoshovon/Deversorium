@@ -18,13 +18,28 @@ function Homepage({ setCurrentId }) {
   const { isLoading, hostels } = useSelector((state) => state.hostels);
   //const {isLoading,roomRequests} = useSelector((state) => state.roomRequests)
   //console.log('owner homepage rendered')
+  const queryHostel = (item, dispatch) => new Promise((resolve, reject) => {
+  // do anything here
+  console.log('dispatch korram')
+  dispatch(getHostelByOwnerId(user?.result?._id))  
+  resolve();
+  
+  })
+  useEffect(()=>{
+    console.log('ya re ba')
+    // dispatch(getHostelByOwnerId(user?.result?._id))
+    queryHostel({},dispatch).then(()=>{
+        console.log(hostels._id)
+    })
+    
+  },[])
   useEffect(()=>{
         console.log('owner homepage useEffect')
-        if( hostels.length ===0)dispatch(getHostelByOwnerId(user?.result?._id))        
+        // if( hostels.length ===0)     
         if(hostels !== null )
         {
-          console.log('TEST')
-          console.log(hostels._id)
+          //console.log('TEST')
+          //console.log(hostels._id)
           dispatch(getComplaintsByHostel(hostels._id))
           dispatch(getRoomRequestsByHostelId(hostels._id))    
         } 

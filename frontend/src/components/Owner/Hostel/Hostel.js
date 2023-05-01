@@ -14,6 +14,7 @@ import { getReviewsByHostel } from '../../../actions/Reviews';
 import { getTenantsByUserId } from '../../../actions/Tenants';
 import { styled } from '@mui/material/styles';
 import ComplaintCardList from '../../ComplaintCardList/ComplaintCardList';
+import Reviews from '../../Reviews/Reviews';
 function Hostel() {
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -86,11 +87,7 @@ function Hostel() {
                             </Typography>
                             {
                                 reviews ? (
-                                    reviews?.map((review) => (
-                                        <Grid key={review._id} >
-                                            <ReviewCard review={review} reviewer={tenants} />
-                                        </Grid>
-                                    ))
+                                    <Reviews/>
                                 ) :
                                     (
                                         <div>No reviews so far</div>
@@ -114,6 +111,9 @@ function Hostel() {
                             }
                         </Grid>
                         <Grid item xs={6} md={4}>
+                            <Typography gutterBottom variant='h5' style={{marginLeft:'45px'}}>
+                                More rooms in your hostel?
+                            </Typography>
                             <Card style={{ maxWidth: 450, padding: "20px 5px", margin: "10px auto" }}>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" style={{marginTop:'0'}}>
