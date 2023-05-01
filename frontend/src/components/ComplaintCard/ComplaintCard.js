@@ -57,7 +57,7 @@ function ComplaintCard({  complaint,setCurrentId }) {
                         
                         
                         <Typography variant='body2' color='textSecondary' >
-                            {complaint.room_number}
+                            Room #{complaint.room_number}
                         </Typography>
                         <Typography gutterBottom variant='h6' >
                             {complaint.description}

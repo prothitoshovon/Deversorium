@@ -24,13 +24,13 @@ function Hostel() {
   const {reviews} = useSelector((state)=>state.reviews)
   const initialState = { comment: '', complaint: '' };
   const [form, setForm] = useState(initialState);
-  console.log('gu ekhon kene render or')
   useEffect(()=>{
       if(tenants.length === 0)dispatch(getTenantsByUserId(user?.result?._id))
       if(hostels.length === 0)dispatch(getHostelByHostelId(tenants.hostel_id))
-      if(reviews===null&& hostels.length !== 0 && flag ===true)
+      if(tenants)
       {
         dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
+        //dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
         setFlag(false)
       }
     },[tenants, hostels])
@@ -47,16 +47,14 @@ function Hostel() {
       comments:form.comment,
       date_posted: date,
       }
-      dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id)).then(()=>
-      {
-        console.log(reviews)
+      console.log(reviews)
         if(!reviews || reviews.length === 0 )dispatch(createReview(curState))
         else 
         {
           const confirm  = prompt('You already reviewd this place. You cannot review it again','confirm')
           
         }
-      })
+      
       
 
     }
@@ -73,19 +71,6 @@ function Hostel() {
         room_id:tenants.room_id,
         date_raised:date,
       }
-      //console.log(curState)
-      // tenant_id: {type: String, required: true},
-      // tenant_name: String,
-      // description: {type: String, required: true},
-      // room_id: {type: String, required: true},
-      // room_number: {type: String, required: true},
-      // hostel_id: {type: String, required: true},
-      // hostel_name: String,
-      // date_raised: {
-      //     type: Date,
-      //     default: new Date()
-      // }
-      console.log(curState)
       dispatch(createComplaint(curState))
 
 
@@ -166,7 +151,9 @@ function Hostel() {
     </form>
     ):
     (
-      <h1> You are not part of any hostel at this moment</h1>
+      <Typography style={{marginLeft:'10px'}}gutterBottom variant='h5'>
+        You are not part of any hostels right now
+      </Typography>
     )
     
   )
