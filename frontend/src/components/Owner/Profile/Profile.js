@@ -19,7 +19,7 @@ function Profile() {
 
   const handleSubmit = (e) => {
         e.preventDefault();
-       // console.log(form)
+       console.log(form)
         //dispatch(getHostelByOwnerId(user?.result?._id)) 
         dispatch(updateuser(user?.result?._id,{...form, _id:user?.result?._id}))
         //const val = dispatch(getUserByEmail(form.email))

@@ -12,13 +12,14 @@ export const getComplaints = async(req, res) => {
 }
 
 export const getComplaintsByHostel = async(req,res) => {
-    const {id: _id} = req.params;
-    if(!mongoose.Types.ObjectId.isValid(_id))
+    const id = req.params.id;
+    console.log(id)
+    if(!mongoose.Types.ObjectId.isValid(id))
     {
         return res.status(404).send('No hostels with that ID');
     }
     try{     
-        const complaints = await complaintModel.find({hostel_id: _id});
+        const complaints = await complaintModel.find({hostel_id: id});
         console.log(complaints);
         res.status(200).json(complaints);
     } catch(error){

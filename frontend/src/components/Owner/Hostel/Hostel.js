@@ -12,8 +12,16 @@ import moment from 'moment';
 import ReviewCard from '../../ReviewCard/ReviewCard';
 import { getReviewsByHostel } from '../../../actions/Reviews';
 import { getTenantsByUserId } from '../../../actions/Tenants';
+import { styled } from '@mui/material/styles';
+import ComplaintCardList from '../../ComplaintCardList/ComplaintCardList';
 function Hostel() {
-
+    const Item = styled(Paper)(({ theme }) => ({
+        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+        ...theme.typography.body2,
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+        }));
     const initialState = { number: '', area: '', rent: '' };
     const [form, setForm] = useState(initialState);
     const dispatch = useDispatch();
@@ -29,6 +37,7 @@ function Hostel() {
     const { hostels } = useSelector((state) => state.hostels);
     const { reviews } = useSelector((state) => state.reviews)
     const { tenants } = useSelector((state) => state.tenants)
+    const {complaints} = useSelector((state) => state.complaints )
     const handleSubmit = (e) => {
         //Query to find hostelID using ownerID 
         e.preventDefault()
@@ -69,8 +78,12 @@ function Hostel() {
             <div>
             {
                 hostels ? (
-                    <Grid container  spacing={1} >
-                        <Grid item xs={6}>
+                    <Grid container spacing={2}>
+                    
+                        <Grid item xs={6} md={4}>
+                            <Typography gutterBottom variant='h5'>
+                                These are your reviews of the hostel
+                            </Typography>
                             {
                                 reviews ? (
                                     reviews?.map((review) => (
@@ -80,12 +93,27 @@ function Hostel() {
                                     ))
                                 ) :
                                     (
-                                        <div>ok</div>
+                                        <div>No reviews so far</div>
                                     )
 
                             }
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={4} md={4}>
+                            <Typography gutterBottom variant='h5'>
+                                These are your reviews of the hostel
+                            </Typography>
+                            {
+                                complaints ? (
+                                    <ComplaintCardList/>
+                                    )
+                                    :
+                                    (
+                                        <div>No reviews so far</div>
+                                    )
+
+                            }
+                        </Grid>
+                        <Grid item xs={6} md={4}>
                             <Card style={{ maxWidth: 450, padding: "20px 5px", margin: "10px auto" }}>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" style={{marginTop:'0'}}>
@@ -94,7 +122,7 @@ function Hostel() {
                                     <form onSubmit={handleSubmit}>
                                         <Grid container spacing={1}>
                                             <Grid xs={12} sm={6} item>
-                                                <Input name="number" label="Enter room number" handleChange={handleChange} type="number" />
+                                                <Input name="number" label="Enter room number" handleChange={handleChange}       type="number" />
 
                                             </Grid>
                                             <Grid xs={12} sm={6} item>
@@ -112,7 +140,6 @@ function Hostel() {
                                 </CardContent>
                             </Card>
                         </Grid>
-
                     </Grid>
                 ) :
                     (
