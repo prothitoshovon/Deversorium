@@ -67,7 +67,13 @@ export const leaveRoom = async(req,res)=>{
         const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
         const firstDateOfNextMonth = nextMonth.toISOString().slice(0, 10);
         const leavingTenant = await tenantModel.updateOne({ user_id: uid }, 
-            { $set: { assigned_room: false,hostel_id:"Unassigned", room_id: "Unassigned", starting_date: new Date("3000-01-01") } });
+            { $set: {
+                assigned_room: false,
+                hostel_id:"Unassigned", 
+                room_id: "Unassigned", 
+                starting_date: new Date("3000-01-01") 
+                
+            } });
         const emptyRoom = await roomModel.updateOne({_id: rid}, 
             { $set: { next_vacancy_date: new Date(firstDateOfNextMonth), tenant_id: "Unassigned"} },);    
         res.json(emptyRoom);

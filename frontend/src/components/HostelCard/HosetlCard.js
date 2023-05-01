@@ -8,6 +8,7 @@ import image from '../../images/rajanigandha.png'
 import useStyles from './styles.js'
 import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
+import { leaveRoom } from '../../actions/Rooms';
 
 function HostelCard({ currentUser,currentHostel, currentTenant,setCurrentId }) {
 
@@ -32,9 +33,19 @@ function HostelCard({ currentUser,currentHostel, currentTenant,setCurrentId }) {
             
     },[])
     
-    
-    const book = ()=>{
+    const date = new Date(currentTenant.starting_date)
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const leave = ()=>{
+        console.log('ore shuor re')
+        const confirm  = prompt('Are you sure you want to leave? you cannot undo this action','confirm')
+        if(confirm !== null && confirm === 'confirm')
+        {
+            console.log('ekhane leave room marmu')
+            console.log(currentTenant.room_id,currentTenant.user_id,currentHostel._id)
+            dispatch(leaveRoom(currentTenant.room_id,currentTenant.user_id,currentHostel._id))
+            navigate('/Homepage')
 
+        }
     }
   return (
     // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
@@ -55,7 +66,7 @@ function HostelCard({ currentUser,currentHostel, currentTenant,setCurrentId }) {
                                 Hello {currentUser.result.name}! 
                             </Typography>
                             <Typography variant='body2' style={{marginLeft:'312px'}} >
-                                {currentTenant.starting_date}
+                                Tenant since {monthNames[date.getMonth()]} {date.getFullYear()}
                             </Typography>
                             
                         </CardContent>
@@ -63,7 +74,7 @@ function HostelCard({ currentUser,currentHostel, currentTenant,setCurrentId }) {
                         <CardContent className={classes.overlay2}>
                             
                             <Typography  gutterBottom variant='h4' >
-                                You are living in {currentHostel.name}
+                                You are living in {currentTenant.hostel_name}
                             </Typography>
                             <Typography variant='body2'  >
                                 Every hostel has a meal system. That requires at least one grocery shopping chore per person, every month. With meal system, you get to enjoy home made quality meals everyday for lunch and dinner. Care to join?
@@ -71,7 +82,9 @@ function HostelCard({ currentUser,currentHostel, currentTenant,setCurrentId }) {
                             
                         </CardContent>
 
-
+                        <CardActions className={classes.cardActions}>
+                            <Button onClick={leave} style={{color:'white'}}> Leave </Button>
+                        </CardActions>
                         
                     </Card>
 

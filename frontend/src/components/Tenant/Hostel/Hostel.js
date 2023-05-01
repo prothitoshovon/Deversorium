@@ -26,7 +26,7 @@ function Hostel() {
   const [form, setForm] = useState(initialState);
   console.log('gu ekhon kene render or')
   useEffect(()=>{
-      
+      if(tenants.length === 0)dispatch(getTenantsByUserId(user?.result?._id))
       if(hostels.length === 0)dispatch(getHostelByHostelId(tenants.hostel_id))
       if(reviews===null&& hostels.length !== 0 && flag ===true)
       {
@@ -73,6 +73,7 @@ function Hostel() {
         room_id:tenants.room_id,
         date_raised:date,
       }
+      //console.log(curState)
       // tenant_id: {type: String, required: true},
       // tenant_name: String,
       // description: {type: String, required: true},

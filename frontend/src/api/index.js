@@ -55,3 +55,6 @@ export const getReviewsByHostel = (id) => API.get(`/reviews/h/${id}`)
 export const updateuser = (uid, newUser) => API.patch(`/user/update/${uid}`,newUser)
 
 export const getComplaintsByHostel = (id) => API.get(`/complaints/h/${id}`)
+
+// router.patch('/leave/r/:id/u/:uid/h/:hid',auth,leaveRoom);
+export const leaveRoom = (id,uid,hid) => API.patch(`/rooms/leave/r/${id}/u/${uid}/h/${hid}`)

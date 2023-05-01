@@ -13,8 +13,8 @@ function Homepage({ setCurrentId }) {
   const dispatch = useDispatch();
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
   useEffect(()=>{
+      console.log('homepage tenants')
       dispatch(getEmptyRooms())
-      dispatch(getTenantsByUserId(user?.result?._id))
     },[])
     
   return (

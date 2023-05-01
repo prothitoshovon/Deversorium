@@ -1,4 +1,4 @@
-import {  CREATE, FETCH_HOSTEL, FETCH_EMPTY_ROOMS , START_LOADING, END_LOADING, FETCH_ROOM_BY_ROOM_ID, BOOK} from '../constants/actionTypes';
+import {  CREATE, FETCH_HOSTEL, FETCH_EMPTY_ROOMS , START_LOADING, END_LOADING, FETCH_ROOM_BY_ROOM_ID, BOOK, LEAVE,} from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -43,3 +43,12 @@ export const bookRoom = (id, uid,hid) => async (dispatch) =>{
   }
 }
 
+export const leaveRoom = (id,uid,hid) => async (dispatch) =>{
+  try {
+    const {data} = await api.leaveRoom(id,uid,hid)
+    
+    dispatch({type:LEAVE, payload:{room:data}})
+  } catch (error) {
+    console.log(error)
+  }
+}

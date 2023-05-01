@@ -23,3 +23,4 @@ export const FETCH_TENANT_BY_USER_ID = 'FETCH_TENANT_BY_USER_ID'
 
 export const FETCH_ROOM_BY_ROOM_ID = 'FETCH_ROOM_BY_ROOM_ID'
 export const BOOK = 'BOOK'
+export const LEAVE = 'LEAVE'
