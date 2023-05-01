@@ -12,7 +12,7 @@ const Reviews = ({ setCurrentId }) => {
     isLoading ? <CircularProgress /> : (
       <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
         {reviews?.map((review) => (
-          <Grid key={roomRequest._id} item xs={12} sm={12} md={6} lg={3}>
+          <Grid key={review._id} item xs={12} sm={12} md={6} lg={3}>
             <ReviewCard review={review}/>
             {/* <RoomRequestCard roomRequest={roomRequest}  /> */}
           </Grid>

@@ -6,7 +6,7 @@ export default makeStyles({
     width:"140px",
     height:'140px',
     borderRadius:'15px',
-    left:'471px',
+    left:'421px',
     top:'5px',
     right:'19px'
   },
@@ -43,7 +43,7 @@ export default makeStyles({
     justifyContent: 'space-between',
     borderRadius: '15px',
     height:'150px',
-    width:'630px',
+    width:'550px',
     margin: '10px 10px 10px 10px',
     backgroundColor:'#F8F8F8'
   },
