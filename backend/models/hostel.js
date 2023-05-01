@@ -8,7 +8,8 @@ const hostelSchema = mongoose.Schema({
         default: 'Not Available'
     },
     owner_id: String,
-    owner_name: String
+    owner_name: String,
+    last_bill_generated: Date
 })
 
 const hostelModel = mongoose.model('hostelModel',hostelSchema);
