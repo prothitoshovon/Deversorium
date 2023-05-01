@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import hostelModel  from "../models/hostel.js";
 import ownerModel from '../models/owner.js';
-
+import tenantModel from '../models/tenant.js';
 export const getHostels = async (req,res)=>{
     try{
         const hostels = await hostelModel.find();
@@ -77,6 +77,37 @@ export const getHostelByHostelId = async (req, res)=>{
             return res.status(404).send('No hostels with that ID');
         }
         res.status(200).json(hostel);
+    } catch(error) {  
+        res.status(404).json({message: error.message});
+    }
+}
+
+export const generateBill = async (req, res)=>{
+    const id = req.params.id;
+    try {
+        const today = new Date();
+        const firstDateOfThisMonth = new Date(today.getFullYear,today.getMonth,1);
+        const billpayers = await tenantModel.update({ hostel_id: id }, 
+            { $set: { bill_paid: false } });
+        const updatedBillDate = await hostelModel.update({hostel_id: id},
+        {   $set: { last_bill_generated_date: firstDateOfThisMonth}});
+        res.json(billpayers);
+    } catch(error) {  
+        res.status(404).json({message: error.message});
+    }
+}
+
+export const receiveBill = async (req,res)=>{
+    const uid = req.params.uid;
+    try {
+        const tenants = await tenantModel.find({hostel_id: id});
+        if(!tenants)
+        {
+            return res.status(404).send('No tenants with that hostel ID');
+        }
+        const billpayers = await tenantModel.update({ user_id: uid }, // if bugging, replace user_id with _id here
+            { $set: { bill_paid: true } });
+        res.json(billpayers);
     } catch(error) {  
         res.status(404).json({message: error.message});
     }

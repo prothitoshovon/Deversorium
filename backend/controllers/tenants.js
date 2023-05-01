@@ -59,3 +59,14 @@ export const getTenantsByUserId = async (req,res)=>{
         res.status(404).json({message: error.message});
     }
 }
+
+export const getTenantsByHostelId = async (req, res)=>{
+    const id = req.params.id;
+    try{
+        const tenants = await tenantModel.find({hostel_id: id});
+        console.log(tenants);
+        res.status(200).json(tenants);
+    } catch(error){
+        res.status(404).json({message: error.message});
+    }
+}
