@@ -24,7 +24,10 @@ const tenantSchema = mongoose.Schema({
     },
     user_id: String,
     hostel_name: String,
-    starting_date: Date
+    starting_date: {
+        type: Date,
+        default: new Date("3000-01-01")
+    }
 })
 
 const tenantModel = mongoose.model('tenantModel',tenantSchema);
