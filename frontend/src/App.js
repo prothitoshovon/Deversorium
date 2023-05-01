@@ -20,6 +20,7 @@ import TenantRoutes from './components/SafeRoutes/TenantRoutes'
 import HostelCard from './components/HostelCard/HosetlCard'
 import ReviewCard from './components/ReviewCard/ReviewCard'
 import {Grid} from '@material-ui/core'
+import ComplaintCard from './components/ComplaintCard/ComplaintCard'
 function App() {
 
   //TODO add safe routing for owners and tenants 
@@ -39,6 +40,7 @@ function App() {
         <Grid>
           <ResponsiveAppBar  user={user} setUser={setUser}/>
         </Grid>
+        {/* <ComplaintCard/> */}
         <Grid>
           <Routes>
             <Route element={<AuthRoutes/>}>
@@ -53,7 +55,7 @@ function App() {
                       <Route path="HostelForm" element={<HostelForm/>}/>
                     </Route>       
             </Route>
-      </Routes>
+          </Routes>
         </Grid>
       </Grid>
       

@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE,FETCH, FETCH_EMPTY_ROOMS, FETCH_ROOM_BY_ROOM_ID, BOOK } from '../constants/actionTypes'
+import { FETCH_ALL, CREATE,FETCH, FETCH_EMPTY_ROOMS, FETCH_ROOM_BY_ROOM_ID, BOOK, FETCH_COMPLAINTS_BY_HOSTEL_ID } from '../constants/actionTypes'
 
 export default (state = { isLoading: true, complaints: [] }, action) => {
     switch(action.type)
@@ -15,6 +15,8 @@ export default (state = { isLoading: true, complaints: [] }, action) => {
             return { ...state, complaints: [...state.complaints, action.payload] };
         case FETCH:
             return { ...state, complaints: action.payload.complaint };
+        case FETCH_COMPLAINTS_BY_HOSTEL_ID:
+            return {...state, complaints:action.payload.complaints};
         default: 
             return state
     }

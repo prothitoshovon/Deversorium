@@ -26,14 +26,8 @@ function Hostel() {
   const [form, setForm] = useState(initialState);
   console.log('gu ekhon kene render or')
   useEffect(()=>{
-      //Dispatch  so we get hostel related to the tenant
-      console.log('fire')
-      console.log(tenants)
-      if(tenants.length === 0)
-      {
-        console.log('dakse')
-      }
-      else if(hostels.length === 0)dispatch(getHostelByHostelId(tenants.hostel_id))
+      
+      if(hostels.length === 0)dispatch(getHostelByHostelId(tenants.hostel_id))
       if(reviews===null&& hostels.length !== 0 && flag ===true)
       {
         dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
@@ -68,17 +62,29 @@ function Hostel() {
     }
 
     const sendComplaint = () =>{
-
       var date = new Date()
       const curState={    
         tenant_id: user?.result?._id,
         tenant_name: user?.result?.name,
         description:form.complaint,
         hostel_id:tenants.hostel_id,
+        hostel_name: tenants.hostel_name,
+        room_number: tenants.room_number,
         room_id:tenants.room_id,
         date_raised:date,
       }
-
+      // tenant_id: {type: String, required: true},
+      // tenant_name: String,
+      // description: {type: String, required: true},
+      // room_id: {type: String, required: true},
+      // room_number: {type: String, required: true},
+      // hostel_id: {type: String, required: true},
+      // hostel_name: String,
+      // date_raised: {
+      //     type: Date,
+      //     default: new Date()
+      // }
+      console.log(curState)
       dispatch(createComplaint(curState))
 
 

@@ -9,6 +9,7 @@ import { Grid, TextField, Button, Card, CardContent, Typography,CircularProgress
 import { getHostelByOwnerId } from '../../../actions/hostels';
 import { getRoomRequestsByHostelId } from '../../../actions/RoomRequests';
 import RoomRequestList from '../../RoomRequests/RoomRequestList'; 
+import { getComplaintsByHostel } from '../../../actions/Complaints';
 function Homepage({ setCurrentId }) {
 
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
@@ -19,14 +20,15 @@ function Homepage({ setCurrentId }) {
   //console.log('owner homepage rendered')
   useEffect(()=>{
         console.log('owner homepage useEffect')
-        dispatch(getHostelByOwnerId(user?.result?._id))        
+        if( hostels.length ===0)dispatch(getHostelByOwnerId(user?.result?._id))        
         if(hostels !== null )
         {
           console.log('TEST')
-          console.log(hostels)
+          console.log(hostels._id)
+          dispatch(getComplaintsByHostel(hostels._id))
           dispatch(getRoomRequestsByHostelId(hostels._id))    
         } 
-    },[])
+    },[hostels])
 
   return (
     <div>
