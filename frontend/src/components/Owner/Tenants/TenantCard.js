@@ -15,12 +15,12 @@ function TenantCard({ tenant, setCurrentId }) {
     const {users, isLoading} =  useSelector((state) => state.users)
     useEffect(()=>{
         console.log(tenant.user_id)
-        if(!users)dispatch(getuserbyuserid(tenant.user_id))
+        if(!users || users.length === 0)dispatch(getuserbyuserid(tenant.user_id))
             
     },[])
     useEffect(()=>{
         if(!users)console.log('aisena')
-        else console.log('aicche')
+        else console.log(users)
     },[users])
 
     
@@ -40,7 +40,7 @@ function TenantCard({ tenant, setCurrentId }) {
                         {users.name}
                         </Typography>
                         <Typography variant='body2' >
-                        {tenant.room_number}
+                        Room #{tenant.room_number}
                         </Typography>
                         <Typography variant='body2' >
                         {users.phone}

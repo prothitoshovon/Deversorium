@@ -24,6 +24,7 @@ import ComplaintCard from './components/ComplaintCard/ComplaintCard'
 import Reviews from './components/Owner/Reviews/Reviews'
 import BadGateway from './components/SafeRoutes/BadGateway'
 import Tenants from './components/Owner/Tenants/Tenants'
+import Rooms from './components/Owner/Rooms/Rooms'
 function App() {
 
   //TODO add safe routing for owners and tenants 
@@ -56,6 +57,7 @@ function App() {
                     <Route path="Hostel" element={user?.result?.role===2?<Hostel/>:<TenantHostel/>}/>
                     <Route path="Reviews" element={user?.result?.role===2?<Reviews/>:<BadGateway/>}/>
                     <Route path="Tenants" element={user?.result?.role===2?<Tenants/>:<BadGateway/>}/>
+                    <Route path="Rooms" element={user?.result?.role===2?<Rooms/>:<BadGateway/>}/>
                     <Route element={<HostelFormRoutes/> }>
                       <Route path="HostelForm" element={<HostelForm/>}/>
                     </Route>       

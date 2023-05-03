@@ -3,40 +3,45 @@ import { Grid, CircularProgress } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import ReviewCard from '../../ReviewCard/ReviewCard'
 import { getHostelByOwnerId } from '../../../actions/hostels';
-import { getReviewsByHostel } from '../../../actions/Reviews';
+import { getRoomsByHostelId } from '../../../actions/Rooms';
+import RoomCard from './RoomCard';
 
 const Rooms = ({ setCurrentId }) => {
     //Need Hostel by owner ID 
     //Need reviews by hostel ID
     const dispatch = useDispatch()
     const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')))
-    const { reviews, isLoading } = useSelector((state) => state.reviews);
+    const { rooms, isLoading } = useSelector((state) => state.rooms);
     
     const { hostels } = useSelector((state) => state.hostels);
     useEffect(()=>{
+        console.log('hono')
         if(!hostels)console.log('no hostel')
         else if(hostels.length === 0)dispatch(getHostelByOwnerId(user?.result?._id))
     },[hostels])
     useEffect(()=>{
-        console.log(hostels)
+        console.log('aichhi')
         if(hostels)
         {
-            if(!reviews)console.log('No reviews ever')
-            else dispatch(getReviewsByHostel(hostels._id))
+            if(!rooms)console.log('No rooms ever')
+            else if(rooms.length===0)dispatch(getRoomsByHostelId(hostels._id))
         }
-    },[])
-  if (!reviews.length && !isLoading) return 'No requests pending';
+    },[rooms])
+  //if (!rooms.length && !isLoading) return 'No rooms pending';
 
   return (
     isLoading ? <CircularProgress /> : (
-      <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
-        {reviews?.map((review) => (
-          <Grid key={review._id} item xs={12} sm={12} md={6} lg={3}>
-            <ReviewCard review={review}/>
-            {/* <RoomRequestCard roomRequest={roomRequest}  /> */}
-          </Grid>
-        ))}
-      </Grid>
+        rooms.length ===0?(<h2>No rooms to show</h2>):(
+            <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
+                {rooms?.map((room) => (
+                <Grid key={room._id} item xs={12} sm={12} md={6} lg={3}>
+                    <RoomCard room={room}/>
+                    {/* <RoomRequestCard roomRequest={roomRequest}  /> */}
+                </Grid>
+                ))}
+            </Grid>
+        )
+      
     )
   );
 };

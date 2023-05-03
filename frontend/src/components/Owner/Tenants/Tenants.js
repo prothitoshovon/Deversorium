@@ -21,12 +21,12 @@ function Tenants() {
     },[hostels])
     useEffect(()=>{
         if(!hostels)console.log('no hostel')
-        else if(hostels.length !==0)
+        else if(hostels)
         {
             if(!tenants)console.log('No tenants ever')
             else if(tenants.length ===0)dispatch(getTenantsByHostelId(hostels._id))
         }
-    },[])
+    },[tenants])
     if(!hostels)return 'You do not have a hostel right now'
     if (!tenants.length && !isLoading) return 'No tenants yet';
 

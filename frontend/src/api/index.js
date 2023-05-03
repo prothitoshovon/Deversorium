@@ -65,3 +65,6 @@ export const getTenantsByHostelId = (id) => API.get(`/tenants/h/${id}`)
 
 // router.get('/:id',getuserbyuserid);
 export const getuserbyuserid = (id) => API.get(`/user/${id}`)
+
+// router.get('/h/:id',getRoomsByHostelId)
+export const getRoomsByHostelId = (id) => API.get(`/rooms/h/${id}`)

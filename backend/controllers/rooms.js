@@ -140,3 +140,14 @@ export const getRoomByTenantId = async (req,res)=>{
         res.status(404).json({message: error.message});
     }
 }
+
+export const getRoomsByHostelId = async (req,res)=>{
+    const id = req.params.id;
+    try{
+        const rooms = await roomModel.find({hostel_id: id});
+        console.log(rooms);
+        res.status(200).json(rooms);
+    } catch(error){
+        res.status(404).json({message: error.message});
+    }
+}
