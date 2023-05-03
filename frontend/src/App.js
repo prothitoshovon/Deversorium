@@ -21,6 +21,9 @@ import HostelCard from './components/HostelCard/HosetlCard'
 import ReviewCard from './components/ReviewCard/ReviewCard'
 import {Grid} from '@material-ui/core'
 import ComplaintCard from './components/ComplaintCard/ComplaintCard'
+import Reviews from './components/Owner/Reviews/Reviews'
+import BadGateway from './components/SafeRoutes/BadGateway'
+import Tenants from './components/Owner/Tenants/Tenants'
 function App() {
 
   //TODO add safe routing for owners and tenants 
@@ -51,6 +54,8 @@ function App() {
                     <Route path="Homepage" element={user?.result?.role===2?<Homepage  />:<TenantHomepage />}/>
                     <Route path="Profile" element={<Profile/>}/>
                     <Route path="Hostel" element={user?.result?.role===2?<Hostel/>:<TenantHostel/>}/>
+                    <Route path="Reviews" element={user?.result?.role===2?<Reviews/>:<BadGateway/>}/>
+                    <Route path="Tenants" element={user?.result?.role===2?<Tenants/>:<BadGateway/>}/>
                     <Route element={<HostelFormRoutes/> }>
                       <Route path="HostelForm" element={<HostelForm/>}/>
                     </Route>       

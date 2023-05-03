@@ -1,4 +1,4 @@
-import { START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, FETCH_TENANT_BY_USER_ID} from '../constants/actionTypes';
+import { START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, FETCH_TENANT_BY_USER_ID, FETCH_TENANT_BY_HOSTEL_ID} from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
 export const updateTenant = (id, tenant) => async (dispatch) => {
@@ -17,6 +17,18 @@ export const getTenantsByUserId = (id) => async(dispatch) => {
     const { data } = await api.getTenantsByUserId(id);
 
     dispatch({ type: FETCH_TENANT_BY_USER_ID, payload: {tenant:data} });
+    dispatch({type:END_LOADING})
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const getTenantsByHostelId = (id) => async(dispatch) =>{
+  try {
+    dispatch({type: START_LOADING})
+    const { data } = await api.getTenantsByHostelId(id);
+
+    dispatch({ type: FETCH_TENANT_BY_HOSTEL_ID, payload: {tenants:data} });
     dispatch({type:END_LOADING})
   } catch (error) {
     console.log(error);

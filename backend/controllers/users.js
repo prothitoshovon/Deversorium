@@ -72,7 +72,7 @@ export const getuserbyuserid = async(req,res) => {
     const {id} = req.params;
     try {
         const user = await UserModel.findOne({_id: id});
-
+        
         if(!user)
         {
             return res.status(404).send('No users with that ID');

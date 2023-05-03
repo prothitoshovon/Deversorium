@@ -15,6 +15,7 @@ import { getTenantsByUserId } from '../../../actions/Tenants';
 import { styled } from '@mui/material/styles';
 import ComplaintCardList from '../../ComplaintCardList/ComplaintCardList';
 import Reviews from '../../Reviews/Reviews';
+import { getComplaintsByHostel } from '../../../actions/Complaints';
 function Hostel() {
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -57,17 +58,22 @@ function Hostel() {
         window.location.reload(false)
 
     }
+    useEffect(()=>{
+        if(!hostels)console.log('no hostel')
+        else if(hostels.length === 0)dispatch(getHostelByOwnerId(user?.result?._id))
+    },[hostels])
     useEffect(() => {
         
-        if(!hostels || hostels.length === 0)
+        if(!hostels)
         {
             console.log('hehehe')
             console.log(user?.result?._id)
             dispatch(getHostelByOwnerId(user?.result?._id))
         }
-        else
+        else if(hostels)
         {
             console.log('srsly')
+            dispatch(getComplaintsByHostel(hostels._id))
             dispatch(getReviewsByHostel(hostels._id))
         }
 
@@ -81,7 +87,7 @@ function Hostel() {
                 hostels ? (
                     <Grid container spacing={2}>
                     
-                        <Grid item xs={6} md={4}>
+                        {/* <Grid item xs={6} md={4}>
                             <Typography gutterBottom variant='h5'>
                                 These are your reviews of the hostel
                             </Typography>
@@ -94,8 +100,8 @@ function Hostel() {
                                     )
 
                             }
-                        </Grid>
-                        <Grid item xs={4} md={4}>
+                        </Grid> */}
+                        <Grid item xs={4} md={6}>
                             <Typography gutterBottom variant='h5'>
                                 These are your reviews of the hostel
                             </Typography>
@@ -110,11 +116,11 @@ function Hostel() {
 
                             }
                         </Grid>
-                        <Grid item xs={6} md={4}>
-                            <Typography gutterBottom variant='h5' style={{marginLeft:'45px'}}>
+                        <Grid item xs={6} md={6}>
+                            <Typography gutterBottom variant='h5' style={{marginLeft:'20px', marginTop:'50px'}}>
                                 More rooms in your hostel?
                             </Typography>
-                            <Card style={{ maxWidth: 450, padding: "20px 5px", margin: "10px auto" }}>
+                            <Card style={{ maxWidth: 450, padding: "20px 5px" }}>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" style={{marginTop:'0'}}>
                                         Add new room to your hostel

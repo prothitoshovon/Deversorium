@@ -27,7 +27,8 @@ function Hostel() {
   useEffect(()=>{
       if(tenants.length === 0)dispatch(getTenantsByUserId(user?.result?._id))
       if(hostels.length === 0)dispatch(getHostelByHostelId(tenants.hostel_id))
-      if(tenants)
+      if(tenants
+      )
       {
         dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
         //dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
