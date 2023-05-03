@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const API = axios.create({ baseURL: 'https://deversorium.onrender.com' });
+const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
@@ -58,3 +58,10 @@ export const getComplaintsByHostel = (id) => API.get(`/complaints/h/${id}`)
 
 // router.patch('/leave/r/:id/u/:uid/h/:hid',auth,leaveRoom);
 export const leaveRoom = (id,uid,hid) => API.patch(`/rooms/leave/r/${id}/u/${uid}/h/${hid}`)
+
+
+// router.get('/h/:id',getTenantsByHostelId);
+export const getTenantsByHostelId = (id) => API.get(`/tenants/h/${id}`)
+
+// router.get('/:id',getuserbyuserid);
+export const getuserbyuserid = (id) => API.get(`/user/${id}`)

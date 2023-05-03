@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux';
 import * as actionType from '../../constants/actionTypes';
 import decode from 'jwt-decode';
 import zIndex from '@material-ui/core/styles/zIndex';
-const pages = ['Hostel', 'Profile', 'Mealsheet'];
+
 const settings = ['About', 'Logout'];
 
 function ResponsiveAppBar({user, setUser}) {
@@ -25,6 +25,14 @@ function ResponsiveAppBar({user, setUser}) {
 
   //const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   //console.log(user?.result)
+
+  const pages = ['Hostel', 'Profile', 'Mealsheet'];
+  if(user?.result?.role === 2)
+  {
+    pages.push('Tenants')
+    pages.push('Rooms')
+    pages.push('Reviews')
+  }
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();

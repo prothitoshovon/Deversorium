@@ -22,3 +22,15 @@ export const updateuser = (uid, newUser) => async(dispatch) =>{
     console.log(error);
   }
 }
+export const getuserbyuserid = (id) => async(dispatch) =>{
+
+  try {
+    dispatch({type:actionType.START_LOADING})
+    const { data } = await api.getuserbyuserid(id);
+    
+    dispatch({ type: actionType.FETCH_USER, payload: {users:data} });
+    dispatch({type:actionType.END_LOADING})
+  } catch (error) {
+    console.log(error);
+  }
+}
