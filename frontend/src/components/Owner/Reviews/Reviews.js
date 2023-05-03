@@ -8,6 +8,7 @@ import { getReviewsByHostel } from '../../../actions/Reviews';
 const Reviews = ({ setCurrentId }) => {
     //Need Hostel by owner ID 
     //Need reviews by hostel ID
+    
     const dispatch = useDispatch()
     const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')))
     const { reviews, isLoading } = useSelector((state) => state.reviews);

@@ -14,7 +14,6 @@ import { getReviewsByHostel } from '../../../actions/Reviews';
 import { getTenantsByUserId } from '../../../actions/Tenants';
 import { styled } from '@mui/material/styles';
 import ComplaintCardList from '../../ComplaintCardList/ComplaintCardList';
-import Reviews from '../../Reviews/Reviews';
 import { getComplaintsByHostel } from '../../../actions/Complaints';
 function Hostel() {
     const Item = styled(Paper)(({ theme }) => ({
@@ -37,7 +36,7 @@ function Hostel() {
     // console.log('WOW ok')
     // console.log(user)
     const { hostels } = useSelector((state) => state.hostels);
-    const { reviews } = useSelector((state) => state.reviews)
+    // const { reviews } = useSelector((state) => state.reviews)
     const { tenants } = useSelector((state) => state.tenants)
     const {complaints} = useSelector((state) => state.complaints )
     const handleSubmit = (e) => {
@@ -74,7 +73,7 @@ function Hostel() {
         {
             console.log('srsly')
             dispatch(getComplaintsByHostel(hostels._id))
-            dispatch(getReviewsByHostel(hostels._id))
+            //dispatch(getReviewsByHostel(hostels._id))
         }
 
         
