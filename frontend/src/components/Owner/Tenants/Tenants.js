@@ -18,7 +18,7 @@ function Tenants() {
             console.log('eta kore hoise')
             dispatch(getHostelByOwnerId(user?.result?._id))
         }
-    },[hostels])
+    },[])
     useEffect(()=>{
         if(!hostels)console.log('no hostel')
         else if(hostels)
@@ -26,8 +26,8 @@ function Tenants() {
             if(!tenants)console.log('No tenants ever')
             else if(tenants.length ===0)dispatch(getTenantsByHostelId(hostels._id))
         }
-    },[tenants])
-    if(!hostels)return 'You do not have a hostel right now'
+    },[])
+    if(!tenants)return 'You do not have a hostel right now'
     if (!tenants.length && !isLoading) return 'No tenants yet';
 
   return (

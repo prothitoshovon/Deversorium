@@ -9,7 +9,7 @@ import useStyles from './styles.js'
 import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
 import { leaveRoom } from '../../actions/Rooms';
-
+import Swal from 'sweetalert2'
 function HostelCard({ currentUser,currentHostel, currentTenant,setCurrentId }) {
 
     const [user,setUser] = useState( JSON.parse(localStorage.getItem('profile')))
@@ -36,16 +36,30 @@ function HostelCard({ currentUser,currentHostel, currentTenant,setCurrentId }) {
     const date = new Date(currentTenant.starting_date)
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const leave = ()=>{
-        console.log('ore shuor re')
-        const confirm  = prompt('Are you sure you want to leave? you cannot undo this action','confirm')
-        if(confirm !== null && confirm === 'confirm')
-        {
-            console.log('ekhane leave room marmu')
-            console.log(currentTenant.room_id,currentTenant.user_id,currentHostel._id)
-            dispatch(leaveRoom(currentTenant.room_id,currentTenant.user_id,currentHostel._id))
-            navigate('/Homepage')
-
+        
+        console.log('ekhane leave room marmu')
+        console.log(currentTenant.room_id,currentTenant.user_id,currentHostel._id)
+        Swal.fire({
+        title: 'Are you sure you want to leave? this action cannot be reversed',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Leave',
+        denyButtonText: `Stay`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            dispatch(leaveRoom(currentTenant.room_id,currentTenant.user_id,currentHostel._id)).then(()=>{
+                Swal.fire('Saved!', '', 'success')
+                navigate('/Homepage')
+            })    
+        } else if (result.isDenied) {
+            Swal.fire('Changes are not saved', '', 'info')
         }
+        })
+        
+        
+
+        
     }
   return (
     // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>

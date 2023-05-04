@@ -26,8 +26,9 @@ const Rooms = ({ setCurrentId }) => {
             if(!rooms)console.log('No rooms ever')
             else if(rooms.length===0)dispatch(getRoomsByHostelId(hostels._id))
         }
-    },[rooms])
-  //if (!rooms.length && !isLoading) return 'No rooms pending';
+    },[])
+    if(!hostels)return 'No hostel'
+    if (!rooms.length && !isLoading) return 'No rooms pending';
 
   return (
     isLoading ? <CircularProgress /> : (
