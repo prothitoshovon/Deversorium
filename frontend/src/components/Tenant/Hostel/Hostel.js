@@ -8,10 +8,7 @@ import { getTenantsByUserId } from '../../../actions/Tenants';
 import { getHostelByHostelId } from '../../../actions/hostels';
 import { createReview, getReviewsByUserAndHostel } from '../../../actions/Reviews';
 import { createComplaint } from '../../../actions/Complaints';
-//TODO Fetch the tenant from its user ID 
-//If the tenant has a room assigned then we will display Hostel card 
-//If the tenant does not have  a room assigned, then we will display You are not part of any hostel 
-//If tenant has requested and not assigned, then owner has not approved your request. cancel ?
+import Swal from 'sweetalert2'
 
 function Hostel() {
   const [user,setUser] = useState( JSON.parse(localStorage.getItem('profile')))
@@ -24,37 +21,60 @@ function Hostel() {
   const {reviews} = useSelector((state)=>state.reviews)
   const initialState = { comment: '', complaint: '' };
   const [form, setForm] = useState(initialState);
+  
   useEffect(()=>{
       if(tenants.length === 0)dispatch(getTenantsByUserId(user?.result?._id))
       if(hostels.length === 0)dispatch(getHostelByHostelId(tenants.hostel_id))
-      if(tenants
-      )
+      if(tenants && flag)
       {
         dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
         //dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
         setFlag(false)
       }
     },[tenants, hostels])
+    
     //dispatch(getHostelByHostelId(tenants.hostel_id))
     //dispatch(getReviewsByUserAndHostel(user?.result?._id,tenants.hostel_id))
     const sendReview = ()=> {
-      var date = new Date()
-      const curState={
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Send review',
+        denyButtonText: `Edit`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire('Saved!', '', 'success')
+          var date = new Date()
+          const curState={
 
-      user_name:user?.result?.name,
-      user_id: user?.result?._id,
-      hostel_id:tenants.hostel_id,
-      stars:value,
-      comments:form.comment,
-      date_posted: date,
-      }
-      console.log(reviews)
-        if(!reviews || reviews.length === 0 )dispatch(createReview(curState))
-        else 
-        {
-          const confirm  = prompt('You already reviewd this place. You cannot review it again','confirm')
-          
+          user_name:user?.result?.name,
+          user_id: user?.result?._id,
+          hostel_id:tenants.hostel_id,
+          stars:value,
+          comments:form.comment,
+          date_posted: date,
+          }
+          console.log(reviews)
+            if(!reviews || reviews.length === 0 )dispatch(createReview(curState))
+            else 
+            {
+              Swal.fire({
+                  title: 'Error!',
+                  text: 'Do you want to continue',
+                  icon: 'error',
+                  confirmButtonText: 'Cool'
+                })
+                Swal.fire('You have already reviewed this place')
+              //const confirm  = prompt('You already reviewd this place. You cannot review it again','confirm')
+              
+            }
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
         }
+      })
+      
       
       
 
@@ -72,7 +92,25 @@ function Hostel() {
         room_id:tenants.room_id,
         date_raised:date,
       }
-      dispatch(createComplaint(curState))
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Send review',
+        denyButtonText: `Edit`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          dispatch(createComplaint(curState)).then(()=>{
+            Swal.fire('Saved!', '', 'success')
+          })
+          
+          
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
+      
 
 
     }
