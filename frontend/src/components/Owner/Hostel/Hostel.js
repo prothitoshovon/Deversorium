@@ -33,10 +33,8 @@ function Hostel() {
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const marginTop = { marginTop: 20 }
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    // console.log('WOW ok')
-    // console.log(user)
+
     const { hostels } = useSelector((state) => state.hostels);
-    // const { reviews } = useSelector((state) => state.reviews)
     const { tenants } = useSelector((state) => state.tenants)
     const {complaints} = useSelector((state) => state.complaints )
     const handleSubmit = (e) => {
@@ -85,43 +83,25 @@ function Hostel() {
             {
                 hostels ? (
                     <Grid container spacing={2}>
-                    
-                        {/* <Grid item xs={6} md={4}>
-                            <Typography gutterBottom variant='h5'>
-                                These are your reviews of the hostel
-                            </Typography>
-                            {
-                                reviews ? (
-                                    <Reviews/>
-                                ) :
-                                    (
-                                        <div>No reviews so far</div>
-                                    )
-
-                            }
-                        </Grid> */}
                         <Grid item xs={4} md={6}>
                             <Typography gutterBottom variant='h5'>
                                 Complaints of your hostel
                             </Typography>
-                            
-                                
+                                        
                             <ComplaintCardList/>
-                                    
-
                             
                         </Grid>
                         <Grid item xs={6} md={6}>
                             <Typography gutterBottom variant='h5' style={{marginLeft:'20px',}}>
-                                More rooms in your hostel?
+                                Need more rooms in your hostel?
                             </Typography>
-                            <Card style={{ maxWidth: 450, padding: "20px 5px" }}>
+                            <Card style={{ maxWidth: 450, padding: "20px 5px",backgroundColor:'#F8F8F8' }}>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" style={{marginTop:'0'}}>
-                                        Add new room to your hostel
+                                        Add a new room!
                                     </Typography>
                                     <form onSubmit={handleSubmit}>
-                                        <Grid container spacing={1}>
+                                        <Grid container spacing={2}>
                                             <Grid xs={12} sm={6} item>
                                                 <Input name="number" label="Enter room number" handleChange={handleChange}       type="number" />
 
@@ -145,7 +125,9 @@ function Hostel() {
                 ) :
                     (
                         <Grid>
-                            <h2> You do not have a hostel right now</h2>
+                            <Typography gutterBottom variant='h5' style={{marginLeft:'20px',}}>
+                                You do not have a hostel right now
+                            </Typography>
                             <Link to="/HostelForm">
                                 <Button variant="contained" startIcon={<AddIcon />} >Create your hostel
                                 </Button>
@@ -153,10 +135,8 @@ function Hostel() {
                         </Grid>
 
                     )
-
         }
-        </div>
-        
+        </div>      
     )
 }
 

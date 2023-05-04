@@ -10,22 +10,27 @@ const Reviews = ({ setCurrentId }) => {
     //Need reviews by hostel ID
     
     const dispatch = useDispatch()
-    const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')))
+    const [user,setUser] =  useState(JSON.parse(localStorage.getItem('profile')))
     const { reviews, isLoading } = useSelector((state) => state.reviews);
     
     const { hostels } = useSelector((state) => state.hostels);
+
     useEffect(()=>{
-        if(!hostels)console.log('no hostel')
-        else if(hostels.length === 0)dispatch(getHostelByOwnerId(user?.result?._id))
-    },[hostels])
+        if(!user)user = JSON.parse(localStorage.getItem('profile'))
+        console.log("ASDKLJFHKLSXDJHK")
+        console.log(user)
+        dispatch(getHostelByOwnerId(user?.result?._id))
+    },[])
     useEffect(()=>{
-        console.log(hostels)
-        if(hostels)
+
+        if(!hostels)console.log('hostel not there yet')
+        else if(hostels && hostels.length !== 0)
         {
             if(!reviews)console.log('No reviews ever')
             else dispatch(getReviewsByHostel(hostels._id))
         }
-    },[])
+        else if(hostels.length === 0)dispatch(getHostelByOwnerId(hostels._id))
+    },[hostels])
     if(!hostels)return 'You do not have a hostel right now'
     //if (!reviews.length && !isLoading) return 'No reviews yet';
 

@@ -69,3 +69,6 @@ export const getuserbyuserid = (id) => API.get(`/user/${id}`)
 
 // router.get('/h/:id',getRoomsByHostelId)
 export const getRoomsByHostelId = (id) => API.get(`/rooms/h/${id}`)
+
+// router.delete('/:id',auth,deleteComplaint);
+export const deleteComplaint = (id) => API.delete(`/complaints/${id}`)

@@ -25,6 +25,15 @@ export const getComplaintsByHostel = (id) => async(dispatch) => {
     console.log(error.message);
   }
 }
+export const deleteComplaint = (id) => async(dispatch) => {
+  try {
+    await api.deleteComplaint(id);
+
+    dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 // export const getReviewsByUserAndHostel = (uid,hid) => async (dispatch) =>{
 //     try {
