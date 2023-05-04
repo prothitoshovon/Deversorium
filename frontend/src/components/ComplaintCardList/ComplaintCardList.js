@@ -1,13 +1,41 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Grid, CircularProgress } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import RoomRequestCard from '../RoomRequestCard/RoomRequestCard';
 import ComplaintCard from '../ComplaintCard/ComplaintCard';
-
+import { getHostelByOwnerId } from '../../actions/hostels';
+import { getComplaintsByHostel } from '../../actions/Complaints';
+import { getRoomsByHostelId } from '../../actions/Rooms';
 const ComplainCardList = ({ setCurrentId }) => {
   const { complaints, isLoading } = useSelector((state) => state.complaints);
-
-  if (!complaints.length && !isLoading) return 'No Complaints';
+  const { hostels } = useSelector((state) => state.hostels);
+  const dispatch = useDispatch()
+  const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
+    useEffect(()=>{
+        console.log('hono')
+        if(!hostels)console.log('no hostel')
+        else if(hostels.length === 0)
+        {
+            console.log('get hostel by owner ID called')
+            dispatch(getHostelByOwnerId(user?.result?._id))
+        }
+        else console.log(hostels)
+    },[hostels])
+    useEffect(()=>{
+        console.log('aichhi')
+        if(hostels)
+        {
+            if(!complaints)console.log('No rooms ever')
+            else if(complaints.length===0)
+            {
+                console.log('get rooms called')
+                dispatch(getRoomsByHostelId(hostels._id))
+            }
+            else console.log(complaints)
+        }
+    },[])
+    if(!hostels)return 'No hostel'
+  //if (!complaints.length && !isLoading) return 'No Complaints';
 
   return (
     isLoading ? <CircularProgress /> : (

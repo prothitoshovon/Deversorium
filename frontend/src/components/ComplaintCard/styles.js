@@ -35,16 +35,12 @@ export default makeStyles({
   },
   card: {
     position: 'relative',
-    left: '0px',
-    top: '10px',
-    bottom: '642px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: '15px',
-    height:'150px',
+    height:'130px',
     width:'550px',
-    margin: '10px 10px 10px 10px',
     backgroundColor:'#F8F8F8'
   },
   overlay: {
@@ -69,13 +65,13 @@ export default makeStyles({
     padding: '0 16px',
   },
   cardActions: {
-    top:'45px',
+    top:'35px',
     fontSize:'14px',
     width:'60px',
     height:'30px',
     color:'white',
     alignContent:'center',
-    marginTop:'100px'
+    marginTop:'90px'
 
   },
   cardAction: {

@@ -64,7 +64,7 @@ function Login() {
                         <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
                         <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
                     </Grid>
-                    <Button style={{marginTop:"20px"}}type='submit' variant='contained' color='primary'>Login</Button>
+                    <Button style={{marginTop:"20px", backgroundColor:'#0C21C1', color:'white'}}type='submit' variant='contained'>Login</Button>
                 </form>
             </Paper>
         </Grid>
