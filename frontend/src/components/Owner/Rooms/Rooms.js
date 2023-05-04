@@ -17,18 +17,28 @@ const Rooms = ({ setCurrentId }) => {
     useEffect(()=>{
         console.log('hono')
         if(!hostels)console.log('no hostel')
-        else if(hostels.length === 0)dispatch(getHostelByOwnerId(user?.result?._id))
+        else if(hostels.length === 0)
+        {
+            console.log('get hostel by owner ID called')
+            dispatch(getHostelByOwnerId(user?.result?._id))
+        }
+        else console.log(hostels)
     },[hostels])
     useEffect(()=>{
         console.log('aichhi')
         if(hostels)
         {
             if(!rooms)console.log('No rooms ever')
-            else if(rooms.length===0)dispatch(getRoomsByHostelId(hostels._id))
+            else if(rooms.length===0)
+            {
+                console.log('get rooms called')
+                dispatch(getRoomsByHostelId(hostels._id))
+            }
+            else console.log(rooms)
         }
     },[])
     if(!hostels)return 'No hostel'
-    if (!rooms.length && !isLoading) return 'No rooms pending';
+    //if (!rooms.length && !isLoading) return 'No rooms pending';
 
   return (
     isLoading ? <CircularProgress /> : (

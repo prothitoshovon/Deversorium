@@ -60,13 +60,13 @@ const Register=()=> {
                     <Typography variant="h4">
                         Register to Deversorium
                     </Typography>
-                    <Typography variant='caption' gutterBottom>
+                    <Typography variant='caption' gutterBottom >
                     
                     If you already have an account, please &nbsp;
                     <Link to="/Login">login to continue</Link>
                     </Typography>
                 </Grid>
-                <form onSubmit={handleSubmit}>
+                <form style={{marginTop:'10px'}}onSubmit={handleSubmit}>
                     <Grid container spacing = {2}>
                         <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
                         <Input name="lastName" label="Last Name" handleChange={handleChange} half />
@@ -85,7 +85,7 @@ const Register=()=> {
                         </RadioGroup>
                         </FormControl>
                     </Grid>
-                    <Button style={{marginTop:"20px"}}type='submit' variant='contained' color='primary'>Register</Button>
+                    <Button style={{marginTop:"20px",backgroundColor:'#0C21C1'}}type='submit' variant='contained' color='primary'>Register</Button>
                 </form>
             </Paper>
         </Grid>

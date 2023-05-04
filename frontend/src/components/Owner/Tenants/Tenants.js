@@ -27,11 +27,12 @@ function Tenants() {
             else if(tenants.length ===0)dispatch(getTenantsByHostelId(hostels._id))
         }
     },[])
-    if(!tenants)return 'You do not have a hostel right now'
-    if (!tenants.length && !isLoading) return 'No tenants yet';
+    if(!hostels)return 'You do not have a hostel right now'
+    //if (!tenants.length && !isLoading) return 'No tenants yet';
 
   return (
     isLoading ? <CircularProgress /> : (
+      tenants.length === 0? <h2>No tenants yet</h2>:
       <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
         {tenants?.map((tenant) => (
           <Grid key={tenant._id} item xs={12} sm={12} md={6} lg={3}>

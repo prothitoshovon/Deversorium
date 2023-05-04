@@ -81,7 +81,7 @@ function Hostel() {
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
     return (
         
-            <div>
+            <div style={{marginTop:'40px'}}>
             {
                 hostels ? (
                     <Grid container spacing={2}>
@@ -102,21 +102,17 @@ function Hostel() {
                         </Grid> */}
                         <Grid item xs={4} md={6}>
                             <Typography gutterBottom variant='h5'>
-                                These are your reviews of the hostel
+                                Complaints of your hostel
                             </Typography>
-                            {
-                                complaints ? (
-                                    <ComplaintCardList/>
-                                    )
-                                    :
-                                    (
-                                        <div>No reviews so far</div>
-                                    )
+                            
+                                
+                            <ComplaintCardList/>
+                                    
 
-                            }
+                            
                         </Grid>
                         <Grid item xs={6} md={6}>
-                            <Typography gutterBottom variant='h5' style={{marginLeft:'20px', marginTop:'50px'}}>
+                            <Typography gutterBottom variant='h5' style={{marginLeft:'20px',}}>
                                 More rooms in your hostel?
                             </Typography>
                             <Card style={{ maxWidth: 450, padding: "20px 5px" }}>
@@ -137,7 +133,7 @@ function Hostel() {
                                                 <Input name="rent" label="Enter room rent" handleChange={handleChange} type="number" />
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <Button type="submit" variant="contained" color="primary" fullWidth>Submit</Button>
+                                                <Button type="submit" variant="contained" style={{backgroundColor:'#0C21C1', color:'white'}} fullWidth>Submit</Button>
                                             </Grid>
 
                                         </Grid>
