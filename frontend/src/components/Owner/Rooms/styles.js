@@ -18,14 +18,13 @@ export default makeStyles({
     left: '10px',
     right: '594px',
     top: '10px',
-    bottom: '642px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: '15px',
     height:'124px',
     width:'600px',
-    margin: '10px 10px 10px 10px'
+    margin: '0px 10px 0px 10px'
   },
   overlay: {
     position: 'absolute',

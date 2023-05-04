@@ -27,10 +27,11 @@ const Reviews = ({ setCurrentId }) => {
         }
     },[])
     if(!hostels)return 'You do not have a hostel right now'
-    if (!reviews.length && !isLoading) return 'No reviews yet';
+    //if (!reviews.length && !isLoading) return 'No reviews yet';
 
   return (
     isLoading ? <CircularProgress /> : (
+      reviews.length === 0 ? <h2>No reveiws yet</h2>:
       <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
         {reviews?.map((review) => (
           <Grid key={review._id} item xs={12} sm={12} md={6} lg={3}>
