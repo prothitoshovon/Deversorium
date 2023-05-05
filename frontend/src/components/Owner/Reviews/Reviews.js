@@ -5,44 +5,29 @@ import ReviewCard from '../../ReviewCard/ReviewCard'
 import { getHostelByOwnerId } from '../../../actions/hostels';
 import { getReviewsByHostel } from '../../../actions/Reviews';
 import DefaultMessage from '../../DefaultMessage/DefaultMessage';
-
+import * as api from '../../../api/index'
 const Reviews = ({ setCurrentId }) => {
     //Need Hostel by owner ID 
     //Need reviews by hostel ID
     
     const dispatch = useDispatch()
     const [user,setUser] =  useState(JSON.parse(localStorage.getItem('profile')))
-    const { reviews, reviewsLoading } = useSelector((state) => state.reviews);
-    
-    const { hostels } = useSelector((state) => state.hostels);
-    // useEffect(()=>{
-    //   console.log(user,hostels, reviews)
-    // },[])
-
+    const [hostels, setHostels] = useState([])
+    const [reviews, setReviews] = useState([])
+    const [loading, setLoading] = useState(true)
+    const fetchData = async() =>{
+        const {data} = await api.getHostelByOwnerId(user?.result?._id)
+        setHostels([...hostels, data])
+        const newData = await api.getReviewsByHostel(data._id)
+        setReviews(newData.data)
+        setLoading(false)
+    }
     useEffect(()=>{
-        // console.log('hono')
-        // if(!hostels)console.log('no hostel')
-        // else if(hostels.length === 0)
-        // {
-        //     console.log('get hostel by owner ID called')
-        //     dispatch(getHostelByOwnerId(user?.result?._id))
-        // }
-        // else console.log(hostels)
-        dispatch(getHostelByOwnerId(user?.result?._id))
+        fetchData()
     },[])
-    useEffect(()=>{
-        if(hostels.length !== 0 && reviews.length === 0)
-        {
-            console.log('srsly')
-            dispatch(getReviewsByHostel(hostels._id))
-            //dispatch(getReviewsByHostel(hostels._id))
-        }
-    },[hostels])
-    if(!hostels)return 'You do not have a hostel right now'
-    //if (!reviews.length && !isLoading) return 'No reviews yet';
 
   return (
-    reviewsLoading || hostels.length===0 ? <CircularProgress /> : (
+    loading ? <CircularProgress /> : (
       reviews.length === 0 ? <DefaultMessage message='No reviews yet' />:
       <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
         <Grid  item xs={12} sm={12} md={6} lg={3}>
@@ -51,7 +36,6 @@ const Reviews = ({ setCurrentId }) => {
         {reviews?.map((review) => (
           <Grid key={review._id} item xs={12} sm={12} md={6} lg={3}>
             <ReviewCard review={review}/>
-            {/* <RoomRequestCard roomRequest={roomRequest}  /> */}
           </Grid>
         ))}
       </Grid>

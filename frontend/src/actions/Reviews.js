@@ -17,7 +17,6 @@ export const getReviewsByUserAndHostel = (uid,hid) => async (dispatch) =>{
     try {
     dispatch({ type: START_LOADING });
     const { data } = await api.getReviewsByUserAndHostel(uid, hid);
-    
     dispatch({ type: FETCH, payload: { review: data } });
     dispatch({type: END_LOADING})
   } catch (error) {
@@ -34,5 +33,14 @@ export const getReviewsByHostel = (id) => async (dispatch) =>{
     dispatch({type: END_LOADING})
   } catch (error) {
     console.log(error)
+  }
+}
+export const updateReview = (id, newReview) => async (dispatch)=>{
+  try {
+    const { data } = await api.updateReview(id, newReview);
+
+    dispatch({ type: UPDATE, payload: data });
+  } catch (error) {
+    console.log(error);
   }
 }

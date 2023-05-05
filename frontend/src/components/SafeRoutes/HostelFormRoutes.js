@@ -11,7 +11,7 @@ function HostelFormRoutes() {
        dispatch(getHostelByOwnerId(user?.result?._id))   
     },[])
   return (
-        hostels?(<BadGateway/>):(
+        hostels.length !== 0?(<BadGateway/>):(
           <HostelForm/>
         )
         //  hostels === null || hostels.length !==0 ?(

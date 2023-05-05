@@ -8,19 +8,25 @@ import RoomCard from '../../RoomCard/RoomCard';
 import Rooms from '../../Rooms/Rooms.js'
 import { getTenantsByUserId } from '../../../actions/Tenants';
 import { getEmptyRooms } from '../../../actions/Rooms';
+import * as api from '../../../api/index'
 //This will have a population of all the room cards 
 function Homepage({ setCurrentId }) {
   const dispatch = useDispatch();
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
-  const { rooms, roomsLoading } = useSelector((state) => state.rooms)
+  const [rooms, setRooms] = useState([])
+  const [loading, setLoading] = useState(true)
+  const fetchData = async () =>{
+    const newData = await api.getEmptyRooms()
+    setRooms(newData.data)
+    console.log(newData.data)
+    setLoading(false)
+  }
   useEffect(()=>{
-      console.log('homepage tenants')
-      dispatch(getEmptyRooms())
-    },[])
-    
+    fetchData()
+  },[])
   return (
-      roomsLoading?<CircularProgress/>:
-      <Rooms/>
+      loading?<CircularProgress/>:
+      <Rooms rooms={rooms}/>
   )
 }
 
