@@ -8,8 +8,8 @@ import { getComplaintsByHostel } from '../../actions/Complaints';
 import { getRoomsByHostelId } from '../../actions/Rooms';
 import DefaultMessage from '../DefaultMessage/DefaultMessage';
 const ComplainCardList = ({ setCurrentId }) => {
-  const { complaints, isLoading } = useSelector((state) => state.complaints);
-  const { hostels } = useSelector((state) => state.hostels);
+  const { complaints, complaintsLoading } = useSelector((state) => state.complaints);
+  const { hostels, hostelsLoading } = useSelector((state) => state.hostels);
 
   const dispatch = useDispatch()
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
@@ -39,7 +39,7 @@ const ComplainCardList = ({ setCurrentId }) => {
   //if (!complaints.length && !isLoading) return 'No Complaints';
 
   return (
-    isLoading ? <CircularProgress /> : (
+    complaintsLoading ? <CircularProgress /> : (
       <Grid style={{display:'block'}} container alignItems="stretch" spacing={1}>
         <Grid  item xs={4} sm={12} md={6} lg={3}>
           <DefaultMessage message='Pending Complaints'/>

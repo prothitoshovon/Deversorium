@@ -16,23 +16,33 @@ function Homepage({ setCurrentId }) {
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
   
   const dispatch = useDispatch();
-  const { isLoading, hostels } = useSelector((state) => state.hostels);
-  const queryHostel = (item, dispatch) => new Promise((resolve, reject) => {
+  const { hostelsLoading, hostels } = useSelector((state) => state.hostels);
   
-  dispatch(getHostelByOwnerId(user?.result?._id))  
-  resolve();
   
-  })
   useEffect(()=>{
     
-    queryHostel({},dispatch)
+    dispatch(getHostelByOwnerId(user?.result?._id))
+
     
   },[])
-
+  useEffect(()=>{
+    if(!hostels)
+        {
+            console.log('hehehe')
+            console.log(user?.result?._id)
+            dispatch(getHostelByOwnerId(user?.result?._id))
+        }
+        else if(hostels)
+        {
+            console.log('srsly')
+            dispatch(getRoomRequestsByHostelId(hostels._id))
+            //dispatch(getReviewsByHostel(hostels._id))
+        }
+  },[hostels])
   return (
     <div>
     {
-      isLoading? <CircularProgress/>:(
+      hostelsLoading? <CircularProgress/>:(
           
           hostels.length === 0? <DefaultMessage message='You do not have a hostel right now. Go to hostel pageto make one'/>:<RoomRequestList/>    
       )

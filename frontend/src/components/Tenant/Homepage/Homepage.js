@@ -12,13 +12,14 @@ import { getEmptyRooms } from '../../../actions/Rooms';
 function Homepage({ setCurrentId }) {
   const dispatch = useDispatch();
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
+  const { rooms, roomsLoading } = useSelector((state) => state.rooms)
   useEffect(()=>{
       console.log('homepage tenants')
       dispatch(getEmptyRooms())
     },[])
     
   return (
-    
+      roomsLoading?<CircularProgress/>:
       <Rooms/>
   )
 }

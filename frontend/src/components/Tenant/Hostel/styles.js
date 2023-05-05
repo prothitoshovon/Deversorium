@@ -71,6 +71,7 @@ export default makeStyles({
   rating:{
     top:'49px',
     left:'43px',
+    marginBottom:'20px',
     color:'#0C21C1'
   },
   textField:{

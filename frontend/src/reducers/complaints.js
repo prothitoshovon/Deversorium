@@ -1,12 +1,12 @@
 import { FETCH_ALL,ERROR, CREATE,FETCH, FETCH_EMPTY_ROOMS, FETCH_ROOM_BY_ROOM_ID, BOOK, FETCH_COMPLAINTS_BY_HOSTEL_ID, DELETE } from '../constants/actionTypes'
 
-export default (state = { isLoading: true, complaints: [] }, action) => {
+export default (state = { complaintsLoading: true, complaints: [] }, action) => {
     switch(action.type)
     {
         case 'START_LOADING':
-            return { ...state, isLoading: true }
+            return { ...state, complaintsLoading: true }
         case 'END_LOADING':
-            return { ...state, isLoading: false }
+            return { ...state, complaintsLoading: false }
         case FETCH_EMPTY_ROOMS:
             return {...state, complaints:action.payload.complaints}
         case FETCH_ALL:
@@ -20,7 +20,7 @@ export default (state = { isLoading: true, complaints: [] }, action) => {
         case DELETE:
             return { ...state, complaints: state.complaints.filter((complaint) => complaint._id !== action.payload) }
         case ERROR:
-            return {...state, isLoading:false,complaints: []}
+            return {...state, complaintsLoading:false,complaints: []}
         default: 
             return state
     }

@@ -9,6 +9,7 @@ import useStyles from './styles.js'
 import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
 import { createSelector } from 'reselect';
+import Swal from 'sweetalert2'
 function RoomCard({ room,setCurrentId }) {
 
    
@@ -18,7 +19,7 @@ function RoomCard({ room,setCurrentId }) {
     const userId = user?.result?._id;
     const classes = useStyles();
     const {tenants} = useSelector((state) => state.tenants)
-    console.log(tenants)
+    //console.log(tenants)
     useEffect(()=>{
         if(tenants.length === 0)dispatch(getTenantsByUserId(user?.result?._id))
      
@@ -40,17 +41,30 @@ function RoomCard({ room,setCurrentId }) {
         date_issued: date
         }
         console.log(tenants)
-        if(tenants.has_booked === true)prompt('you already have a booking')
+        if(tenants.has_booked === true)Swal.fire('You already have a booking')
         else
         {
-            const confirm  = prompt('You can only book one room at a time.Type confirm and ok to Continue?','confirm')
-            dispatch(createRoomRequest(curForm))
-            window.location.reload(false)
+            //const confirm  = prompt('You can only book one room at a time.Type confirm and ok to Continue?','confirm')
+            
+            Swal.fire({
+                title: 'Confirm booking? You can\'t book other rooms after this',
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    dispatch(createRoomRequest(curForm)).then(()=>{
+                        Swal.fire('Booking complete!', '', 'success' , )
+                        window.location.reload(false)
+                    })
+                    
+                }
+            })
+            
         }
     }
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const date =new Date( room.next_vacancy_date)
-    console.log(date)
   return (
     // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
         
@@ -84,7 +98,7 @@ function RoomCard({ room,setCurrentId }) {
                     </Typography>
                   </CardContent>
                   <CardActions className={classes.cardActions}>
-                      <Button size='small' onClick={book}>Book now</Button>
+                      <Button size='small' onClick={book} style={{color:'#0C21C1'}}>Book now</Button>
                   </CardActions>
               </Card>
           )

@@ -7,16 +7,16 @@ import { getHostelByHostelId } from '../../actions/hostels.js';
 import Preview from '../RoomCard/Preview.js';
 
 const Rooms = ({ setCurrentId }) => {
-    const { rooms, isLoading } = useSelector((state) => state.rooms);
+    const { rooms, roomsLoading } = useSelector((state) => state.rooms)
     //const {hostels} = useSelector((state) => state.hostels)
     const dispatch = useDispatch()
     useEffect(()=>{
         // dispatch(getHostelByHostelId(room.hostel_id)) 
     })
-  if (!rooms && !isLoading) return 'No rooms!';
+  if (!rooms && !roomsLoading) return 'No rooms!';
 
   return (
-    isLoading ? <CircularProgress /> : (
+    roomsLoading ? <CircularProgress /> : (
       rooms.length === 0?(<Typography variant='h5' gutterBottom style={{marginLeft:'10px'}}>No Available rooms</Typography>):(
       <Grid  container alignItems="stretch" spacing={1} style={{display:'block'}}>
         {rooms?.map((room) => (

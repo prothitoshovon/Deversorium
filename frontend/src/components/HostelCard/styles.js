@@ -24,8 +24,7 @@ export default makeStyles({
     justifyContent: 'space-between',
     borderRadius: '15px',
     height:'330px',
-    width:'1002px',
-    margin: '10px 10px 10px 10px',
+    width:'100%',
     backgroundColor:'#F8F8F8'
   },
   overlay: {
@@ -52,10 +51,11 @@ export default makeStyles({
   },
   cardActions: {
     marginTop:'270px',
-    marginLeft:'900px',
+    marginLeft:'1000px',
+    marginRight:'100px',
     display: 'flex',
     justifyContent: 'space-between',
-    borderRadius:'25px',
+    borderRadius:'15px',
     backgroundColor:'#0C21C1',
     fontSize:'14px',
     width:'70px',

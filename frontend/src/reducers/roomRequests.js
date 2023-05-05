@@ -1,12 +1,12 @@
 import { FETCH_ALL, CREATE,DELETE, FETCH_EMPTY_ROOMS,FETCH_ROOM_REQUEST_BY_HOSTEL_ID,ERROR } from '../constants/actionTypes'
 
-export default (state = { isLoading: true, roomRequests: [] }, action) => {
+export default (state = { roomRequestsLoading: true, roomRequests: [] }, action) => {
     switch(action.type)
     {
         case 'START_LOADING':
-            return { ...state, isLoading: true }
+            return { ...state, roomRequestsLoading: true }
         case 'END_LOADING':
-            return { ...state, isLoading: false }
+            return { ...state, roomRequestsLoading: false }
         case FETCH_ROOM_REQUEST_BY_HOSTEL_ID:
             return { ...state, roomRequests: action.payload.roomRequests };
         case FETCH_ALL:
@@ -16,7 +16,7 @@ export default (state = { isLoading: true, roomRequests: [] }, action) => {
         case DELETE:
             return { ...state, roomRequests: state.roomRequests.filter((room) => room._id !== action.payload) }
         case ERROR:
-            return {...state, isLoading:false,roomRequests: []}
+            return {...state, roomRequestsLoading:false,roomRequests: []}
         default:
             return state
     }

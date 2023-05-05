@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { Box,Card, CardActions, CardContent, CardMedia, Typography, ButtonBase } from '@material-ui/core/';
+import { Box, Card, CardActions, CardContent, CardMedia, Typography, ButtonBase } from '@material-ui/core/';
 import { Button, CircularProgress } from '@mui/material';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import cardImage from '../../images/Order Placed.png'
 import useStyles from './styles.js'
@@ -9,72 +9,81 @@ import { updateTenant } from '../../actions/Tenants';
 import { getTenantsByUserId } from '../../actions/Tenants';
 import { bookRoom, getRoomsByRoomId } from '../../actions/Rooms';
 import { deleteRoomRequest } from '../../actions/RoomRequests';
-function RoomRequestCard({ roomRequest,hostel, setCurrentId }) {
+import Swal from 'sweetalert2'
+function RoomRequestCard({ roomRequest, setCurrentId }) {
 
     const user = JSON.parse(localStorage.getItem('profile'));
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userId = user?.result?._id;
     const classes = useStyles();
-    const {rooms} = useSelector((state)=> state.rooms)
-    const {tenants} = useSelector((state) => state.tenants)
-    
-    useEffect(()=>{
-        //Here we will query the tenant 
+
+    useEffect(() => {
+
+    }, [])
+    const allow = () => {
+
         console.log(roomRequest)
-        console.log('bro what')
-        //if(tenants.length === 0)dispatch(getTenantsByUserId(roomRequest.user_id))
-        //dispatch(getRoomsByRoomId(roomRequest.room_id))
-            
-    },[])
-    const allow = ()=>{
-        
-        console.log(roomRequest)
-        dispatch(bookRoom(roomRequest.room_id, roomRequest.user_id, roomRequest.hostel_id))
-        dispatch(deleteRoomRequest(roomRequest._id))
+        Swal.fire({
+            title: 'Are you sure you want to allow this tenant?',
+            showCancelButton: true,
+            confirmButtonText: 'Allow',
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                
+                dispatch(bookRoom(roomRequest.room_id, roomRequest.user_id, roomRequest.hostel_id)).then(()=>{
+                    Swal.fire('Tenant added!', '', 'success')
+                })
+                dispatch(deleteRoomRequest(roomRequest._id))         
+
+            }
+        })
         //Todo now delete this room request 
     }
-    const dismiss = ()=>{
+    const dismiss = () => {
         //console.log(roomRequest._id)
-        dispatch(deleteRoomRequest(roomRequest._id))
+        Swal.fire({
+            title: 'Are you sure you want to delete this request?',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                
+                dispatch(deleteRoomRequest(roomRequest._id)).then(()=>{
+                    
+                    Swal.fire('Deleted!', '', 'success')
+                })
+            }
+        })
     }
-    
-  return (
-    // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
-        
 
-            true===false?(
-                <CircularProgress/>
-            ):
-            (
-                <Card className={classes.card}raised elevation={6}>
-                <CardMedia
-                    className={classes.media}
-                    image={cardImage}
-                >
-                </CardMedia>
-                <CardContent className={classes.overlay}>
-                    <Typography gutterBottom variant='h5' component='div'>
+    return (
+        <Card className={classes.card} raised elevation={6}>
+            <CardMedia
+                className={classes.media}
+                image={cardImage}
+            >
+            </CardMedia>
+            <CardContent className={classes.overlay}>
+                <Typography gutterBottom variant='h5' component='div'>
                     {roomRequest.user_name}
-                    </Typography>
-                    <Typography variant='body2' >
+                </Typography>
+                <Typography variant='body2' >
                     Room #{roomRequest.room_number}
-                    </Typography>
-                    <Typography variant='body2' >
+                </Typography>
+                <Typography variant='body2' >
                     {roomRequest.user_phone}
-                    </Typography>
-                </CardContent>
-                <CardActions className={classes.cardActions}>
-                    <Button size='small' onClick={allow} >Allow tenant</Button>
-                    <Button size='small' onClick={dismiss} style={{marginTop:'30px'}}>Dismiss</Button>
-                </CardActions>
-            </Card>
-            )
-        
-        
-    // </Box>
-    
-  )
+                </Typography>
+            </CardContent>
+            <CardActions className={classes.cardActions}>
+                <Button size='small' onClick={allow} style={{color:'#0C21C1'}} >Allow tenant</Button>
+                <Button size='small' onClick={dismiss} style={{ marginTop: '30px',color:'#0C21C1' }}>Dismiss</Button>
+            </CardActions>
+        </Card>
+
+    )
 }
 
 export default RoomRequestCard
