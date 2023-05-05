@@ -10,6 +10,7 @@ import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
 import { leaveRoom } from '../../actions/Rooms';
 import Swal from 'sweetalert2'
+import * as api from '../../api/index'
 function HostelCard({ currentUser, currentHostel, currentTenant, setCurrentId }) {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
@@ -23,11 +24,11 @@ function HostelCard({ currentUser, currentHostel, currentTenant, setCurrentId })
 
     }, [])
 
-    const date = new Date(currentTenant.starting_date)
+    const date = new Date(currentTenant[0].starting_date)
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const leave = () => {
-
-        console.log('ekhane leave room marmu')
+    const leave = async() => {
+        try {
+            console.log('ekhane leave room marmu')
         console.log(currentTenant.room_id, currentTenant.user_id, currentHostel._id)
         Swal.fire({
             title: 'Are you sure you want to leave? this action cannot be reversed',
@@ -35,17 +36,25 @@ function HostelCard({ currentUser, currentHostel, currentTenant, setCurrentId })
             showCancelButton: true,
             confirmButtonText: 'Leave',
             denyButtonText: `Stay`,
-        }).then((result) => {
+        }).then(async (result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                dispatch(leaveRoom(currentTenant.room_id, currentTenant.user_id, currentHostel._id)).then(() => {
-                    Swal.fire('Saved!', '', 'success')
-                    navigate('/Homepage')
-                })
+                await api.leaveRoom(currentTenant[0].room_id,currentTenant[0].user_id,currentHostel[0]._id)
+                Swal.fire('Saved!', '', 'success')
+                navigate('/Homepage')
+                // dispatch(leaveRoom(currentTenant.room_id, currentTenant.user_id, currentHostel._id)).then(() => {
+                //     Swal.fire('Saved!', '', 'success')
+                //     navigate('/Homepage')
+                // })
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
             }
         })
+            
+        } catch (error) {
+            
+        }
+        
 
 
 
@@ -74,7 +83,7 @@ function HostelCard({ currentUser, currentHostel, currentTenant, setCurrentId })
             <CardContent className={classes.overlay2}>
 
                 <Typography gutterBottom variant='h4' >
-                    You are living in {currentTenant.hostel_name}
+                    You are living in {currentTenant[0].hostel_name}
                 </Typography>
                 <Typography variant='body2'  >
                     Every hostel has a meal system. That requires at least one grocery shopping chore per person, every month. With meal system, you get to enjoy home made quality meals everyday for lunch and dinner. Care to join?

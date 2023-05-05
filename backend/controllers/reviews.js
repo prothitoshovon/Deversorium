@@ -60,7 +60,7 @@ export const updateReview = async (req,res)=>{
     {
         return res.status(404).send('No review with that ID');
     }
-
+    
     const updatedReview = await reviewModel.findByIdAndUpdate(_id, {...review, _id}, {new: true});
     res.json(updatedReview);
 }
@@ -83,7 +83,7 @@ export const getReviewsByUserAndHostel = async (req, res)=>{
     const hid = req.params.hid;
 
     try{     
-        const reviews = await reviewModel.find({hostel_id: hid, user_id: uid});
+        const reviews = await reviewModel.findOne({hostel_id: hid, user_id: uid});
         console.log(reviews);
         res.status(200).json(reviews);
     } catch(error){

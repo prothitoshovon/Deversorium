@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE,FETCH, FETCH_EMPTY_ROOMS, FETCH_ROOM_BY_ROOM_ID, BOOK,FETCH_REVIEWS_BY_HOSTEL,ERROR } from '../constants/actionTypes'
+import { FETCH_ALL,UPDATE, CREATE,FETCH, FETCH_EMPTY_ROOMS, FETCH_ROOM_BY_ROOM_ID, BOOK,FETCH_REVIEWS_BY_HOSTEL,ERROR } from '../constants/actionTypes'
 
 export default (state = { reviewsLoading: true, reviews: [] }, action) => {
     switch(action.type)
@@ -17,6 +17,8 @@ export default (state = { reviewsLoading: true, reviews: [] }, action) => {
             return { ...state, reviews: action.payload.review };
         case ERROR:
             return {...state, reviewsLoading:false,reviews: []}
+        case UPDATE:
+            return { ...state, reviews: state.reviews.map((review) => (review._id === action.payload._id ? action.payload : review)) }
         default: 
             return state
     }

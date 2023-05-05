@@ -25,54 +25,42 @@ function RoomCard({ room,setCurrentId }) {
     const date =new Date( room.next_vacancy_date)
     console.log(date)
   return (
-    // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
+            <Card raised elevation={6} className={classes.card}>
+                <CardMedia
+                    className={classes.media}
+                    image={image}
+                >
+
+                </CardMedia>
+                <CardContent className={classes.overlay}>
+                    <Typography gutterBottom variant='h6' component='div'>
+                        Room #{room.room_number}
+                    </Typography>
+                    <Typography  variant='body2' >
+                        Rent: {room.rent} Bdt
+                    </Typography>
+                    <Typography variant='body2' >
+                        Area: {room.area} sqft
+                    </Typography>
+                    {
+                    date.getFullYear() === 3000?(
+                        <Typography variant='body2' >
+                            Vacancy status: Occupied
+                        </Typography>
+                    ):
+                    (
+                        <Typography variant='body2' >
+                            Vacancy status: Empty
+                        </Typography>
+                    )
+                    }
+                    
+                    
+                </CardContent>
+                
+            </Card>
         
-        
-      true===false ?(<CircularProgress />) :
-          (
-              <Card raised elevation={6} className={classes.card}>
-                  <CardMedia
-                      className={classes.media}
-                      image={image}
-                  >
-
-                  </CardMedia>
-                  <CardContent className={classes.overlay}>
-                      <Typography gutterBottom variant='h6' component='div'>
-                          Room #{room.room_number}
-                      </Typography>
-                      <Typography  variant='body2' >
-                          Rent: {room.rent} Bdt
-                      </Typography>
-                      <Typography variant='body2' >
-                          Area: {room.area} sqft
-                      </Typography>
-                      {/* <Typography>
-                        ya re ba
-                      </Typography> */}
-                      {
-                        date.getFullYear() == 3000?(
-                            <Typography variant='body2' >
-                               Vacancy status: Occupied
-                            </Typography>
-                        ):
-                        (
-                            <Typography variant='body2' >
-                               Vacancy status: Empty
-                            </Typography>
-                        )
-                      }
-                      
-                      
-                  </CardContent>
-                  
-              </Card>
-          )
-
-
-    //</Box>
-    
-  )
+    )
 }
 
 export default RoomCard

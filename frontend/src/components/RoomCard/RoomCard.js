@@ -10,6 +10,7 @@ import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
 import { createSelector } from 'reselect';
 import Swal from 'sweetalert2'
+import * as api from '../../api/index'
 function RoomCard({ room,setCurrentId }) {
 
    
@@ -18,13 +19,17 @@ function RoomCard({ room,setCurrentId }) {
     const navigate = useNavigate();
     const userId = user?.result?._id;
     const classes = useStyles();
-    const {tenants} = useSelector((state) => state.tenants)
-    //console.log(tenants)
+    const [tenants, setTenants] = useState([])
+    const [loading, setLoading] = useState(true)
+    const fetchData = async () =>{
+        const {data} = await api.getTenantsByUserId(user?.result?._id)
+        setTenants([...tenants, data])
+        //console.log(tenants)
+        setLoading(false)
+    }
     useEffect(()=>{
-        if(tenants.length === 0)dispatch(getTenantsByUserId(user?.result?._id))
-     
+        fetchData()
     },[])
-    
     
     const book = ()=>{
 
@@ -41,7 +46,7 @@ function RoomCard({ room,setCurrentId }) {
         date_issued: date
         }
         console.log(tenants)
-        if(tenants.has_booked === true)Swal.fire('You already have a booking')
+        if(tenants[0].has_booked === true)Swal.fire('You already have a booking')
         else
         {
             //const confirm  = prompt('You can only book one room at a time.Type confirm and ok to Continue?','confirm')
@@ -66,12 +71,9 @@ function RoomCard({ room,setCurrentId }) {
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const date =new Date( room.next_vacancy_date)
   return (
-    // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
-        
-        
-      true===false ?(<CircularProgress />) :
-          (
-              <Card raised elevation={6} className={classes.card}>
+            loading?<CircularProgress/>:
+                (
+                <Card raised elevation={6} className={classes.card}>
                   <CardMedia
                       className={classes.media}
                       image={image}
@@ -101,10 +103,10 @@ function RoomCard({ room,setCurrentId }) {
                       <Button size='small' onClick={book} style={{color:'#0C21C1'}}>Book now</Button>
                   </CardActions>
               </Card>
-          )
+            )
+              
+          
 
-
-    //</Box>
     
   )
 }
