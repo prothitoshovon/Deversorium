@@ -10,6 +10,7 @@ export const getHostels = ()  => async(dispatch) =>{
     dispatch({ type: FETCH_ALL, payload: { hostels: data } });
     dispatch({type: END_LOADING})
   } catch (error) {
+    dispatch({type:ERROR})
     console.log(error);
   }
 }
@@ -21,6 +22,7 @@ export const createHostel = (newHostel) => async (dispatch) =>{
       dispatch({ type: CREATE, payload: data })
       dispatch({type: END_LOADING})
   } catch (error) {
+    dispatch({type:ERROR})
     console.log(error.message);
   }
 }
@@ -46,6 +48,7 @@ export const getHostelByHostelId = (id) => async (dispatch) => {
     dispatch({ type: FETCH_HOSTEL, payload: { hostel: data } });
     dispatch({type: END_LOADING})
   } catch (error) {
+    dispatch({type:ERROR})
     console.log(error);
   }
 }

@@ -39,7 +39,7 @@ function RoomCard({ room,setCurrentId }) {
                   </CardMedia>
                   <CardContent className={classes.overlay}>
                       <Typography gutterBottom variant='h6' component='div'>
-                          {room.room_number}
+                          Room #{room.room_number}
                       </Typography>
                       <Typography  variant='body2' >
                           Rent: {room.rent} Bdt
@@ -53,12 +53,12 @@ function RoomCard({ room,setCurrentId }) {
                       {
                         date.getFullYear() == 3000?(
                             <Typography variant='body2' >
-                                Occupied
+                               Vacancy status: Occupied
                             </Typography>
                         ):
                         (
                             <Typography variant='body2' >
-                                 Empty
+                               Vacancy status: Empty
                             </Typography>
                         )
                       }

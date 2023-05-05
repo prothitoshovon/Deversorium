@@ -11,6 +11,8 @@ const userReducer = (state = { isLoading: true, users: [] }, action) => {
             return { ...state, users: action.payload.users };
         case actionType.UPDATE:
             return { ...state, users: state.users.map((user) => (user._id === action.payload._id ? action.payload : user)) }
+        case actionType.ERROR:
+            return {...state, isLoading:false,users: []}
         default:
         return state
     }

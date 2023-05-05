@@ -1,9 +1,10 @@
 import React, { useState,useEffect } from 'react';
-import { Grid, CircularProgress } from '@material-ui/core';
+import { Grid, CircularProgress, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import ReviewCard from '../../ReviewCard/ReviewCard'
 import { getHostelByOwnerId } from '../../../actions/hostels';
 import { getReviewsByHostel } from '../../../actions/Reviews';
+import DefaultMessage from '../../DefaultMessage/DefaultMessage';
 
 const Reviews = ({ setCurrentId }) => {
     //Need Hostel by owner ID 
@@ -14,30 +15,39 @@ const Reviews = ({ setCurrentId }) => {
     const { reviews, isLoading } = useSelector((state) => state.reviews);
     
     const { hostels } = useSelector((state) => state.hostels);
+    // useEffect(()=>{
+    //   console.log(user,hostels, reviews)
+    // },[])
 
     useEffect(()=>{
-        if(!user)user = JSON.parse(localStorage.getItem('profile'))
-        console.log("ASDKLJFHKLSXDJHK")
-        console.log(user)
+        // console.log('hono')
+        // if(!hostels)console.log('no hostel')
+        // else if(hostels.length === 0)
+        // {
+        //     console.log('get hostel by owner ID called')
+        //     dispatch(getHostelByOwnerId(user?.result?._id))
+        // }
+        // else console.log(hostels)
         dispatch(getHostelByOwnerId(user?.result?._id))
     },[])
     useEffect(()=>{
-
-        if(!hostels)console.log('hostel not there yet')
-        else if(hostels && hostels.length !== 0)
+        if(hostels.length !== 0 && reviews.length === 0)
         {
-            if(!reviews)console.log('No reviews ever')
-            else dispatch(getReviewsByHostel(hostels._id))
+            console.log('srsly')
+            dispatch(getReviewsByHostel(hostels._id))
+            //dispatch(getReviewsByHostel(hostels._id))
         }
-        else if(hostels.length === 0)dispatch(getHostelByOwnerId(hostels._id))
     },[hostels])
     if(!hostels)return 'You do not have a hostel right now'
     //if (!reviews.length && !isLoading) return 'No reviews yet';
 
   return (
-    isLoading ? <CircularProgress /> : (
-      reviews.length === 0 ? <h2>No reveiws yet</h2>:
+    isLoading || hostels.length===0 ? <CircularProgress /> : (
+      reviews.length === 0 ? <DefaultMessage message='No reviews yet' />:
       <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
+        <Grid  item xs={12} sm={12} md={6} lg={3}>
+          <DefaultMessage message='Your reviews'/>
+        </Grid>
         {reviews?.map((review) => (
           <Grid key={review._id} item xs={12} sm={12} md={6} lg={3}>
             <ReviewCard review={review}/>

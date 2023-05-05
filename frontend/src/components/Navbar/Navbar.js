@@ -60,8 +60,10 @@ function ResponsiveAppBar({user, setUser}) {
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
     setUser(null);
+    window.location.reload(false);
     navigate('/')
     //history.push('/auth');
+
     console.log('logout called')
 
     

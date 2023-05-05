@@ -8,13 +8,12 @@ import Input from '../../Input/Input';
 import { getHostelByOwnerId } from '../../../actions/hostels';
 import { createRoom } from '../../../actions/Rooms'
 import Axios from 'axios';
-import moment from 'moment';
-import ReviewCard from '../../ReviewCard/ReviewCard';
-import { getReviewsByHostel } from '../../../actions/Reviews';
-import { getTenantsByUserId } from '../../../actions/Tenants';
+import {useQuery} from 'react-query'
 import { styled } from '@mui/material/styles';
 import ComplaintCardList from '../../ComplaintCardList/ComplaintCardList';
 import { getComplaintsByHostel } from '../../../actions/Complaints';
+import Swal from 'sweetalert2'
+import DefaultMessage from '../../DefaultMessage/DefaultMessage';
 function Hostel() {
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -37,6 +36,9 @@ function Hostel() {
     const { hostels } = useSelector((state) => state.hostels);
     const { tenants } = useSelector((state) => state.tenants)
     const {complaints} = useSelector((state) => state.complaints )
+
+    
+
     const handleSubmit = (e) => {
         //Query to find hostelID using ownerID 
         e.preventDefault()
@@ -52,13 +54,24 @@ function Hostel() {
         }))
 
         setForm(initialState)
-        window.location.reload(false)
+        Swal.fire({
+        icon: 'success',
+        title: 'Your room was added',
+        showConfirmButton: false,
+        timer: 1500
+        }).then(()=>{
+            window.location.reload(false)
+        })
+        
 
     }
+  
+
     useEffect(()=>{
         if(!hostels)console.log('no hostel')
         else if(hostels.length === 0)dispatch(getHostelByOwnerId(user?.result?._id))
     },[hostels])
+
     useEffect(() => {
         
         if(!hostels)
@@ -84,10 +97,7 @@ function Hostel() {
                 hostels ? (
                     <Grid container spacing={2}>
                         <Grid item xs={4} md={6}>
-                            <Typography gutterBottom variant='h5'>
-                                Complaints of your hostel
-                            </Typography>
-                                        
+                                       
                             <ComplaintCardList/>
                             
                         </Grid>

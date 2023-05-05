@@ -28,11 +28,11 @@ import Rooms from './components/Owner/Rooms/Rooms'
 function App() {
 
   //TODO add safe routing for owners and tenants 
-  console.log('app ni ')
+  //console.log('app ni ')
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
   useEffect(()=>{
     setUser(JSON.parse(localStorage.getItem('profile')))
-    console.log(user)
+    //console.log(user)
     //window.location.reload(false);
 
   },[]

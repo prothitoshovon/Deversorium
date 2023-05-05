@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE,DELETE, FETCH_EMPTY_ROOMS,FETCH_ROOM_REQUEST_BY_HOSTEL_ID } from '../constants/actionTypes'
+import { FETCH_ALL, CREATE,DELETE, FETCH_EMPTY_ROOMS,FETCH_ROOM_REQUEST_BY_HOSTEL_ID,ERROR } from '../constants/actionTypes'
 
 export default (state = { isLoading: true, roomRequests: [] }, action) => {
     switch(action.type)
@@ -15,6 +15,8 @@ export default (state = { isLoading: true, roomRequests: [] }, action) => {
             return { ...state, roomRequests: [...state.roomRequests, action.payload] };
         case DELETE:
             return { ...state, roomRequests: state.roomRequests.filter((room) => room._id !== action.payload) }
+        case ERROR:
+            return {...state, isLoading:false,roomRequests: []}
         default:
             return state
     }

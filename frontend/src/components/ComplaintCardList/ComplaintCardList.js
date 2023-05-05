@@ -6,9 +6,11 @@ import ComplaintCard from '../ComplaintCard/ComplaintCard';
 import { getHostelByOwnerId } from '../../actions/hostels';
 import { getComplaintsByHostel } from '../../actions/Complaints';
 import { getRoomsByHostelId } from '../../actions/Rooms';
+import DefaultMessage from '../DefaultMessage/DefaultMessage';
 const ComplainCardList = ({ setCurrentId }) => {
   const { complaints, isLoading } = useSelector((state) => state.complaints);
   const { hostels } = useSelector((state) => state.hostels);
+
   const dispatch = useDispatch()
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
     useEffect(()=>{
@@ -23,13 +25,12 @@ const ComplainCardList = ({ setCurrentId }) => {
     },[hostels])
     useEffect(()=>{
         console.log('aichhi')
-        if(hostels)
+        if(hostels.length !== 0)
         {
             if(!complaints)console.log('No rooms ever')
             else if(complaints.length===0)
             {
-                console.log('get rooms called')
-                dispatch(getRoomsByHostelId(hostels._id))
+                dispatch(getComplaintsByHostel(hostels._id))
             }
             else console.log(complaints)
         }
@@ -39,7 +40,10 @@ const ComplainCardList = ({ setCurrentId }) => {
 
   return (
     isLoading ? <CircularProgress /> : (
-      <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
+      <Grid style={{display:'block'}} container alignItems="stretch" spacing={1}>
+        <Grid  item xs={4} sm={12} md={6} lg={3}>
+          <DefaultMessage message='Pending Complaints'/>
+        </Grid>
         {complaints?.map((complaint) => (
           <Grid key={complaint._id} item xs={12} sm={12} md={6} lg={3}>
             {/* <RoomRequestCard roomRequest={roomRequest}  /> */}
