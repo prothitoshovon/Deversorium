@@ -12,7 +12,7 @@ function TenantCard({ tenant, setCurrentId }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const classes = useStyles();
-    const {users, isLoading} =  useSelector((state) => state.users)
+    const {users, usersLoading} =  useSelector((state) => state.users)
     useEffect(()=>{
         console.log(tenant.user_id)
         if(!users || users.length === 0)dispatch(getuserbyuserid(tenant.user_id))
@@ -26,7 +26,7 @@ function TenantCard({ tenant, setCurrentId }) {
     
   return (
     // <Box width='600px' style={{marginTop:"20px", marginLeft:"10px"}}>
-        isLoading?<CircularProgress/>:
+        usersLoading?<CircularProgress/>:
         (
 
                     <Card className={classes.card}raised elevation={6}>

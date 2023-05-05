@@ -9,7 +9,7 @@ import DefaultMessage from '../../DefaultMessage/DefaultMessage';
 function Tenants() {
     const dispatch = useDispatch()
     const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')))
-    const { tenants, isLoading } = useSelector((state) => state.tenants);
+    const { tenants, tenantsLoading } = useSelector((state) => state.tenants);
     
     const { hostels } = useSelector((state) => state.hostels);
      useEffect(()=>{
@@ -27,7 +27,7 @@ function Tenants() {
     //if (!tenants.length && !isLoading) return 'No tenants yet';
 
   return (
-    isLoading ? <CircularProgress /> : (
+    tenantsLoading ? <CircularProgress /> : (
       tenants.length === 0? <DefaultMessage message='No tenants yet'/>:
       <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
         <Grid  item xs={12} sm={12} md={6} lg={3}>

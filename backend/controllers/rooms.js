@@ -71,8 +71,8 @@ export const leaveRoom = async(req,res)=>{
                 assigned_room: false,
                 hostel_id:"Unassigned", 
                 room_id: "Unassigned", 
-                starting_date: new Date("3000-01-01") 
-                
+                starting_date: new Date("3000-01-01") ,
+                has_booked: false,
             } });
         const emptyRoom = await roomModel.updateOne({_id: rid}, 
             { $set: { next_vacancy_date: new Date(firstDateOfNextMonth), tenant_id: "Unassigned"} },);    

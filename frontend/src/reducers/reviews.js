@@ -1,12 +1,12 @@
 import { FETCH_ALL, CREATE,FETCH, FETCH_EMPTY_ROOMS, FETCH_ROOM_BY_ROOM_ID, BOOK,FETCH_REVIEWS_BY_HOSTEL,ERROR } from '../constants/actionTypes'
 
-export default (state = { isLoading: true, reviews: [] }, action) => {
+export default (state = { reviewsLoading: true, reviews: [] }, action) => {
     switch(action.type)
     {
         case 'START_LOADING':
-            return { ...state, isLoading: true }
+            return { ...state, reviewsLoading: true }
         case 'END_LOADING':
-            return { ...state, isLoading: false }
+            return { ...state, reviewsLoading: false }
         case FETCH_REVIEWS_BY_HOSTEL:
             return {...state, reviews:action.payload.reviews}
         case FETCH_ALL:
@@ -16,7 +16,7 @@ export default (state = { isLoading: true, reviews: [] }, action) => {
         case FETCH:
             return { ...state, reviews: action.payload.review };
         case ERROR:
-            return {...state, isLoading:false,reviews: []}
+            return {...state, reviewsLoading:false,reviews: []}
         default: 
             return state
     }

@@ -12,9 +12,9 @@ const Rooms = ({ setCurrentId }) => {
     //Need reviews by hostel ID
     const dispatch = useDispatch()
     const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')))
-    const { rooms, isLoading } = useSelector((state) => state.rooms);
+    const { rooms, roomsLoading } = useSelector((state) => state.rooms);
     
-    const { hostels } = useSelector((state) => state.hostels);
+    const { hostels,hostelsLoading } = useSelector((state) => state.hostels);
     useEffect(()=>{
         dispatch(getHostelByOwnerId(user?.result?._id))
     },[])
@@ -30,7 +30,7 @@ const Rooms = ({ setCurrentId }) => {
     //if (!rooms.length && !isLoading) return 'No rooms pending';
 
   return (
-    isLoading ? <CircularProgress /> : (
+    roomsLoading ? <CircularProgress /> : (
         rooms.length ===0?(<DefaultMessage message='No rooms to show'/>):(
             <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
             <Grid  item xs={12} sm={12} md={6} lg={3}>

@@ -12,7 +12,7 @@ const Reviews = ({ setCurrentId }) => {
     
     const dispatch = useDispatch()
     const [user,setUser] =  useState(JSON.parse(localStorage.getItem('profile')))
-    const { reviews, isLoading } = useSelector((state) => state.reviews);
+    const { reviews, reviewsLoading } = useSelector((state) => state.reviews);
     
     const { hostels } = useSelector((state) => state.hostels);
     // useEffect(()=>{
@@ -42,7 +42,7 @@ const Reviews = ({ setCurrentId }) => {
     //if (!reviews.length && !isLoading) return 'No reviews yet';
 
   return (
-    isLoading || hostels.length===0 ? <CircularProgress /> : (
+    reviewsLoading || hostels.length===0 ? <CircularProgress /> : (
       reviews.length === 0 ? <DefaultMessage message='No reviews yet' />:
       <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
         <Grid  item xs={12} sm={12} md={6} lg={3}>
