@@ -9,6 +9,8 @@ import quote from '../../images/quote.png'
 import useStyles from './styles.js'
 import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
+import Swal from 'sweetalert2'
+import { deleteComplaint } from '../../actions/Complaints';
 function ComplaintCard({ complaint, setCurrentId }) {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
@@ -23,7 +25,17 @@ function ComplaintCard({ complaint, setCurrentId }) {
 
     const dismiss = () => {
         //Delete this 
-        dispatch()
+        Swal.fire({
+            title: 'Are you sure this complaint was resolved ?',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                dispatch(deleteComplaint(complaint._id))
+                Swal.fire('Saved!', '', 'success')
+            }
+        })
     }
     return (
         <Card className={classes.card}>

@@ -10,6 +10,7 @@ import { getHostelByOwnerId } from '../../../actions/hostels';
 import { getRoomRequestsByHostelId } from '../../../actions/RoomRequests';
 import RoomRequestList from '../../RoomRequests/RoomRequestList'; 
 import { getComplaintsByHostel } from '../../../actions/Complaints';
+import DefaultMessage from '../../DefaultMessage/DefaultMessage';
 function Homepage({ setCurrentId }) {
 
   const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
@@ -24,26 +25,16 @@ function Homepage({ setCurrentId }) {
   })
   useEffect(()=>{
     
-    queryHostel({},dispatch).then(()=>{
-        console.log(hostels._id)
-    })
+    queryHostel({},dispatch)
     
   },[])
-  useEffect(()=>{
-           
-        // if(hostels )
-        // {
-        //   dispatch(getComplaintsByHostel(hostels._id))
-        //   dispatch(getRoomRequestsByHostelId(hostels._id))    
-        // } 
-    },[hostels])
 
   return (
     <div>
     {
       isLoading? <CircularProgress/>:(
           
-          !hostels ||hostels.length === 0? <Typography gutterBottom variant='h5'>You do not have a hostel right now. Go to hostel page to make one</Typography>:<RoomRequestList/>    
+          hostels.length === 0? <DefaultMessage message='You do not have a hostel right now. Go to hostel pageto make one'/>:<RoomRequestList/>    
       )
     }
     </div>

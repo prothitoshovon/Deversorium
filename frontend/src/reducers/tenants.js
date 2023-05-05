@@ -1,4 +1,4 @@
-import { START_LOADING, END_LOADING, CREATE, UPDATE, DELETE ,FETCH_TENANT_BY_USER_ID,FETCH_TENANT_BY_HOSTEL_ID} from '../constants/actionTypes'
+import { START_LOADING, END_LOADING, CREATE, UPDATE,ERROR, DELETE ,FETCH_TENANT_BY_USER_ID,FETCH_TENANT_BY_HOSTEL_ID} from '../constants/actionTypes'
 
 export default (state = { isLoading: true, tenants: [] }, action) => {
     switch(action.type)
@@ -13,6 +13,8 @@ export default (state = { isLoading: true, tenants: [] }, action) => {
             return { ...state, tenants: action.payload.tenant };
         case FETCH_TENANT_BY_HOSTEL_ID:
             return {...state, tenants: action.payload.tenants}
+        case ERROR:
+            return {...state, isLoading:false,tenants: []}
         default:
             return state
     }

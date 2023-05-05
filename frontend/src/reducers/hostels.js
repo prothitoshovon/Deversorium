@@ -14,7 +14,7 @@ export default (state = { isLoading: true, hostels: [] }, action) => {
         case FETCH_HOSTEL:
              return{ ...state, hostels: action.payload.hostel };
         case ERROR:
-            return {...state, isLoading:false,hostels: null}
+            return {...state, isLoading:false,hostels: []}
         default:
             return state
     }

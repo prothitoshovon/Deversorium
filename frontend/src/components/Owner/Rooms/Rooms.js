@@ -5,6 +5,7 @@ import ReviewCard from '../../ReviewCard/ReviewCard'
 import { getHostelByOwnerId } from '../../../actions/hostels';
 import { getRoomsByHostelId } from '../../../actions/Rooms';
 import RoomCard from './RoomCard';
+import DefaultMessage from '../../DefaultMessage/DefaultMessage';
 
 const Rooms = ({ setCurrentId }) => {
     //Need Hostel by owner ID 
@@ -15,35 +16,26 @@ const Rooms = ({ setCurrentId }) => {
     
     const { hostels } = useSelector((state) => state.hostels);
     useEffect(()=>{
-        console.log('hono')
-        if(!hostels)console.log('no hostel')
-        else if(hostels.length === 0)
-        {
-            console.log('get hostel by owner ID called')
-            dispatch(getHostelByOwnerId(user?.result?._id))
-        }
-        else console.log(hostels)
-    },[hostels])
-    useEffect(()=>{
-        console.log('aichhi')
-        if(hostels)
-        {
-            if(!rooms)console.log('No rooms ever')
-            else if(rooms.length===0)
-            {
-                console.log('get rooms called')
-                dispatch(getRoomsByHostelId(hostels._id))
-            }
-            else console.log(rooms)
-        }
+        dispatch(getHostelByOwnerId(user?.result?._id))
     },[])
+    useEffect(()=>{
+        if(hostels.length !== 0 && rooms.length === 0)
+        {
+            console.log('srsly')
+            dispatch(getRoomsByHostelId(hostels._id))
+            //dispatch(getReviewsByHostel(hostels._id))
+        }
+    },[hostels])
     if(!hostels)return 'No hostel'
     //if (!rooms.length && !isLoading) return 'No rooms pending';
 
   return (
     isLoading ? <CircularProgress /> : (
-        rooms.length ===0?(<h2>No rooms to show</h2>):(
+        rooms.length ===0?(<DefaultMessage message='No rooms to show'/>):(
             <Grid style={{display:'block'}} container alignItems="stretch" spacing={3}>
+            <Grid  item xs={12} sm={12} md={6} lg={3}>
+                <DefaultMessage message='Your rooms'/>
+                </Grid>
                 {rooms?.map((room) => (
                 <Grid key={room._id} item xs={12} sm={12} md={6} lg={3}>
                     <RoomCard room={room}/>
