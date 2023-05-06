@@ -100,11 +100,11 @@ export const generateBill = async (req, res)=>{
 export const receiveBill = async (req,res)=>{
     const uid = req.params.uid;
     try {
-        const tenants = await tenantModel.find({hostel_id: id});
-        if(!tenants)
-        {
-            return res.status(404).send('No tenants with that hostel ID');
-        }
+        // const tenants = await tenantModel.find({hostel_id: id});
+        // if(!tenants)
+        // {
+        //     return res.status(404).send('No tenants with that hostel ID');
+        // }
         const billpayers = await tenantModel.update({ user_id: uid }, // if bugging, replace user_id with _id here
             { $set: { bill_paid: true } });
         res.json(billpayers);

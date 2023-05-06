@@ -68,7 +68,7 @@ function HostelForm() {
                                 <Input name="phone" label="Phone Number" handleChange={handleChange} type="number" />
                               </Grid>
                               <Grid item xs={12}>
-                                  <Button type="submit" variant="contained" color="primary" fullWidth>Submit</Button>
+                                  <Button type="submit" variant="contained" style={{color:'white',backgroundColor:'#0C21C1'}} fullWidth>Submit</Button>
                               </Grid>
 
                           </Grid>

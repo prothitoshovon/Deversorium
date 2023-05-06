@@ -5,6 +5,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
 import Input from '../../Input/Input'
 import { updateuser } from '../../../actions/Users';
+import Swal from 'sweetalert2'
+import * as api from '../../../api/index'
 function Profile() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const initialState = { _id:user?.result?._id,name:user?.result?.name, phone:user?.result?.phone, email: user?.result?.email, password: '' };
@@ -17,11 +19,45 @@ function Profile() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
         e.preventDefault();
-       console.log(form)
+        try {
+          const ok = await api.updateuser(user?.result?._id,{...form, _id:user?.result?._id})
+          const token = user?.token
+          const newStorage = {
+            result:ok.data,
+            token
+          }
+          Swal.fire({
+            title:"profile updated successfully! Login to continue",
+            icon: "success"
+          }).then(()=>{
+            dispatch({type:'LOGOUT'})
+            window.location.reload(false);
+          })
+          
+
+          // console.log(ok.data)
+          // localStorage.clear()
+          //   //setUser(null)
+          // const newStorage = {result: ok.data, token}
+          // localStorage.setItem('profile', JSON.stringify({ newStorage}))
+          // console.log('ettul')
+          // setUser(JSON.parse(localStorage.getItem('profile')))
+          
+          
+          //update user query 
+          //setUser null 
+          
+        } catch (error) {
+          Swal.fire({
+            title:'Invalid password or form',
+            icon:'error'
+          })
+        }
+       
         //dispatch(getHostelByOwnerId(user?.result?._id)) 
-        dispatch(updateuser(user?.result?._id,{...form, _id:user?.result?._id}))
+        //dispatch(updateuser(user?.result?._id,{...form, _id:user?.result?._id}))
         //const val = dispatch(getUserByEmail(form.email))
         //console.log(val)
     }
@@ -47,8 +83,8 @@ function Profile() {
                         <Input name='phone' defaultValue={user?.result?.phone} label='phone' handleChange={handleChange} type='number' half/>
                         <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
                     </Grid>
-                    <Button style={{marginTop:"20px" ,marginRight:'20px'}}type='submit' variant='contained' color='primary'>save</Button>
-                    <Button style={{marginTop:"20px"}}onClick={cancel} variant='contained' color='primary'>Cancel</Button>
+                    <Button style={{marginTop:"20px" ,marginRight:'20px', color:'white',backgroundColor:'#0C21C1'}}type='submit' variant='contained' >save</Button>
+                    <Button style={{marginTop:"20px", color:'white',backgroundColor:'#0C21C1'}}onClick={cancel} variant='contained' >Cancel</Button>
                 </form>
             </Paper>
         </Grid>

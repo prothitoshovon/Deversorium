@@ -38,7 +38,7 @@ function RoomCard({ room,setCurrentId }) {
         const curForm = {
         user_id:userId,
         user_name:user?.result?.name,
-        user_phone:user?.result.phone,
+        user_phone:user?.result?.phone,
         room_id:room._id,
         room_number: room.room_number,
         hostel_id:room.hostel_id,
