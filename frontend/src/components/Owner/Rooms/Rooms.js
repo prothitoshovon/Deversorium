@@ -19,12 +19,19 @@ const Rooms = ({ setCurrentId }) => {
     const [rooms, setRooms] = useState([])
     const [loading, setLoading] = useState(true)
     const fetchData = async() =>{
-        const {data} = await api.getHostelByOwnerId(user?.result?._id)
-        setHostels([...hostels, data])
-        const newData = await api.getRoomsByHostelId(data._id)
-        setRooms(newData.data)
-        setLoading(false)
-    }
+
+        try {
+
+            const {data} = await api.getHostelByOwnerId(user?.result?._id)
+            if(data)setHostels([...hostels, data])
+            const newData = await api.getRoomsByHostelId(data._id)
+            if(newData)setRooms(newData.data)
+            setLoading(false)
+        }
+        catch (error) {
+            setLoading(false)
+        }
+    } 
     useEffect(()=>{
         fetchData()
     },[])

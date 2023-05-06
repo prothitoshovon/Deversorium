@@ -14,11 +14,23 @@ function Homepage({ setCurrentId }) {
   const [roomRequests, setRoomRequests] = useState([])
   const [loading, setLoading] = useState(true)
   const fetchData = async () => {
-    const {data} = await api.getHostelByOwnerId(user?.result?._id)
-    setHostels([...hostels, data])
-    const newData = await api.getRoomRequestsByHostelId(data._id)
-    setRoomRequests(newData.data)
-    setLoading(false)
+    try {
+      const {data} = await api.getHostelByOwnerId(user?.result?._id)
+      if(data)
+      {
+        setHostels([...hostels, data])
+        const newData = await api.getRoomRequestsByHostelId(data._id)
+        setRoomRequests(newData.data)
+      }
+      
+      setLoading(false)
+    } catch (error) {
+      
+      setHostels([])
+      setRoomRequests([])
+      setLoading(false)
+    }
+    
   }
   useEffect(()=> {
     fetchData()

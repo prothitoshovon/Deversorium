@@ -40,12 +40,10 @@ function HostelCard({ currentUser, currentHostel, currentTenant, setCurrentId })
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 await api.leaveRoom(currentTenant[0].room_id,currentTenant[0].user_id,currentHostel[0]._id)
-                Swal.fire('Saved!', '', 'success')
-                navigate('/Homepage')
-                // dispatch(leaveRoom(currentTenant.room_id, currentTenant.user_id, currentHostel._id)).then(() => {
-                //     Swal.fire('Saved!', '', 'success')
-                //     navigate('/Homepage')
-                // })
+                Swal.fire('Saved!', '', 'success').then(()=>{
+                    navigate('/Homepage')
+                })
+                
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
             }
@@ -55,9 +53,6 @@ function HostelCard({ currentUser, currentHostel, currentTenant, setCurrentId })
             
         }
         
-
-
-
 
     }
     return (

@@ -47,8 +47,6 @@ function Hostel() {
         Swal.fire({
             icon: 'success',
             title: 'Your room was added',
-            showConfirmButton: false,
-            timer: 1500
 
         }).then(() => {
             window.location.reload(false)
@@ -57,14 +55,22 @@ function Hostel() {
     }
 
     const fetchData = async () => {
-        const { data } = await api.getHostelByOwnerId(user?.result?._id)
+        try {
+            const { data } = await api.getHostelByOwnerId(user?.result?._id)
         //console.log(data)
-        setHostels([...hostels, data])
-        const newData = await api.getComplaintsByHostel(data._id)
-        // console.log(newData.data)
-        setComplaints(newData.data)
+            if(data)
+            setHostels([...hostels, data])
+            const newData = await api.getComplaintsByHostel(data._id)
+            // console.log(newData.data)
+            if(newData)
+            setComplaints(newData.data)
 
-        setLoading(false)
+            setLoading(false)
+            
+        } catch (error) {
+            setLoading(false)
+        }
+        
     }
     useEffect(() => {
         fetchData()
@@ -97,14 +103,14 @@ function Hostel() {
                                             <form onSubmit={handleSubmit}>
                                                 <Grid container spacing={2}>
                                                     <Grid xs={12} sm={6} item>
-                                                        <Input name="number" label="Enter room number" handleChange={handleChange} type="number" />
+                                                        <Input isRequired={true} name="number" label="Enter room number" handleChange={handleChange} type="number" />
 
                                                     </Grid>
                                                     <Grid xs={12} sm={6} item>
-                                                        <Input name="area" label="Enter room area" handleChange={handleChange} type="number" />
+                                                        <Input isRequired={true} name="area" label="Enter room area" handleChange={handleChange} type="number" />
                                                     </Grid>
                                                     <Grid item xs={12}>
-                                                        <Input name="rent" label="Enter room rent" handleChange={handleChange} type="number" />
+                                                        <Input isRequired={true}name="rent" label="Enter room rent" handleChange={handleChange} type="number" />
                                                     </Grid>
                                                     <Grid item xs={12}>
                                                         <Button type="submit" variant="contained" style={{ backgroundColor: '#0C21C1', color: 'white' }} fullWidth>Submit</Button>

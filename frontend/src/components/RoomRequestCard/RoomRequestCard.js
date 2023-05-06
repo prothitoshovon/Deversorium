@@ -10,6 +10,7 @@ import { getTenantsByUserId } from '../../actions/Tenants';
 import { bookRoom, getRoomsByRoomId } from '../../actions/Rooms';
 import { deleteRoomRequest } from '../../actions/RoomRequests';
 import Swal from 'sweetalert2'
+import * as api from '../../api/index'
 function RoomRequestCard({ roomRequest, setCurrentId }) {
 
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -28,14 +29,19 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
             title: 'Are you sure you want to allow this tenant?',
             showCancelButton: true,
             confirmButtonText: 'Allow',
-            }).then((result) => {
+            }).then(async(result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 
-                dispatch(bookRoom(roomRequest.room_id, roomRequest.user_id, roomRequest.hostel_id)).then(()=>{
-                    Swal.fire('Tenant added!', '', 'success')
+                await api.bookRoom(roomRequest.room_id, roomRequest.user_id, roomRequest.hostel_id)
+                await api.deleteRoomRequest(roomRequest._id)
+                Swal.fire('Tenant added!', '', 'success').then(()=>{
+                    window.location.reload(false)
                 })
-                dispatch(deleteRoomRequest(roomRequest._id))         
+                // dispatch(bookRoom(roomRequest.room_id, roomRequest.user_id, roomRequest.hostel_id)).then(()=>{
+                //     Swal.fire('Tenant added!', '', 'success')
+                // })
+               // dispatch(deleteRoomRequest(roomRequest._id))         
 
             }
         })
@@ -47,14 +53,21 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
             title: 'Are you sure you want to delete this request?',
             showCancelButton: true,
             confirmButtonText: 'Delete',
-            }).then((result) => {
+            }).then(async(result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 
-                dispatch(deleteRoomRequest(roomRequest._id)).then(()=>{
-                    
-                    Swal.fire('Deleted!', '', 'success')
+                const tenantForm = {
+                    has_booked: false
+                }
+                await api.deleteRoomRequest(roomRequest._id) 
+                //update tenant so his has_booked is false again 
+                const {data} = await api.getTenantsByUserId(roomRequest.user_id)
+                await api.updateTenant(data._id,tenantForm)
+                Swal.fire('Deleted!', '', 'success').then(()=>{
+                    window.location.reload(false)
                 })
+                
             }
         })
     }
