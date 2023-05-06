@@ -55,13 +55,17 @@ function RoomCard({ room,setCurrentId }) {
                 title: 'Confirm booking? You can\'t book other rooms after this',
                 showCancelButton: true,
                 confirmButtonText: 'Save',
-                }).then((result) => {
+                }).then(async(result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    dispatch(createRoomRequest(curForm)).then(()=>{
-                        Swal.fire('Booking complete!', '', 'success' , )
+                    await api.createRoomRequest(curForm)
+                    Swal.fire('Booking complete!', '', 'success' , ).then(()=>{
                         window.location.reload(false)
                     })
+                    // dispatch(createRoomRequest(curForm)).then(()=>{
+                    //     Swal.fire('Booking complete!', '', 'success' , )
+                        
+                    // })
                     
                 }
             })

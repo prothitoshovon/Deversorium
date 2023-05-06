@@ -23,8 +23,7 @@ const RoomRequestList = ({ setCurrentId, hostels, roomRequests }) => {
             )     
         ):
         (
-          <>
-          </>
+          <DefaultMessage message='You do not have a hostel right now. Go to hostel page to make one'/>
         )   
     
   );

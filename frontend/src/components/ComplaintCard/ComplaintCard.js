@@ -11,6 +11,7 @@ import { getHostelByHostelId } from '../../actions/hostels';
 import { getTenantsByUserId } from '../../actions/Tenants';
 import Swal from 'sweetalert2'
 import { deleteComplaint } from '../../actions/Complaints';
+import * as api from '../../api/index'
 function ComplaintCard({ complaint, setCurrentId }) {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
@@ -29,11 +30,14 @@ function ComplaintCard({ complaint, setCurrentId }) {
             title: 'Are you sure this complaint was resolved ?',
             showCancelButton: true,
             confirmButtonText: 'Delete',
-            }).then((result) => {
+            }).then(async(result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                dispatch(deleteComplaint(complaint._id))
-                Swal.fire('Saved!', '', 'success')
+                //dispatch(deleteComplaint(complaint._id))
+                await api.deleteComplaint(complaint._id)
+                Swal.fire('Saved!', '', 'success').then(()=>{
+                    window.location.reload(false)
+                })
             }
         })
     }

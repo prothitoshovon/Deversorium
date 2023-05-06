@@ -18,11 +18,17 @@ function Tenants() {
   const [loading, setLoading] = useState(true)
 
   const fetchData = async () => {
-    const { data } = await api.getHostelByOwnerId(user?.result?._id)
-    setHostels([...hostels, data])
-    const newData = await api.getTenantsByHostelId(data._id)
-    setTenants(newData.data)
-    setLoading(false)
+    try {
+      const { data } = await api.getHostelByOwnerId(user?.result?._id)
+      if(data)setHostels([...hostels, data])
+      const newData = await api.getTenantsByHostelId(data._id)
+      if(newData)setTenants(newData.data)
+      setLoading(false)
+        
+    } catch (error) {
+      setLoading(false)
+    }
+    
   }
   useEffect(() => {
     fetchData()

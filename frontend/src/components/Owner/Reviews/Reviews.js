@@ -16,11 +16,16 @@ const Reviews = ({ setCurrentId }) => {
     const [reviews, setReviews] = useState([])
     const [loading, setLoading] = useState(true)
     const fetchData = async() =>{
+      try {
         const {data} = await api.getHostelByOwnerId(user?.result?._id)
-        setHostels([...hostels, data])
+        if(data)setHostels([...hostels, data])
         const newData = await api.getReviewsByHostel(data._id)
-        setReviews(newData.data)
+        if(newData)setReviews(newData.data)
         setLoading(false)
+      } catch (error) {
+        setLoading(false)
+      }
+        
     }
     useEffect(()=>{
         fetchData()

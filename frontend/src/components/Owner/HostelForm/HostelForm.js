@@ -5,8 +5,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Grid, TextField, Button, Card, CardContent, Typography } from '@material-ui/core';
 import Input from '../../Input/Input.js'
 import {createHostel} from '../../../actions/hostels.js'
-
-import {CREATE} from '../../../constants/actionTypes.js'
+import * as api from '../../../api/index.js'
+import Swal from 'sweetalert2'
 function HostelForm() {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -16,7 +16,7 @@ function HostelForm() {
     const navigate = useNavigate();
     const location = useLocation();
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-     const handleSubmit = (e) => {
+     const handleSubmit = async(e) => {
         e.preventDefault();
         const curState = { 
             name:form.name,
@@ -25,9 +25,16 @@ function HostelForm() {
             owner_name: user?.result?.name, 
             owner_id:user?.result?._id 
          }
-        dispatch(createHostel(curState)).then(()=>{
+        await api.createHostel(curState)
+        Swal.fire({
+            icon:'success',
+            title:'Hostel created!'
+        }).then(()=>{
             navigate('/Homepage')
         })
+        // dispatch(createHostel(curState)).then(()=>{
+        //     navigate('/Homepage')
+        // })
         
 
     }
@@ -48,14 +55,14 @@ function HostelForm() {
                       <form onSubmit={handleSubmit}>
                           <Grid container spacing={1}>
                               <Grid xs={12} sm={6} item>
-                                <Input name="name" label="Enter name of hostel" handleChange={handleChange} type="text" />
+                                <Input isRequired={true} name="name" label="Enter name of hostel" handleChange={handleChange} type="text" />
                                 
                               </Grid>
                               <Grid xs={12} sm={6} item>
-                                <Input name="address" label="Address" handleChange={handleChange} type="text" />
+                                <Input isRequired={true} name="address" label="Address" handleChange={handleChange} type="text" />
                               </Grid>
                               <Grid item xs={12}>
-                                  <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
+                                  <Input isRequired={true}name="email" label="Email Address" handleChange={handleChange} type="email" />
                               </Grid>
                               <Grid item xs={12}>
                                 <Input name="phone" label="Phone Number" handleChange={handleChange} type="number" />

@@ -11,13 +11,13 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Input from '../Input/Input.js'
-
+import Swal from 'sweetalert2'
 import { signup } from '../../actions/Register.js';
 import { AUTH } from '../../constants/actionTypes';
 // TODO Refactoring needed for userRole
 const Register=()=> {
 
-    const initialState = { firstName: '', lastName: '', email: '', password: '', phone:'',confirmPassword: '', role:0 };
+    const initialState = { firstName: '', lastName: '', email: '', password: '', phone:'',confirmPassword: '', role:1 };
     const [form, setForm] = useState(initialState);
     const [showPassword, setShowPassword] = useState(false);
     const handleShowPassword = () => setShowPassword(!showPassword);
@@ -29,7 +29,7 @@ const Register=()=> {
     const headerStyle = { margin: 0 }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const marginTop = { marginTop: 20 }
-    const [userRole, setUserRole] = useState(0)
+    const [userRole, setUserRole] = useState(1)
 
 
     const handleSubmit = (e) => {
@@ -40,7 +40,13 @@ const Register=()=> {
 
 
         dispatch(signup(form, navigate,form.role));
-         
+        Swal.fire({
+            timer:1500,
+            timerProgressBar:true,
+            showConfirmButton:false,
+            icon:'success',
+            title:'You\'ll be redirected soon',
+        }) 
     }
     const onCheckedOwner =()=>{
         setUserRole((prevUser) => prevUser=1)
@@ -68,20 +74,20 @@ const Register=()=> {
                 </Grid>
                 <form style={{marginTop:'10px'}}onSubmit={handleSubmit}>
                     <Grid container spacing = {2}>
-                        <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
-                        <Input name="lastName" label="Last Name" handleChange={handleChange} half />
+                        <Input isRequired={true} name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
+                        <Input isRequired={true} name="lastName" label="Last Name" handleChange={handleChange} half />
 
                         
-                        <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
-                        <Input name="phone" label="Phone Number" handleChange={handleChange} type="number" />
-                        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
-                        <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />
+                        <Input isRequired={true} name="email" label="Email Address" handleChange={handleChange} type="email" />
+                        <Input isRequired={true} name="phone" label="Phone Number" handleChange={handleChange} type="number" />
+                        <Input isRequired={true} name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+                        <Input isRequired={true} name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />
 
                         <FormControl component="fieldset" style={{marginLeft:"10px", marginTop:"10px"}}>
                         <FormLabel component="legend">{userRole==0 ? 'Choose your role':userRole==1?'I am a Hostel Owner':'I am a Tenant'} </FormLabel>
-                        <RadioGroup  onChange={handleChange}aria-label="userType" name="userType" style={{ display: 'initial' }}>
-                            <FormControlLabel  onClick={onCheckedOwner} value="Hostel Owner" control={<Radio />} label="Hostel Owner" />
-                            <FormControlLabel  onClick={onCheckTenant}value="Tenant" control={< Radio />} label="Tenant" />
+                        <RadioGroup defaultValue='Hostel Owner' onChange={handleChange}aria-label="userType" name="userType" style={{ display: 'initial' }}>
+                            <FormControlLabel  onClick={onCheckedOwner} value="Hostel Owner" control={<Radio style={{color:'#0C21C1'}} />} label="Hostel Owner" />
+                            <FormControlLabel  onClick={onCheckTenant}value="Tenant" control={< Radio style={{color:'#0C21C1'}}/>} label="Tenant" />
                         </RadioGroup>
                         </FormControl>
                     </Grid>
