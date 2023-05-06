@@ -9,7 +9,10 @@ const hostelSchema = mongoose.Schema({
     },
     owner_id: String,
     owner_name: String,
-    last_bill_generated_date: Date
+    last_bill_generated_date: {
+        type: Date,
+        default: new Date("2000-01-01")
+    },
 })
 
 const hostelModel = mongoose.model('hostelModel',hostelSchema);
