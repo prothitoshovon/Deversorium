@@ -35,20 +35,6 @@ function Profile() {
             dispatch({type:'LOGOUT'})
             window.location.reload(false);
           })
-          
-
-          // console.log(ok.data)
-          // localStorage.clear()
-          //   //setUser(null)
-          // const newStorage = {result: ok.data, token}
-          // localStorage.setItem('profile', JSON.stringify({ newStorage}))
-          // console.log('ettul')
-          // setUser(JSON.parse(localStorage.getItem('profile')))
-          
-          
-          //update user query 
-          //setUser null 
-          
         } catch (error) {
           Swal.fire({
             title:'Invalid password or form',
