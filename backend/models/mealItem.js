@@ -5,7 +5,7 @@ const mealItemSchema = mongoose.Schema({
     hostel_id: {type: String, required: true},
     hostel_name: String,
     unit_price: {
-        type: Integer,
+        type: Number,
         min: 0
     }
 })
