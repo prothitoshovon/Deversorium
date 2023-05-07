@@ -27,8 +27,9 @@ function Hostel() {
   const [tenants, setTenants] = useState([])
   const [hostels, setHostels] = useState([])
   const [reviews, setReviews] = useState([])
+  const [rooms, setRooms] = useState([])
   const [loading, setLoading] = useState(true)
-
+  const [rentMessage, setRentMessage] = useState('')
   const fetchData = async () =>{
 
     
@@ -38,6 +39,10 @@ function Hostel() {
     {
       const newData = await api.getHostelByHostelId(data.hostel_id)
       setHostels([...hostels,newData.data])
+      const newRoom = await api.getRoomsByRoomId(data.room_id)
+      console.log(newRoom)
+      setRooms([...rooms,newRoom.data])
+      setRentMessage('Dear tenant. You have bill due ' + 'jsdhfjkds')
       const rev = await api.getReviewsByUserAndHostel(user?.result?._id, data.hostel_id)
       setReviews([...reviews,rev.data])
     }
@@ -154,6 +159,10 @@ function Hostel() {
         <Grid container spacing={4}>
           <Grid item xs={8} >
             {/* <Item>Hostel card</Item> */}
+            {
+              !tenants[0].bill_paid?<DefaultMessage color='error' message={`Dear tenant. You have bill pending for this month. Please pay ${rooms[0].rent} Bdt`} />:<div></div>
+            
+            }
             <HostelCard currentUser={user} currentHostel={hostels} currentTenant={tenants} />
           </Grid>
           <Grid item xs={4}>
@@ -181,7 +190,7 @@ function Hostel() {
             </Button>
 
           </Grid>
-          <Grid item xs={6} style={{ display: 'block' }} >
+          <Grid item xs={4} style={{ display: 'block' }} >
             {/* <Item> Rating place</Item> */}
             <Rating
 
@@ -214,29 +223,6 @@ function Hostel() {
 
 
           </Grid>
-
-          {/* <Grid item xs={6}>
-            <Item> text field for review</Item>
-            <Typography className={classes.crow}>
-              Leave a detailed review
-            </Typography>
-            <TextField
-              onChange={handleChange}
-              multiline
-              minRows={3}
-              variant='outlined'
-              label='Your Message'
-              name='comment'
-              className={classes.textField}
-              type='text'
-            >
-
-            </TextField>
-            <Button variant='contained' onClick={sendReview} className={classes.cardAction}>
-              Send
-            </Button>
-          </Grid> */}
-
 
       </Grid>
       </form>
