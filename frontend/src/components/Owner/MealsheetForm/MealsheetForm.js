@@ -20,15 +20,16 @@ function MealsheetForm() {
     const generateSheet =async () =>{
         console.log(checked)
         const {data} = await api.getHostelByOwnerId(user?.result?._id)
+        console.log(data.has_meal_system)
         if(data.has_meal_system)
         {
             
             const valsData = await api.getMealItemsByHostel(data._id)
             setVals(valsData.data)
-            for(let i=0;i<vals.length;i++)
+            for(let i=0;i<valsData.data.length;i++)
             {
-                console.log(vals[i]._id)
-                await api.deleteMealItem(vals[i]._id)
+                console.log(valsData.data[i])
+                await api.deleteMealItem(valsData.data[i]._id)
             }
             
             

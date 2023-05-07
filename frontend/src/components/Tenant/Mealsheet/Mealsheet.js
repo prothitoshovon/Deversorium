@@ -21,9 +21,8 @@ function Mealsheet() {
         const newData = await api.getMealItemsByHostel(data.hostel_id)
         setMealItems(newData.data)
         const date = new Date()
-        const idx = date.getDay()%mealItems.length
-        setItem(mealItems[idx])
-        console.log(mealItems[idx])
+        const idx = date.getDay()%newData.data.length
+        setItem(newData.data[idx])
         setLoading(false)
       } catch (error) {
         setLoading(false)
