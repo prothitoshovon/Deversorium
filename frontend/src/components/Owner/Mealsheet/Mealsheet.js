@@ -35,7 +35,7 @@ function Mealsheet() {
     loading?<CircularProgress/>:
     (
       !hostels[0]?<DefaultMessage message='You do not have a hostel right now'/>:
-      hostels[0].has_meal_system ? <Menu items={mealItems} tenants={tenants}/>:<MealsheetForm/>
+      hostels[0].has_meal_system && mealItems.length!==0 ? <Menu items={mealItems} tenants={tenants}/>:<MealsheetForm/>
     )
   )
 }

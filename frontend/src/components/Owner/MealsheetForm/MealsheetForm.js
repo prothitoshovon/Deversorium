@@ -11,9 +11,10 @@ import { useNavigate } from 'react-router';
 function MealsheetForm() {
 
     const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
-    const [checked, setChecked] = useState([true, true, false, false, false, false, false]);
+    const [checked, setChecked] = useState([false, false, false, false, false, false, false]);
     const [prices, setPrices] = useState([55,160,80,75,45,200,35])
     const [items, setItems] = useState(['Chicken', 'Beef' , 'Rui Fish', 'Katol Fish','Vegetable' , 'Mutton', 'Egg'])
+    const [vals, setVals] = useState([])
     const classes = useStyles()
     const navigate = useNavigate()
     const generateSheet =async () =>{
@@ -21,6 +22,15 @@ function MealsheetForm() {
         const {data} = await api.getHostelByOwnerId(user?.result?._id)
         if(data.has_meal_system)
         {
+            
+            const valsData = await api.getMealItemsByHostel(data._id)
+            setVals(valsData.data)
+            for(let i=0;i<vals.length;i++)
+            {
+                console.log(vals[i]._id)
+                await api.deleteMealItem(vals[i]._id)
+            }
+            
             
         }
         let x = 0

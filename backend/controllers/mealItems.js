@@ -49,7 +49,7 @@ export const updateMealItem = async (req,res)=>{
 export const deleteMealItem = async (req,res)=>{
     const {id} = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(_id))
+    if(!mongoose.Types.ObjectId.isValid(id))
     {
         return res.status(404).send('No mealItem with that ID');
     }
