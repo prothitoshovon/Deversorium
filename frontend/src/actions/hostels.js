@@ -62,3 +62,13 @@ export const generateBill = (id) => async (dispatch)=>{
     console.log(error)
   }
 }
+export const receiveBill = (uid) => async (dispatch)=>{
+  try {
+      dispatch({ type: START_LOADING });
+      const {data} = await api.receiveBill(uid)
+      dispatch({ type: UPDATE, payload: { hostel: data } });
+      dispatch({type: END_LOADING})
+  } catch (error) {
+    console.log(error)
+  }
+}
