@@ -86,7 +86,8 @@ export const generateBill = async (req, res)=>{
     const id = req.params.id;
     try {
         const today = new Date();
-        const firstDateOfThisMonth = new Date(today.getFullYear,today.getMonth,1);
+        // console.log(today.getFullYear(),today.getMonth(), 1 )
+        const firstDateOfThisMonth = new Date(today.getFullYear(),today.getMonth(),1);
         const billpayers = await tenantModel.updateMany({ hostel_id: id }, 
             { $set: { bill_paid: false } });
         const updatedBillDate = await hostelModel.updateMany({_id: id},
