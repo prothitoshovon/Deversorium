@@ -80,3 +80,13 @@ export const generateBill = (id) => API.patch(`/hostels/bills/create/${id}`)
 
 // router.patch('/bills/receive/:uid',receiveBill);
 export const receiveBill = (uid) => API.patch(`/hostels/bills/receive/${uid}`)
+
+// router.get('/h/:id',getMealItemsByHostel);
+
+export const getMealItemsByHostel = (id) => API.get(`/mealItems/h/${id}`)
+// router.post('/',auth,createMealItem);
+
+export const createMealItem = (newMealItem) => API.post('/mealItems',newMealItem)
+
+// router.patch('/:id', auth, updateHostel);
+export const updateHostel = (id,newHostel) => API.patch(`/hostels/${id}`,newHostel)

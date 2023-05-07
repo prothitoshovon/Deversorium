@@ -12,6 +12,7 @@ import Swal from 'sweetalert2'
 import DefaultMessage from '../../DefaultMessage/DefaultMessage';
 import * as api from '../../../api/index'
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router';
 function Hostel() {
   const [user,setUser] = useState( JSON.parse(localStorage.getItem('profile')))
   const classes = useStyles()
@@ -20,6 +21,7 @@ function Hostel() {
   
   const initialState = { comment: '', complaint: '' };
   const [form, setForm] = useState(initialState);
+  const navigate = useNavigate()
 
   // const {tenants, tenantsLoading} =  useSelector((state)=>state.tenants)
   // const {hostels, hostelsLoading} = useSelector((state)=> state.hostels)
@@ -149,6 +151,19 @@ function Hostel() {
 
     }
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+    const join =async () =>{
+      if(!tenants[0].joined_meal_system)
+      {
+        await api.updateTenant(tenants[0]._id,{joined_meal_system:true})
+        Swal.fire({
+          title: 'Successfully joined mealSystem!',
+          icon:'success'
+        }).then(()=>{
+          navigate('/Mealsheet')
+        })
+      }
+      else navigate('/Mealsheet')
+    }
   return (
     
     loading?<CircularProgress/>:
@@ -167,7 +182,7 @@ function Hostel() {
           </Grid>
           <Grid item xs={4}>
           {/* <Item>Complaint part</Item> */}
-            <Button variant='contained' className={classes.cardActions}>
+            <Button onClick={join} variant='contained' className={classes.cardActions}>
               Join meal system
             </Button>
             <Typography className={classes.crow2}>
