@@ -22,6 +22,17 @@ export const getPaymentRequestsByHostelId = async (req,res)=>{
     }
 }
 
+export const getPaymentRequestsByUserId = async (req,res)=>{
+    const uid = req.params.uid;
+    try{
+        const paymentRequests = await paymentRequestModel.find({user_id: uid});
+        console.log(paymentRequests);
+        res.status(200).json(paymentRequests);
+    } catch(error){
+        res.status(404).json({message: error.message});
+    }
+}
+
 export const createPaymentRequest = async (req,res)=>{
     const paymentRequest = req.body;
     const newPaymentRequest = new paymentRequestModel(paymentRequest);
