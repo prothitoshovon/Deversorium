@@ -164,6 +164,25 @@ function Hostel() {
       }
       else navigate('/Mealsheet')
     }
+    const cancel = () =>{
+      Swal.fire({
+        title: 'Are you sure you want to cancel your booking?',
+        showCancelButton: true,
+        confirmButtonText: 'Cancel booking',
+      }).then(async (result) => {
+        if(result.isConfirmed)
+        {
+          await api.updateTenant(tenants[0]._id,{has_booked:false})
+          Swal.fire({
+            title:'Cancelled booking!',
+            icon:'success'
+          }).then(()=>{
+            navigate('/Homepage')
+          })
+        }
+      })
+
+    }
   return (
     
     loading?<CircularProgress/>:
@@ -243,7 +262,24 @@ function Hostel() {
       </form>
       ):
       (
-        <DefaultMessage message='You are not part of any hostel right now'/>
+        !tenants[0].has_booked?
+        <DefaultMessage message='You are not part of any hostel right now'/>:
+        (
+          <Grid display='flex'>
+            <DefaultMessage message='You have a booking pending right now. Do you want to cancel?'/>
+            <Button
+              onClick={cancel}
+              style={{
+                color:'white',
+                backgroundColor:'#0C21C1',
+                height:'40px',
+                marginLeft:'20px',
+                marginTop:'10px'
+              }}
+            >Cancel</Button>
+          </Grid>
+        
+        )
       )
     )
     
