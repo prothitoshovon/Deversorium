@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/',getPaymentRequests);
 router.get('/h/:hid',getPaymentRequestsByHostelId);
-router.get('/h/:uid',getPaymentRequestsByUserId);
+router.get('/u/:uid',getPaymentRequestsByUserId);
 router.post('/',auth,createPaymentRequest);
 router.patch('/:id',auth,updatePaymentRequest);
 router.delete('/:id',auth,deletePaymentRequest);
