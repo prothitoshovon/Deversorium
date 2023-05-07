@@ -1,6 +1,6 @@
 import express from 'express';
-import auth from '../middleware/auth';
-import { createMealItem, deleteMealItem, getMealItems, getMealItemsByHostel, updateMealItem } from '../controllers/mealItems';
+import { createMealItem, deleteMealItem, getMealItems, getMealItemsByHostel, updateMealItem } from '../controllers/mealItems.js';
+import auth from '../middleware/auth.js';
 const router = express.Router();
 
 router.get('/',getMealItems);
