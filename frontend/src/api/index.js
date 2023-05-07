@@ -77,3 +77,6 @@ export const deleteComplaint = (id) => API.delete(`/complaints/${id}`)
 
 // router.patch('/bills/create/:id',generateBill);
 export const generateBill = (id) => API.patch(`/hostels/bills/create/${id}`)
+
+// router.patch('/bills/receive/:uid',receiveBill);
+export const receiveBill = (uid) => API.patch(`/hostels/bills/receive/${uid}`)

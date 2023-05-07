@@ -1,9 +1,9 @@
 import { Typography } from '@material-ui/core'
 import React from 'react'
 
-function DefaultMessage({message}) {
+function DefaultMessage({message,color}) {
   return (
-    <Typography variant='h5' gutterBottom style={{display: 'flex',
+    <Typography color={color} variant='h5' gutterBottom style={{display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop:'20px'

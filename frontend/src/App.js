@@ -5,6 +5,7 @@ import Homepage from './components/Owner/Homepage/Homepage'
 import Profile from './components/Owner/Profile/Profile'
 import Hostel from './components/Owner/Hostel/Hostel'
 import Mealsheet from './components/Owner/Mealsheet/Mealsheet'
+import TenantMealsheet from './components/Tenant/Mealsheet/Mealsheet'
 import HostelForm from './components/Owner/HostelForm/HostelForm'
 import { useDispatch } from 'react-redux';
 import Login from './components/Login/Login'
@@ -58,6 +59,7 @@ function App() {
                     <Route path="Reviews" element={user?.result?.role===2?<Reviews/>:<BadGateway/>}/>
                     <Route path="Tenants" element={user?.result?.role===2?<Tenants/>:<BadGateway/>}/>
                     <Route path="Rooms" element={user?.result?.role===2?<Rooms/>:<BadGateway/>}/>
+                    <Route path="Mealsheet" element={user?.result?.role===2?<Mealsheet/>:<TenantMealsheet/>}/>
                     <Route element={<HostelFormRoutes/> }>
                       <Route path="HostelForm" element={<HostelForm/>}/>
                     </Route>       
