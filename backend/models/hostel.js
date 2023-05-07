@@ -13,6 +13,10 @@ const hostelSchema = mongoose.Schema({
         type: Date,
         default: new Date("2000-01-01")
     },
+    has_meal_system: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const hostelModel = mongoose.model('hostelModel',hostelSchema);

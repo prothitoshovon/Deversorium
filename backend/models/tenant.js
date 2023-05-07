@@ -31,6 +31,14 @@ const tenantSchema = mongoose.Schema({
     bill_paid: {
         type: Boolean,
         default: true 
+    },
+    additional_cost: {
+        type: Number,
+        default: 0
+    },
+    joined_meal_system: {
+        type: Boolean,
+        default: false
     }
 })
 
