@@ -87,15 +87,17 @@ export const generateBill = async (req, res)=>{
     try {
         const today = new Date();
         const firstDateOfThisMonth = new Date(today.getFullYear,today.getMonth,1);
-        const billpayers = await tenantModel.update({ hostel_id: id }, 
+        const billpayers = await tenantModel.updateMany({ hostel_id: id }, 
             { $set: { bill_paid: false } });
-        const updatedBillDate = await hostelModel.update({hostel_id: id},
+        const updatedBillDate = await hostelModel.updateMany({_id: id},
         {   $set: { last_bill_generated_date: firstDateOfThisMonth}});
         res.json(billpayers);
     } catch(error) {  
+        console.log(error)
         res.status(404).json({message: error.message});
     }
 }
+
 
 export const receiveBill = async (req,res)=>{
     const uid = req.params.uid;

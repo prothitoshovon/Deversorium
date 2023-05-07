@@ -37,6 +37,17 @@ function TenantCard({ tenant, setCurrentId }) {
                         image={cardImage}
                     >
                     </CardMedia>
+                    <CardContent className={classes.overlay2}>
+                        <Typography variant='body2'>
+                            {
+                                tenant.bill_paid?('Bill cleared'):
+                                (
+                                        'Bill pending'
+                                )
+                            }
+                        </Typography>
+                        
+                    </CardContent>
                     <CardContent className={classes.overlay}>
                         <Typography gutterBottom variant='h5' component='div'>
                         {users[0].name}

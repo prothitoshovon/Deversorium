@@ -74,3 +74,6 @@ export const getRoomsByHostelId = (id) => API.get(`/rooms/h/${id}`)
 
 // router.delete('/:id',auth,deleteComplaint);
 export const deleteComplaint = (id) => API.delete(`/complaints/${id}`)
+
+// router.patch('/bills/create/:id',generateBill);
+export const generateBill = (id) => API.patch(`/hostels/bills/create/${id}`)
