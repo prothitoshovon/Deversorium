@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import TenantCard from './TenantCard';
 import DefaultMessage from '../../DefaultMessage/DefaultMessage';
 import * as api from '../../../api/index'
-
+import Swal from 'sweetalert2'
 function Tenants() {
   const dispatch = useDispatch()
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
@@ -38,10 +38,42 @@ function Tenants() {
     }
     
   }
+  const numDays =  ( a,  b) =>
+  {
+      const diff = Math.abs(a-b)
+      const days = Math.ceil(diff/(1000 * 60 * 60 * 24))
+      return days
+  }
   const sendBill =async () =>{
+    //console.log(hostels[0].last_bill_generated_date)
+    const date = new Date()
+    const date2 =  new Date(hostels[0].last_bill_generated_date)
+    //console.log(numDays(date,date2))
+    if(numDays(date,date2) >= 30)
+    {
+      const {data} = await api.generateBill(hostels[0]._id)
+      Swal.fire({
+          title:'Bill has been sent to your tenants!',
+          icon:'success'
+      }).then(()=>{
+        window.location.reload(false);
+      })
+    }
+    else
+    {
+      Swal.fire({
+        title:'Must wait for next month to produce bill',
+        icon:'error',
+      })
+    }
     //This method will generate the bill
-    const {data} = await api.generateBill(hostels[0]._id)
-    console.log('update marsi maybe')
+    // if(numDays(Date.now(), hostels[0].last_bill_generated_date) >= 30)
+    // {
+    //   //const {data} = await api.generateBill(hostels[0]._id)
+    // }
+
+    
+    
   }
   useEffect(() => {
     fetchData()

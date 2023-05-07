@@ -108,7 +108,8 @@ export const receiveBill = async (req,res)=>{
         // {
         //     return res.status(404).send('No tenants with that hostel ID');
         // }
-        const billpayers = await tenantModel.update({ user_id: uid }, // if bugging, replace user_id with _id here
+
+        const billpayers = await tenantModel.updateOne({ user_id: uid }, // if bugging, replace user_id with _id here
             { $set: { bill_paid: true } });
         res.json(billpayers);
     } catch(error) {  
