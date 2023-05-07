@@ -11,7 +11,9 @@ import roomRoutes from './routes/rooms.js';
 import reviewRoutes from './routes/reviews.js';
 import ownerRoutes from './routes/owners.js';
 import complaintRoutes from './routes/complaints.js';
-import roomRequestRoutes from './routes/roomRequests.js'
+import roomRequestRoutes from './routes/roomRequests.js';
+import paymentRequestRoutes from './routes/paymentRequests.js';
+import mealItemRoutes from './routes/mealItems.js';
 const app = express();
 dotenv.config();
 app.use(bodyParser.json({limit: "30mb", extended: true}));
@@ -25,7 +27,9 @@ app.use('/rooms',roomRoutes);
 app.use('/reviews',reviewRoutes);
 app.use('/owners',ownerRoutes);
 app.use('/complaints',complaintRoutes);
-app.use('/roomRequests', roomRequestRoutes)
+app.use('/roomRequests', roomRequestRoutes);
+app.use('/paymentRequests',paymentRequestRoutes);
+app.use('/mealItems',mealItemRoutes);
 const PORT = process.env.PORT;
 
 mongoose.connect(process.env.CONNECTION_URL)
