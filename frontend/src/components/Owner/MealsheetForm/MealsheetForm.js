@@ -7,6 +7,7 @@ import DefaultMessage from '../../DefaultMessage/DefaultMessage';
 import * as api from '../../../api/index'
 import useStyles from './styles'
 import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router';
 function MealsheetForm() {
 
     const [user, setUser] = useState( JSON.parse(localStorage.getItem('profile')) )
@@ -14,10 +15,14 @@ function MealsheetForm() {
     const [prices, setPrices] = useState([55,160,80,75,45,200,35])
     const [items, setItems] = useState(['Chicken', 'Beef' , 'Rui Fish', 'Katol Fish','Vegetable' , 'Mutton', 'Egg'])
     const classes = useStyles()
-
+    const navigate = useNavigate()
     const generateSheet =async () =>{
         console.log(checked)
         const {data} = await api.getHostelByOwnerId(user?.result?._id)
+        if(data.has_meal_system)
+        {
+            
+        }
         let x = 0
         for(let i = 0; i< checked.length; i++)
         {
@@ -42,6 +47,7 @@ function MealsheetForm() {
         }
         else
         {
+            
             await api.updateHostel(
             data._id, {has_meal_system: true}
             )
@@ -52,6 +58,8 @@ function MealsheetForm() {
             }).then(()=>{
                 window.location.reload(false);
             })
+        
+            
         }
         
         //First for loop into the mealItemmaking hehe 
