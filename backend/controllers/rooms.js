@@ -87,7 +87,7 @@ export const createRoom = async (req,res)=>{
     const newRoom = new roomModel(room);
     try{
         console.log(room.next_vacancy_date);
-        const existingRoom = await roomModel.find({room_number: newRoom.room_number});
+        const existingRoom = await roomModel.find({room_number: newRoom.room_number, hostel_id: newRoom.hostel_id});
         if(existingRoom)
         {
             return res.status(404).send('A room with that number already exists.');
