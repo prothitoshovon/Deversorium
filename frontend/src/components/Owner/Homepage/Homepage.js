@@ -15,6 +15,7 @@ function Homepage({ setCurrentId }) {
   const [loading, setLoading] = useState(true)
   const fetchData = async () => {
     try {
+      console.log(user?.result?._id)
       const {data} = await api.getHostelByOwnerId(user?.result?._id)
       if(data)
       {
