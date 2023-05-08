@@ -63,91 +63,116 @@ function Hostel() {
   },[])
 
     const sendReview = ()=> {
-      console.log(reviews)
-        const title_text = (reviews.length === 0 || !reviews[0]) ? 'Do you want to send this review': 'You have already reviewed this place. Update?'
-        const confirm_text = (reviews.length === 0 || !reviews[0]) ? 'Send review' : 'Update review'
-        Swal.fire({
-        title: title_text,
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: confirm_text,
-        denyButtonText: `Edit`,
-        confirmButtonColor:'#0C21C1'
-      }).then(async (result) => {
-        var date = new Date()
-        const curState={
-        user_name:user?.result?.name,
-        user_id: user?.result?._id,
-        hostel_id:tenants[0].hostel_id,
-        stars:value,
-        comments:form.comment,
-        date_posted: date,
-        }
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        if(reviews.length === 0 || !reviews[0])
+        if(form.comment.length === 0)
         {
-          await api.createReview(curState)
-            Swal.fire({title:'Review sent successfully',icon:'success',showConfirmButton:false, timer:1000} ).then(()=>{
-            window.location.reload(false);
+          Swal.fire({
+            title:'Review cannot be empty',
+            icon:'error',
+            confirmButtonColor:'#0C21C1'
           })
-          //fire something
         }
-        else 
+        else
         {
-          console.log(reviews[0]._id)
-          await api.updateReview(reviews[0]._id,curState )
-          Swal.fire({title:'Review Edited successfully',icon:'success',showConfirmButton:false,timer:1000} ).then(()=>{
-            window.location.reload(false);
-          })
-          //here we update
+            console.log(reviews)
+          const title_text = (reviews.length === 0 || !reviews[0]) ? 'Do you want to send this review?': 'You have already reviewed this place. Update?'
+          const confirm_text = (reviews.length === 0 || !reviews[0]) ? 'Send review' : 'Update review'
+          Swal.fire({
+          title: title_text,
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: confirm_text,
+          denyButtonText: `Edit`,
+          confirmButtonColor:'#0C21C1'
+        }).then(async (result) => {
+          var date = new Date()
+          const curState={
+          user_name:user?.result?.name,
+          user_id: user?.result?._id,
+          hostel_id:tenants[0].hostel_id,
+          stars:value,
+          comments:form.comment,
+          date_posted: date,
+          }
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          if(reviews.length === 0 || !reviews[0])
+          {
+            await api.createReview(curState)
+              Swal.fire({title:'Review sent successfully',icon:'success',showConfirmButton:false, timer:1000} ).then(()=>{
+              window.location.reload(false);
+            })
+            //fire something
+          }
+          else 
+          {
+            console.log(reviews[0]._id)
+            await api.updateReview(reviews[0]._id,curState )
+            Swal.fire({title:'Review Edited successfully',icon:'success',showConfirmButton:false,timer:1000} ).then(()=>{
+              window.location.reload(false);
+            })
+            //here we update
+          }
+          
+          
         }
-        
-        
-      }
-      }
-      )
+        }
+        )
+        }
+      
 
     }
 
     const sendComplaint = () =>{
-      var date = new Date()
-      const curState={    
-        tenant_id: user?.result?._id,
-        tenant_name: user?.result?.name,
-        description:form.complaint,
-        hostel_id:tenants[0].hostel_id,
-        hostel_name: tenants[0].hostel_name,
-        room_number: tenants[0].room_number,
-        room_id:tenants[0].room_id,
-        date_raised:date,
+      if(form.complaint.length === 0)
+      {
+        Swal.fire({
+            title:'Complaint cannot be empty',
+            icon:'error',
+            confirmButtonColor:'#0C21C1'
+          })
+
       }
-      Swal.fire({
-        title: 'Do you want to send this complaint?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Send complaint',
-        denyButtonText: `Edit`,
-        confirmButtonColor:'#0C21C1'
-      }).then(async (result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          // dispatch(createComplaint(curState)).then(()=>{
-          //   Swal.fire('Complaint submitted!', '', 'success')
-          //   window.location.reload(false);
-          // })
-          await api.createComplaint(curState)
-          Swal.fire({title:'Complaint submitted!', icon:'success', confirmButtonColor:'#0C21C1'}).then(()=>{
-            window.location.reload(false);
-          })
-          
-        } else if (result.isDenied) {
-          Swal.fire({title:'Changes are not saved', icon:'info', confirmButtonColor:'#0C21C1'}).then(()=>{
-            window.location.reload(false);
-          })
+      else
+      {
+        var date = new Date()
+        const curState={    
+          tenant_id: user?.result?._id,
+          tenant_name: user?.result?.name,
+          description:form.complaint,
+          hostel_id:tenants[0].hostel_id,
+          hostel_name: tenants[0].hostel_name,
+          room_number: tenants[0].room_number,
+          room_id:tenants[0].room_id,
+          date_raised:date,
         }
-        
-      })
+        Swal.fire({
+          title: 'Do you want to send this complaint?',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: 'Send complaint',
+          denyButtonText: `Edit`,
+          confirmButtonColor:'#0C21C1'
+        }).then(async (result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            // dispatch(createComplaint(curState)).then(()=>{
+            //   Swal.fire('Complaint submitted!', '', 'success')
+            //   window.location.reload(false);
+            // })
+            await api.createComplaint(curState)
+            Swal.fire({title:'Complaint submitted!', icon:'success', confirmButtonColor:'#0C21C1'}).then(()=>{
+              window.location.reload(false);
+            })
+            
+          } else if (result.isDenied) {
+            Swal.fire({title:'Changes are not saved', icon:'info', confirmButtonColor:'#0C21C1'}).then(()=>{
+              window.location.reload(false);
+            })
+          }
+          
+        })
+      }
+      
       
 
 

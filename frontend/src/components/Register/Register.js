@@ -44,32 +44,43 @@ const Register=()=> {
         e.preventDefault();
         form.phone = phoneNumber
         console.log(form)
-        if(!isValidPhoneNumber(phoneNumber))
+        console.log(form.password === form.confirmPassword)
+        if(form.password === form.confirmPassword)
         {
-            Swal.fire({
-            text: 'That is an invalid phone number!',
-            customClass: {
-                container: 'position-absolute',
-            },
-            confirmButtonColor:'#0C21C1',
-            toast: true,
-            position: 'top-end'
-            })
+            if(!isValidPhoneNumber(phoneNumber))
+            {
+                Swal.fire({
+                text: 'That is an invalid phone number!',
+                customClass: {
+                    container: 'position-absolute',
+                },
+                confirmButtonColor:'#0C21C1',
+                toast: true,
+                position: 'top-end'
+                })
+            }
+            else
+            {
+                if(userRole===1)form.role=2
+                else form.role=1
+
+
+                dispatch(signup(form, navigate,form.role));
+                
+            }
+        
         }
         else
         {
-            if(userRole===1)form.role=2
-            else form.role=1
-
-
-            dispatch(signup(form, navigate,form.role));
             Swal.fire({
-                timer:1500,
-                timerProgressBar:true,
-                showConfirmButton:false,
-                icon:'success',
-                title:'You\'ll be redirected soon',
-            }) 
+                text: "Passwords don't match!",
+                customClass: {
+                    container: 'position-absolute',
+                },
+                confirmButtonColor:'#0C21C1',
+                toast: true,
+                position: 'top-end'
+                })
         }
         
     }
