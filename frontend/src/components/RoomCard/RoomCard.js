@@ -26,6 +26,7 @@ function RoomCard({ room,setCurrentId }) {
     //Massive refactoring opportunity is to add an attribute to hostels, called review with  stars at first 
     const [reviews, setReviews] = useState([])
     const [stars, setStars] = useState(-1.0)
+    const [hasBooked, setHasBooked] = useState(false)
     const fetchData = async () =>{
 
         try {
@@ -34,8 +35,10 @@ function RoomCard({ room,setCurrentId }) {
             const newData = await api.getHostelByHostelId(room.hostel_id)
             setHostels([...hostels,newData.data])
             const revs = await api.getReviewsByHostel(room.hostel_id)
-
-            console.log(revs.data)
+            const booking = await api.getRoomRequestsByUserId(user?.result?._id)
+            if(booking.data.length === 0 || booking.data[0].user_id !==user?.result?._id)setHasBooked(false)
+            else setHasBooked(true)
+            console.log(booking.data)
             if(revs.data.length)
             {
                 let sum = 0;
@@ -147,8 +150,11 @@ function RoomCard({ room,setCurrentId }) {
                             <Rating size='small' name="half-rating-read" defaultValue={stars} precision={0.001} readOnly />
                             
                         }
+                        {
+                            hasBooked?<Button disabled size='small' style={{color:'#0C21C1'}}>Booked</Button>:
+                            <Button size='small' onClick={book} style={{color:'#0C21C1'}}>Book now</Button>
+                        }
                         
-                        <Button size='small' onClick={book} style={{color:'#0C21C1'}}>Book now</Button>
                   </CardActions>
               </Card>
             )

@@ -65,10 +65,10 @@ function ResponsiveAppBar({user, setUser}) {
     //history.push('/auth');
 
     console.log('logout called')
-
-    
-
   };
+  const about = () =>{
+    navigate('/About')
+  }
   useEffect(() => {
     const token = user?.token;
     
@@ -226,7 +226,11 @@ function ResponsiveAppBar({user, setUser}) {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography onClick={logout}textAlign="center">{setting}</Typography>
+                  {
+                    setting==='Logout'?<Typography onClick={logout}textAlign="center">{setting}</Typography>:
+                    <Typography onClick={about}textAlign="center">{setting}</Typography>
+                  }
+                  
                 </MenuItem>
               ))}
             </Menu>
