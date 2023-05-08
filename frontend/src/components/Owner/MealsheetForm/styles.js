@@ -13,7 +13,9 @@ export default makeStyles({
         
     },
     prices:{
-        marginLeft:'530px'
+        marginTop:'10px',
+        marginLeft:'380px',
+        color:'black'
     },
   media: {
     position: 'absolute',
