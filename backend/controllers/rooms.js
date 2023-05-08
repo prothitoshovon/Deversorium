@@ -86,7 +86,12 @@ export const createRoom = async (req,res)=>{
     const room = req.body;
     const newRoom = new roomModel(room);
     try{
-        console.log(room.next_vacancy_date)
+        console.log(room.next_vacancy_date);
+        const existingRoom = await roomModel.find({room_number: newRoom.room_number});
+        if(existingRoom)
+        {
+            return res.status(404).send('A room with that number already exists.');
+        }
         await newRoom.save();
         res.status(201).json(newRoom);
     } catch(error){
