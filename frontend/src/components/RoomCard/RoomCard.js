@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import { Box,Card, CardActions, CardContent, CardMedia, Typography, ButtonBase } from '@material-ui/core/';
+import Rating from '@mui/material/Rating';
 import { Button, CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -21,11 +22,35 @@ function RoomCard({ room,setCurrentId }) {
     const classes = useStyles();
     const [tenants, setTenants] = useState([])
     const [loading, setLoading] = useState(true)
+    const [hostels, setHostels] = useState([])
+    //Massive refactoring opportunity is to add an attribute to hostels, called review with  stars at first 
+    const [reviews, setReviews] = useState([])
+    const [stars, setStars] = useState(-1.0)
     const fetchData = async () =>{
-        const {data} = await api.getTenantsByUserId(user?.result?._id)
-        setTenants([...tenants, data])
-        //console.log(tenants)
-        setLoading(false)
+
+        try {
+            const {data} = await api.getTenantsByUserId(user?.result?._id)
+            setTenants([...tenants, data])
+            const newData = await api.getHostelByHostelId(room.hostel_id)
+            setHostels([...hostels,newData.data])
+            const revs = await api.getReviewsByHostel(room.hostel_id)
+
+            console.log(revs.data)
+            if(revs.data.length)
+            {
+                let sum = 0;
+                for(let i=0;i<revs.data.length;i++)
+                {
+                    sum += revs.data[i].stars
+                }
+                setStars(sum/revs.data.length)
+            }
+            setLoading(false)
+            
+        } catch (error) {
+            setLoading(false)
+        }
+        
     }
     useEffect(()=>{
         fetchData()
@@ -46,7 +71,15 @@ function RoomCard({ room,setCurrentId }) {
         date_issued: date
         }
         console.log(tenants)
-        if(tenants[0].has_booked === true)Swal.fire('You already have a booking')
+        if(tenants[0].has_booked === true)
+        {
+            Swal.fire(
+                {
+                    title:'You already have a  booking, go to hostel page to cancel',
+                    confirmButtonColor:'#0C21C1'
+
+                })
+        }
         else
         {
             //const confirm  = prompt('You can only book one room at a time.Type confirm and ok to Continue?','confirm')
@@ -55,11 +88,16 @@ function RoomCard({ room,setCurrentId }) {
                 title: 'Confirm booking? You can\'t book other rooms after this',
                 showCancelButton: true,
                 confirmButtonText: 'Save',
+                confirmButtonColor:'#0C21C1'
                 }).then(async(result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     await api.createRoomRequest(curForm)
-                    Swal.fire('Booking complete!', '', 'success' , ).then(()=>{
+                    Swal.fire({
+                        title:'Booking Complete!',
+                        icon:'success',
+                        confirmButtonColor:'#0C21C1'
+                    } ).then(()=>{
                         window.location.reload(false)
                     })
                     // dispatch(createRoomRequest(curForm)).then(()=>{
@@ -89,7 +127,7 @@ function RoomCard({ room,setCurrentId }) {
                           {room.hostel_name}
                       </Typography>
                       <Typography  variant='body2' >
-                          Address: {room.hostel_address}
+                          Address: {room.hostel_address} 
                       </Typography>
                       <Typography variant='body2' >
                           Rent: {room.rent} BDT
@@ -104,7 +142,13 @@ function RoomCard({ room,setCurrentId }) {
                     </Typography>
                   </CardContent>
                   <CardActions className={classes.cardActions}>
-                      <Button size='small' onClick={book} style={{color:'#0C21C1'}}>Book now</Button>
+                        {
+                            stars===-1?<Typography>No reviews yet</Typography>:
+                            <Rating size='small' name="half-rating-read" defaultValue={stars} precision={0.001} readOnly />
+                            
+                        }
+                        
+                        <Button size='small' onClick={book} style={{color:'#0C21C1'}}>Book now</Button>
                   </CardActions>
               </Card>
             )

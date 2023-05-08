@@ -48,8 +48,8 @@ export default makeStyles({
     padding: '0 16px',
   },
   cardActions: {
-    padding: '80px 16px 8px 480px',
-    display: 'flex',
+    padding: '70px 16px 8px 470px',
+    display: 'block',
     justifyContent: 'space-between',
   },
   cardAction: {

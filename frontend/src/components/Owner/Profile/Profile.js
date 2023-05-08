@@ -7,8 +7,17 @@ import Input from '../../Input/Input'
 import { updateuser } from '../../../actions/Users';
 import Swal from 'sweetalert2'
 import * as api from '../../../api/index'
+import MuiPhoneNumber from 'material-ui-phone-number';
+import {
+  parsePhoneNumber,
+  isValidPhoneNumber,
+  getNumberType,
+  validatePhoneNumberLength,
+} from 'libphonenumber-js';
+import parseMax from 'libphonenumber-js/max';
 function Profile() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const [phoneNumber, setPhoneNumber] = useState('0')
   const initialState = { _id:user?.result?._id,name:user?.result?.name, phone:user?.result?.phone, email: user?.result?.email, password: '' };
   const [form, setForm] = useState(initialState);
   const [showPassword, setShowPassword] = useState(false);
@@ -22,19 +31,32 @@ function Profile() {
   const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const ok = await api.updateuser(user?.result?._id,{...form, _id:user?.result?._id})
-          const token = user?.token
-          const newStorage = {
-            result:ok.data,
-            token
+          if(!isValidPhoneNumber(phoneNumber))
+          {
+            Swal.fire({
+            text: 'That is an invalid phone number!',
+            customClass: {
+                container: 'position-absolute',
+            },
+            confirmButtonColor:'#0C21C1',
+            toast: true,
+            position: 'top-end'
+            })
           }
-          Swal.fire({
+          else
+          {
+            const ok = await api.updateuser(user?.result?._id,{...form, _id:user?.result?._id})
+            Swal.fire({
             title:"profile updated successfully! Login to continue",
             icon: "success"
-          }).then(()=>{
-            dispatch({type:'LOGOUT'})
-            window.location.reload(false);
-          })
+            }).then(()=>{
+              dispatch({type:'LOGOUT'})
+              window.location.reload(false);
+            })
+          }
+          
+          
+          
         } catch (error) {
           Swal.fire({
             title:'Invalid password or form',
@@ -64,9 +86,24 @@ function Profile() {
                 </Grid>
                 <form style={{paddingTop:'20px'}}onSubmit={handleSubmit}>
                     <Grid container spacing = {2}> 
-                        <Input name='name'  defaultValue={user?.result?.name}label='name' handleChange={handleChange} type='text'/>     
-                        <Input name="email" defaultValue={user?.result?.email}  label='Email'handleChange={handleChange} type="email" autoFocus half />
-                        <Input name='phone' defaultValue={user?.result?.phone} label='phone' handleChange={handleChange} type='number' half/>
+                        <Input isRequired={true} name='name'  defaultValue={user?.result?.name}label='name' handleChange={handleChange} type='text'/>     
+                        <Input isRequired={true} name="email" defaultValue={user?.result?.email}  label='Email'handleChange={handleChange} type="email" autoFocus  />
+                        <Grid item xs={12} sm={12}>
+                            <MuiPhoneNumber
+                                
+                                variant='outlined'
+                                name='phone'
+                                fullWidth
+                                required
+                                label='phone'
+                                defaultCountry={'bd'}
+                                onChange={(c, t) => {
+                                console.log(c,t)
+                                setPhoneNumber(c)
+                                return true;
+                                }}
+                            />
+                        </Grid>
                         <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
                     </Grid>
                     <Button style={{marginTop:"20px" ,marginRight:'20px', color:'white',backgroundColor:'#0C21C1'}}type='submit' variant='contained' >save</Button>

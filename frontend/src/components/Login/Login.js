@@ -10,7 +10,7 @@ import Input from '../Input/Input.js'
 import { signin } from '../../actions/Login.js';
 import { getUserByEmail } from '../../actions/Users.js';
 import { AUTH } from '../../constants/actionTypes';
-
+import Swal from 'sweetalert2'
 function Login() {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -36,7 +36,8 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(signin(form, navigate));
+        dispatch(signin(form, navigate))
+        
         //dispatch(getHostelByOwnerId(user?.result?._id)) 
 
         //const val = dispatch(getUserByEmail(form.email))

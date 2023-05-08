@@ -29,13 +29,18 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
             title: 'Are you sure you want to allow this tenant?',
             showCancelButton: true,
             confirmButtonText: 'Allow',
+            confirmButtonColor:'#0C21C1'
             }).then(async(result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 
                 await api.bookRoom(roomRequest.room_id, roomRequest.user_id, roomRequest.hostel_id)
                 await api.deleteRoomRequest(roomRequest._id)
-                Swal.fire('Tenant added!', '', 'success').then(()=>{
+                Swal.fire({
+                    title:'Tenant added!',
+                    icon: 'success',
+                    confirmButtonColor:'#0C21C1'
+                }).then(()=>{
                     window.location.reload(false)
                 })
                 // dispatch(bookRoom(roomRequest.room_id, roomRequest.user_id, roomRequest.hostel_id)).then(()=>{
@@ -53,6 +58,7 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
             title: 'Are you sure you want to delete this request?',
             showCancelButton: true,
             confirmButtonText: 'Delete',
+            confirmButtonColor:'#0C21C1'
             }).then(async(result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
@@ -64,7 +70,11 @@ function RoomRequestCard({ roomRequest, setCurrentId }) {
                 //update tenant so his has_booked is false again 
                 const {data} = await api.getTenantsByUserId(roomRequest.user_id)
                 await api.updateTenant(data._id,tenantForm)
-                Swal.fire('Deleted!', '', 'success').then(()=>{
+                Swal.fire({
+                    title:'Deleted!', 
+                    icon:'success',
+                    confirmButtonColor:'#0C21C1'
+                }).then(()=>{
                     window.location.reload(false)
                 })
                 

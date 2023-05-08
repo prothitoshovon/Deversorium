@@ -93,3 +93,6 @@ export const updateHostel = (id,newHostel) => API.patch(`/hostels/${id}`,newHost
 
 // router.delete('/:id',auth,deleteMealItem);
 export const deleteMealItem = (id) => API.delete(`/mealItems/${id}`)
+
+// router.get('/u/:id',getRoomRequestsByUserId);
+export const getRoomRequestsByUserId = (id) => API.get(`/roomRequests/u/${id}`)

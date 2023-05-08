@@ -34,12 +34,14 @@ function TenantCard({ tenant, setCurrentId }) {
             showCancelButton: true,
             confirmButtonText: 'Confirm',
             denyButtonText: `Edit`,
+            confirmButtonColor:'#0C21C1'
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await api.receiveBill(tenant.user_id)
                 Swal.fire({
                     title: 'Payment confirmed',
-                    icon: 'success'
+                    icon: 'success',
+                    timer:1000
                 }).then(() => {
                     setPayment(true)
                 })

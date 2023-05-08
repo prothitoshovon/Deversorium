@@ -47,6 +47,7 @@ function Hostel() {
         Swal.fire({
             icon: 'success',
             title: 'Your room was added',
+            confirmButtonColor:'#0C21C1',
 
         }).then(() => {
             window.location.reload(false)
@@ -92,7 +93,7 @@ function Hostel() {
 
                                 </Grid>
                                 <Grid item xs={6} md={6}>
-                                    <Typography gutterBottom variant='h5' style={{ marginLeft: '20px', }}>
+                                    <Typography gutterBottom variant='h5' style={{ marginLeft: '20px',marginTop:'30px' }}>
                                         Need more rooms in your hostel?
                                     </Typography>
                                     <Card style={{ maxWidth: 450, padding: "20px 5px", backgroundColor: '#F8F8F8' }}>

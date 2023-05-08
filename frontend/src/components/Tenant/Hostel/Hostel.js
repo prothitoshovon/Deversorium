@@ -72,6 +72,7 @@ function Hostel() {
         showCancelButton: true,
         confirmButtonText: confirm_text,
         denyButtonText: `Edit`,
+        confirmButtonColor:'#0C21C1'
       }).then(async (result) => {
         var date = new Date()
         const curState={
@@ -87,7 +88,7 @@ function Hostel() {
         if(reviews.length === 0 || !reviews[0])
         {
           await api.createReview(curState)
-            Swal.fire({title:'Review sent successfully',icon:'success'} ).then(()=>{
+            Swal.fire({title:'Review sent successfully',icon:'success',showConfirmButton:false, timer:1000} ).then(()=>{
             window.location.reload(false);
           })
           //fire something
@@ -96,7 +97,7 @@ function Hostel() {
         {
           console.log(reviews[0]._id)
           await api.updateReview(reviews[0]._id,curState )
-          Swal.fire({title:'Review Edited successfully',icon:'success'} ).then(()=>{
+          Swal.fire({title:'Review Edited successfully',icon:'success',showConfirmButton:false,timer:1000} ).then(()=>{
             window.location.reload(false);
           })
           //here we update
@@ -127,6 +128,7 @@ function Hostel() {
         showCancelButton: true,
         confirmButtonText: 'Send complaint',
         denyButtonText: `Edit`,
+        confirmButtonColor:'#0C21C1'
       }).then(async (result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
@@ -135,12 +137,12 @@ function Hostel() {
           //   window.location.reload(false);
           // })
           await api.createComplaint(curState)
-          Swal.fire('Complaint submitted!', '', 'success').then(()=>{
+          Swal.fire({title:'Complaint submitted!', icon:'success', confirmButtonColor:'#0C21C1'}).then(()=>{
             window.location.reload(false);
           })
           
         } else if (result.isDenied) {
-          Swal.fire('Changes are not saved', '', 'info').then(()=>{
+          Swal.fire({title:'Changes are not saved', icon:'info', confirmButtonColor:'#0C21C1'}).then(()=>{
             window.location.reload(false);
           })
         }
@@ -157,7 +159,9 @@ function Hostel() {
         await api.updateTenant(tenants[0]._id,{joined_meal_system:true})
         Swal.fire({
           title: 'Successfully joined mealSystem!',
-          icon:'success'
+          icon:'success',
+          showConfirmButton:false,
+          timer:1000
         }).then(()=>{
           navigate('/Mealsheet')
         })
@@ -169,13 +173,19 @@ function Hostel() {
         title: 'Are you sure you want to cancel your booking?',
         showCancelButton: true,
         confirmButtonText: 'Cancel booking',
+        confirmButtonColor:'#0C21C1'
       }).then(async (result) => {
         if(result.isConfirmed)
         {
           await api.updateTenant(tenants[0]._id,{has_booked:false})
+          const {data} = await api.getRoomRequestsByUserId(user?.result?._id)
+          console.log(data)
+          await api.deleteRoomRequest(data[0]._id)
           Swal.fire({
             title:'Cancelled booking!',
-            icon:'success'
+            icon:'success',
+            timer:1000,
+            showConfirmButton:false
           }).then(()=>{
             navigate('/Homepage')
           })

@@ -54,7 +54,8 @@ function Tenants() {
       const {data} = await api.generateBill(hostels[0]._id)
       Swal.fire({
           title:'Bill has been sent to your tenants!',
-          icon:'success'
+          icon:'success',
+          confirmButtonColor:'#0C21C1'
       }).then(()=>{
         window.location.reload(false);
       })
@@ -64,6 +65,7 @@ function Tenants() {
       Swal.fire({
         title:'Must wait for next month to produce bill',
         icon:'error',
+        confirmButtonColor:'#0C21C1'
       })
     }
     //This method will generate the bill

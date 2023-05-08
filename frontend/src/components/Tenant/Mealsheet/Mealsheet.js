@@ -35,8 +35,9 @@ function Mealsheet() {
   return (
     loading?<CircularProgress/>:
     hostels.length===0||!hostels[0]?<DefaultMessage message='You are not part of any hostel'/>:
-    !hostels[0].has_meal_system?<DefaultMessage message='Your owner has not created any meal sheet yet'/>:
     !tenants[0].joined_meal_system?<DefaultMessage message='You are not part of the meal system yet. Go to hostel page to join'/>:
+    !hostels[0].has_meal_system?<DefaultMessage message='Your owner has not created any meal sheet yet'/>:
+    
     <Grid container spacing={2} >
       <Grid item xs={6} md={8}>
         <DefaultMessage message="What's in the menu for today?"/>

@@ -7,31 +7,57 @@ import Input from '../../Input/Input.js'
 import {createHostel} from '../../../actions/hostels.js'
 import * as api from '../../../api/index.js'
 import Swal from 'sweetalert2'
+import MuiPhoneNumber from 'material-ui-phone-number';
+import {
+  parsePhoneNumber,
+  isValidPhoneNumber,
+  getNumberType,
+  validatePhoneNumberLength,
+} from 'libphonenumber-js';
+import parseMax from 'libphonenumber-js/max';
 function HostelForm() {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const initialState =  useState({ name: '', address: '', email:'', phone: '' });
     const [form, setForm] = useState(initialState);
+    const [phoneNumber, setPhoneNumber] = useState('0')
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
      const handleSubmit = async(e) => {
         e.preventDefault();
-        const curState = { 
-            name:form.name,
-            address:form.address,
-            phone:form.phone,
-            owner_name: user?.result?.name, 
-            owner_id:user?.result?._id 
-         }
-        await api.createHostel(curState)
-        Swal.fire({
-            icon:'success',
-            title:'Hostel created!'
-        }).then(()=>{
-            navigate('/Homepage')
-        })
+        if(!isValidPhoneNumber(phoneNumber))
+        {
+            Swal.fire({
+            text: 'That is an invalid phone number!',
+            customClass: {
+                container: 'position-absolute',
+            },
+            confirmButtonColor:'#0C21C1',
+            toast: true,
+            position: 'top-end'
+            })
+        }
+        else
+        {
+            const curState = { 
+                name:form.name,
+                address:form.address,
+                phone:phoneNumber,
+                owner_name: user?.result?.name, 
+                owner_id:user?.result?._id 
+            }
+            await api.createHostel(curState)
+            Swal.fire({
+                icon:'success',
+                title:'Hostel created!',
+                confirmButtonColor:'#0C21C1'
+            }).then(()=>{
+                navigate('/Homepage')
+            })
+        }
+        
         // dispatch(createHostel(curState)).then(()=>{
         //     navigate('/Homepage')
         // })
@@ -64,9 +90,25 @@ function HostelForm() {
                               <Grid item xs={12}>
                                   <Input isRequired={true}name="email" label="Email Address" handleChange={handleChange} type="email" />
                               </Grid>
-                              <Grid item xs={12}>
+                              {/* <Grid item xs={12}>
                                 <Input name="phone" label="Phone Number" handleChange={handleChange} type="number" />
-                              </Grid>
+                              </Grid> */}
+                              <Grid item xs={12} sm={12}>
+                                    <MuiPhoneNumber
+                                        
+                                        variant='outlined'
+                                        name='phone'
+                                        fullWidth
+                                        required
+                                        label='phone'
+                                        defaultCountry={'bd'}
+                                        onChange={(c, t) => {
+                                        console.log(c,t)
+                                        setPhoneNumber(c)
+                                        return true;
+                                        }}
+                                    />
+                            </Grid>
                               <Grid item xs={12}>
                                   <Button type="submit" variant="contained" style={{color:'white',backgroundColor:'#0C21C1'}} fullWidth>Submit</Button>
                               </Grid>

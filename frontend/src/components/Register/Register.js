@@ -14,6 +14,14 @@ import Input from '../Input/Input.js'
 import Swal from 'sweetalert2'
 import { signup } from '../../actions/Register.js';
 import { AUTH } from '../../constants/actionTypes';
+import MuiPhoneNumber from 'material-ui-phone-number';
+import {
+  parsePhoneNumber,
+  isValidPhoneNumber,
+  getNumberType,
+  validatePhoneNumberLength,
+} from 'libphonenumber-js';
+import parseMax from 'libphonenumber-js/max';
 // TODO Refactoring needed for userRole
 const Register=()=> {
 
@@ -30,23 +38,40 @@ const Register=()=> {
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const marginTop = { marginTop: 20 }
     const [userRole, setUserRole] = useState(1)
-
+    const [phoneNumber, setPhoneNumber] = useState('0')
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //console.log(form)
-        if(userRole===1)form.role=2
-        else form.role=1
+        form.phone = phoneNumber
+        console.log(form)
+        if(!isValidPhoneNumber(phoneNumber))
+        {
+            Swal.fire({
+            text: 'That is an invalid phone number!',
+            customClass: {
+                container: 'position-absolute',
+            },
+            confirmButtonColor:'#0C21C1',
+            toast: true,
+            position: 'top-end'
+            })
+        }
+        else
+        {
+            if(userRole===1)form.role=2
+            else form.role=1
 
 
-        dispatch(signup(form, navigate,form.role));
-        Swal.fire({
-            timer:1500,
-            timerProgressBar:true,
-            showConfirmButton:false,
-            icon:'success',
-            title:'You\'ll be redirected soon',
-        }) 
+            dispatch(signup(form, navigate,form.role));
+            Swal.fire({
+                timer:1500,
+                timerProgressBar:true,
+                showConfirmButton:false,
+                icon:'success',
+                title:'You\'ll be redirected soon',
+            }) 
+        }
+        
     }
     const onCheckedOwner =()=>{
         setUserRole((prevUser) => prevUser=1)
@@ -79,7 +104,24 @@ const Register=()=> {
 
                         
                         <Input isRequired={true} name="email" label="Email Address" handleChange={handleChange} type="email" />
-                        <Input isRequired={true} name="phone" label="Phone Number" handleChange={handleChange} type="number" />
+                        <Grid item xs={12} sm={12}>
+                            <MuiPhoneNumber
+                                
+                                variant='outlined'
+                                name='phone'
+                                fullWidth
+                                required
+                                label='phone'
+                                defaultCountry={'bd'}
+                                onChange={(c, t) => {
+                                console.log(c,t)
+                                setPhoneNumber(c)
+                                return true;
+                                }}
+                            />
+                        </Grid>
+                        
+                        {/* <Input isRequired={true} name="phone" label="Phone Number" handleChange={handleChange} half autoFocus  type="number" /> */}
                         <Input isRequired={true} name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
                         <Input isRequired={true} name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />
 
