@@ -58,3 +58,9 @@ export const deleteMealItem = async (req,res)=>{
 
     res.json('MealItem Deleted Successfully');
 }
+
+export const deleteMealItemsByHostelId = async(req,res)=>{
+    const id = req.params.id;
+    const deletedMealItem = await mealItemModel.deleteMany({hostel_id: id});
+    res.json(deletedMealItem);
+}
