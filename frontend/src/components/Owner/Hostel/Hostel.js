@@ -42,17 +42,27 @@ function Hostel() {
             hostel_name: hostels[0].name,
             next_vacancy_date: date
         }
-        const data = await api.createRoom(curForm)
+        try {
+            const data = await api.createRoom(curForm)
 
-        Swal.fire({
-            icon: 'success',
-            title: 'Your room was added',
-            confirmButtonColor:'#0C21C1',
+            Swal.fire({
+                icon: 'success',
+                title: 'Your room was added',
+                confirmButtonColor:'#0C21C1',
 
-        }).then(() => {
-            window.location.reload(false)
-        })
-        setForm(initialState)
+            }).then(() => {
+                window.location.reload(false)
+            })
+            setForm(initialState)
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Room number already in use',
+                confirmButtonColor:'#0C21C1',
+
+            })
+        }
+        
     }
 
     const fetchData = async () => {
